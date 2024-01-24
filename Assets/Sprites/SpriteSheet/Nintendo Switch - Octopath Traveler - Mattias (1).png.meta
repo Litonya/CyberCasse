@@ -1,0 +1,3462 @@
+fileFormatVersion: 2
+guid: f88325e5d875bff4db3c80e7e28cec79
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: test_OT_Mattias_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 221
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb3c6e898e741e9449f2d6d642f26714
+      internalID: 10061790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 221
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53177b884a15d894bade2c1bdcd3be5d
+      internalID: -1351361089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 221
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301dc38bdc1533e44b87593b4a77765f
+      internalID: -268242822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 221
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ce915eda95847340bb7deb2bedbfe89
+      internalID: -72077487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_4
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b522d49710c2864581996794e8c8718
+      internalID: -1155443544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_5
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d3fcf6f6348ca845862c79af9ad8249
+      internalID: -1393513572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_6
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af44a6f9cc938b428ea807d921de678
+      internalID: -1496192725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_7
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b887a781409bbd4409e7862c75d0b16c
+      internalID: 692220484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_8
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08e9df0245cd6743a81a868a0be6d56
+      internalID: -1468957348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_9
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98868f7c5143bf940a841188b8bce754
+      internalID: -1855591221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_10
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7618765d8a9880f42bb2b65c8137ec90
+      internalID: 1552052633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_11
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 228
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c64fc54f354b574fab96079cbea442d
+      internalID: 1843701207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_12
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 223
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72daa9c08523f394bbd3ff8141083cf0
+      internalID: 304026328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_13
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 225
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3164b242935eb7448d7d20ae362f0c7
+      internalID: -796918242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_14
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 225
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75f68478c0d46b742bbd65aa2f3320d9
+      internalID: 1848914567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_15
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 226
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d90fcd30eaddf46a9d3efcf463eccf
+      internalID: 57561404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_16
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 226
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c77a60b644e077e468ffbf3e260a111a
+      internalID: -1110348940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_17
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 226
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c975c89ebf849584b8dc1e8e4dd1e906
+      internalID: 691834484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_18
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 225
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5703433c2ba5bd245b548a60843de006
+      internalID: -1049064734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_19
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 223
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae78fcbe98b344f4fa4fab6aeb059151
+      internalID: 996607742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_20
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 223
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd253adee0616e14c90dea9199e58581
+      internalID: -1127143084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_21
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 225
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cb640ab38affc14e9122a904a126ee8
+      internalID: 408113424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_22
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 225
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9ca492dc00a1a34dafeb629fe78da5a
+      internalID: 1493871366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_23
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 226
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f22c97d691db7949a37eef65e9f6140
+      internalID: 1440223427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_24
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 191
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92e372ac3d395984bae636a4239a1004
+      internalID: -1549974445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_25
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 191
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ca980baecf5394eb429cdeb3f497f7
+      internalID: -2104812433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_26
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 190
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0ac9119fe169494dacaec6d9a8dbd65
+      internalID: 1376168512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_27
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 188
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46658dcf18741b64eb2b6a3e67c1f272
+      internalID: 1844239893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_28
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 187
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d412c7b717590074d8c795bff975d085
+      internalID: -1798469330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_29
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 188
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960772f370cd82d4ca962891f26e975a
+      internalID: 614077793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_30
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 188
+        width: 22
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05051c3532c26484eb02d57e11ba1071
+      internalID: 925377028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_31
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 187
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c22431762411e845ab55ccc99ea9970
+      internalID: -1759758630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_32
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 187
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84062891209a42f47af01a6ad8c5ff82
+      internalID: 126756172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_33
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 188
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 339455cb47e03e346975b0cd92a69b2b
+      internalID: 1872567412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_34
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 188
+        width: 22
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf514df99b7a7a4ab772ceb23b5a83a
+      internalID: 1781472646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_35
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 187
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bb8a37f11243364b8a5de8b129df357
+      internalID: 272836878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_36
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 186
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 702f08fd09e46064eb29dbbdc58cf0c8
+      internalID: 921989601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_37
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 187
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1729f9e09eef55f4a92b50bb7bf9d329
+      internalID: 424022385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_38
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 188
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11ffb60c561c64479520b5cb094ea0a
+      internalID: 1607311654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_39
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 188
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f88a10f038b86214a9e5457c994c2855
+      internalID: -284685941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_40
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 188
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fd294b62506b8842930b8730b9a627a
+      internalID: -1928781684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_41
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 188
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5fab1847eaab7841bdcf0f3ab589deb
+      internalID: 250517295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_42
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 187
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d321cd9ddb60d5e46a0c204ec7a4bbf5
+      internalID: -2057079882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_43
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 186
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e35cdad4102b85489726248a03710f1
+      internalID: 1084186950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_44
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 187
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a63582e873079e4d9aae723c189956c
+      internalID: -348691560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_45
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 188
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63db68373e9031142be8524727e6e74e
+      internalID: 1298097405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_46
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 188
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a6a7a81d3c5061459cf05feb68734c4
+      internalID: 1878841791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_47
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 188
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3a030cc9189c284e9ab4a98f65ca6eb
+      internalID: -317344609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_48
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 188
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5131ea549da31564b9333e0b84278436
+      internalID: 1743826015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_49
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 152
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0e9a7f67950602448744df1c9da0ec0
+      internalID: -246485741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_50
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 153
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e6c3c7b4076d44da15681a78829f8d
+      internalID: 994315384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_51
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 147
+        width: 21
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32bd0b53c3e2021419131815750ff6ff
+      internalID: -1869982975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_52
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 155
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f934004d04f93cd4cb8633e9e327fb17
+      internalID: 279379633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_53
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18827cdde5f42c045bdca251c26fcec9
+      internalID: 717799222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_54
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e89d5c693f0d0846b242b2f240e9a70
+      internalID: 355152689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_55
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53318271c6935e45ab1d1dd5a21744a
+      internalID: 2123488335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_56
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 155
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2bbd451223ab1c47ad3deb79d45a150
+      internalID: 1536711921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_57
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 153
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1da5c79e54780e479ee39f4bd3a6921
+      internalID: -554882824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_58
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 153
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d377d595734cf64c9cfc6b27589282f
+      internalID: -1308855917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_59
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 147
+        width: 21
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79de357d0e90daf4c8eef401dcce46d3
+      internalID: -471208662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_60
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 155
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a545e871c893547ac88b3c5c647753
+      internalID: 421032533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_61
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85b7deed8ec54cf4c89097231a033d28
+      internalID: 1006833805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_62
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e564d6bd36bc68442bef985b73ee5e81
+      internalID: -798296192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_63
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 156
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ba7682cf672ec4f9ef6a969e0a86cb
+      internalID: 1661190969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_64
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 116
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930d5a818fae5454ea80302fadbf8013
+      internalID: -1257310799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_65
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 114
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376836cd0df187a4eb102572396cb171
+      internalID: 983417522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_66
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 115
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a4ae0d7b3295b4419eb618c4043b235
+      internalID: -1558453699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_67
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 115
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5781df8939634654db94602ca545cd0d
+      internalID: -773583679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_68
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b84a180e723f53340a44cdcd7dd10913
+      internalID: 1828031455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_69
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fb5f13840ce5634d90719184cffa842
+      internalID: -874671967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_70
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fb537819ed4ed46bfbdbf26a47c1f3
+      internalID: 662627780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_71
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244e21743b94cde49971a8c67a3638c7
+      internalID: 198149371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_72
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b80381edbd3ee449b0258217bc7c53
+      internalID: 338881344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_73
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 115
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fb9aa6d98f526241a1ea3dae1927648
+      internalID: 1291460970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_74
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 112
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191579e96d1786b44a0dd8e928b26b9f
+      internalID: -1814378067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_75
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 112
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88a738e3ffe2b1046827d06af11d7729
+      internalID: 2080391638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_76
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 112
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293d2323f7c8e9642a7de4e5e635c697
+      internalID: -278811015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_77
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 112
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e4aafbab1635cb42aa493962aea1e37
+      internalID: 1108277171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_78
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 112
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d93983b290c1d7846b1a3004766669b3
+      internalID: 191393065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_79
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 112
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1422fe1155f447d468b3f533810a5e40
+      internalID: 1062426430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_80
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 112
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7523cda5a7148247848acfff033146e
+      internalID: 917150575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_81
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 112
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37019f241cac6804a821dbd33f1f7966
+      internalID: 1017989367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_82
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 112
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8d4b1080e0f82041b77d31f5c54e66e
+      internalID: -1090930404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_83
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 112
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed6af95815928ca41b0e36e011288fd4
+      internalID: 1251710019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_84
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 112
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc667274443142648a699e375d9ab089
+      internalID: -2047073659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_85
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 112
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c82a0e69299a97e419ab8da919224503
+      internalID: -1319549846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_86
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 78
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f917ce27b6ee7dc448dd75a4aed9e6b1
+      internalID: 1640964742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_87
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 78
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 842b196ce0446c144ba73fcfa16c2755
+      internalID: -1559006200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_88
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 78
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cee132f28a1235439006ed7469cf723
+      internalID: 1680689052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_89
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 78
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5341ea47991e4de449121eb6bb7614ea
+      internalID: 263726807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_90
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 77
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 693700868d8ecf44683cd62273e1f2b3
+      internalID: 1830227551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_91
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 77
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f685279788bf1c041a58d0213d53b074
+      internalID: -399190811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_92
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 77
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88afdacf64c35514490b0d3d533d8c92
+      internalID: -1135582097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_93
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 77
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c4b6fee3db655b42a6d04e6a2963917
+      internalID: -2070069054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-test
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 77
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4217ac2aaeb532845997953e6eb2e7ee
+      internalID: 1820535921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_95
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 77
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51178f70865e5f1468c7056ab8c8e28f
+      internalID: -1154161076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_96
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 93
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf834ad0192a8944a925d0c9f7ec058b
+      internalID: -2074837832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_97
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 93
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dc83542d00930941949a9bf5a624aeb
+      internalID: 1681153861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_98
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 77
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5245636d4eeb4114eb7461f98623d0c9
+      internalID: 39741211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_99
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 77
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7da0d20e59d74b4e926578ea290d3f7
+      internalID: -229220799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_100
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 77
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0403fce10e3126a4da9bfc2d0d39dc56
+      internalID: 1007809657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_101
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 77
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e830ae3abcb6c745aff847c54e515ec
+      internalID: 1281028875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_102
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 77
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc3ba702b00254741ac0adcd61099f7e
+      internalID: -425381981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_103
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 94
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3dbca80b373c64c9b38334a4655b50
+      internalID: 1507417249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_104
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 94
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a583ee460a36adf478fc9710644d2724
+      internalID: -2103346577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_105
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 79
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47002eae920cb9f4481b3f411c12c2da
+      internalID: 165489608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_106
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 42
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6fb4a70692b9104b9883167b066e547
+      internalID: 738666083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_107
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 41
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad83270d76f331f40904c7ffc8e245ef
+      internalID: 256935009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_108
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 44
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9209ff570cd55764c8406c5892a0a094
+      internalID: -1190056176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_109
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 42
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a57ad60525563a4baca8e90965a5fef
+      internalID: -467042570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_110
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 41
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35626da2c573fe948a08945be2c37071
+      internalID: 1471270325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_111
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 44
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f96a6f6cdc58bf048bfeb9f050566f57
+      internalID: 1019921763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_112
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 43
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1a200de346afd945b66d7add2e3ad93
+      internalID: 1022620620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_113
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 42
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 286097fcfea77394988752127b6f8a4c
+      internalID: -1946126289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_114
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 44
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7628f064fd0bba943aeb20ccde8df37c
+      internalID: -35378906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_115
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 43
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532af92a2190e48439cc316f884cbfd0
+      internalID: 1416069964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_116
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 42
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc521eba2a7d77c4f9db364d638c2fd4
+      internalID: 1649144211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_117
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 42
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afbde08c0fcede048a060640ada34d96
+      internalID: -300271216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_118
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 42
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5faea4c590cf69e4d8f1781230d77a58
+      internalID: -541665390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_119
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 41
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf3982d118217047b4cf20a0e932f91
+      internalID: 614829968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_120
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 43
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be23f59f8396e084dbd82c8a122eaa9c
+      internalID: 2100620159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_121
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 43
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecd43abc3a4da8d41b1413ed7932d08e
+      internalID: -382147081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_122
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 42
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144f7d033b75f3149b918ffe75dfa6ea
+      internalID: -1521344124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_123
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 42
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eba15783d8c86f49b34810e07ac5ef0
+      internalID: -1743645110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_124
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 42
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdffb7d77aaa87b4b831666b670929f2
+      internalID: -1804373950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_125
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 41
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a67897d6de55f144a89cb4f8fe9eebca
+      internalID: 805717722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_126
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 43
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296147689e28c7b4aa1a91cdfa9bef79
+      internalID: -8489210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_127
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 43
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3b7a5d66855df34290c1b8db86e26d7
+      internalID: -1985197861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_128
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 42
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5ab3e353ee6104bb0c59d3a7a41ebc
+      internalID: -206073997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_129
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 42
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fadd3117291fced48ad1284b4a98d620
+      internalID: 528233013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_130
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 42
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8d09422586fe2746b6151215aeda729
+      internalID: -572624639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_131
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 6
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ee590304b4d32469e7551e22c87b6d
+      internalID: 8241221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_132
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 6
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4749a1caf17600948a114dee21cfddbe
+      internalID: -905485767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_133
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 6
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed3d9a8680b2514428530db84aed9a2f
+      internalID: -299301312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_134
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 6
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e18639e6c6dd4f4393d03baec40ffb2
+      internalID: -1324295354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_135
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 6
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f08a094ea70b204fa7f8f8d732378d3
+      internalID: -1186022584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_136
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 6
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5e4844d7b6027543bf7d6447bb66085
+      internalID: -1759565695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_137
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 6
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d6aa74fdac23554db2bc33e38ec2837
+      internalID: 1034340798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_138
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 6
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c835f25dcadf7745874af14a41023b7
+      internalID: 1376451376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_139
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 7
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b107f3d19ecb7ac4d9b4ac5b81cb2d25
+      internalID: 139711839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_140
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b4b7de06d1e8749ae4df5b668ba8a3
+      internalID: -392421620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_141
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c155b28b6f28a64b8c78860e7325d91
+      internalID: -886892843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_142
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 7
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d57bc481a3d9746be2762657d7ecd4
+      internalID: 1189789318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_143
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78a4cd533d7c4e84ea7e9214bd448060
+      internalID: -1922208427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_144
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5033e3e4bae4ffe4e85778b2868fab00
+      internalID: -454344044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_145
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 7
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56040c8491bd3e743826801fcb0e683a
+      internalID: 1574028579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_146
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50fbe724dbd037647a839f56cb537ccd
+      internalID: -93735213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_147
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5041342010223d04c878673d25304e31
+      internalID: 1652021646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_148
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 7
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e6571607c2a1624e8439a448e66021a
+      internalID: 790717000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_149
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b11e1e4902a604783819b1deb3df88
+      internalID: -996246253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Octopath Traveler - Mattias (1)_150
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f281c7b6430a4ca498ad0c47eb6f3522
+      internalID: -1110548540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Nintendo Switch - Octopath Traveler - Mattias (1)_1: -1351361089
+      Nintendo Switch - Octopath Traveler - Mattias (1)_10: 1552052633
+      Nintendo Switch - Octopath Traveler - Mattias (1)_100: 1007809657
+      Nintendo Switch - Octopath Traveler - Mattias (1)_101: 1281028875
+      Nintendo Switch - Octopath Traveler - Mattias (1)_102: -425381981
+      Nintendo Switch - Octopath Traveler - Mattias (1)_103: 1507417249
+      Nintendo Switch - Octopath Traveler - Mattias (1)_104: -2103346577
+      Nintendo Switch - Octopath Traveler - Mattias (1)_105: 165489608
+      Nintendo Switch - Octopath Traveler - Mattias (1)_106: 738666083
+      Nintendo Switch - Octopath Traveler - Mattias (1)_107: 256935009
+      Nintendo Switch - Octopath Traveler - Mattias (1)_108: -1190056176
+      Nintendo Switch - Octopath Traveler - Mattias (1)_109: -467042570
+      Nintendo Switch - Octopath Traveler - Mattias (1)_11: 1843701207
+      Nintendo Switch - Octopath Traveler - Mattias (1)_110: 1471270325
+      Nintendo Switch - Octopath Traveler - Mattias (1)_111: 1019921763
+      Nintendo Switch - Octopath Traveler - Mattias (1)_112: 1022620620
+      Nintendo Switch - Octopath Traveler - Mattias (1)_113: -1946126289
+      Nintendo Switch - Octopath Traveler - Mattias (1)_114: -35378906
+      Nintendo Switch - Octopath Traveler - Mattias (1)_115: 1416069964
+      Nintendo Switch - Octopath Traveler - Mattias (1)_116: 1649144211
+      Nintendo Switch - Octopath Traveler - Mattias (1)_117: -300271216
+      Nintendo Switch - Octopath Traveler - Mattias (1)_118: -541665390
+      Nintendo Switch - Octopath Traveler - Mattias (1)_119: 614829968
+      Nintendo Switch - Octopath Traveler - Mattias (1)_12: 304026328
+      Nintendo Switch - Octopath Traveler - Mattias (1)_120: 2100620159
+      Nintendo Switch - Octopath Traveler - Mattias (1)_121: -382147081
+      Nintendo Switch - Octopath Traveler - Mattias (1)_122: -1521344124
+      Nintendo Switch - Octopath Traveler - Mattias (1)_123: -1743645110
+      Nintendo Switch - Octopath Traveler - Mattias (1)_124: -1804373950
+      Nintendo Switch - Octopath Traveler - Mattias (1)_125: 805717722
+      Nintendo Switch - Octopath Traveler - Mattias (1)_126: -8489210
+      Nintendo Switch - Octopath Traveler - Mattias (1)_127: -1985197861
+      Nintendo Switch - Octopath Traveler - Mattias (1)_128: -206073997
+      Nintendo Switch - Octopath Traveler - Mattias (1)_129: 528233013
+      Nintendo Switch - Octopath Traveler - Mattias (1)_13: -796918242
+      Nintendo Switch - Octopath Traveler - Mattias (1)_130: -572624639
+      Nintendo Switch - Octopath Traveler - Mattias (1)_131: 8241221
+      Nintendo Switch - Octopath Traveler - Mattias (1)_132: -905485767
+      Nintendo Switch - Octopath Traveler - Mattias (1)_133: -299301312
+      Nintendo Switch - Octopath Traveler - Mattias (1)_134: -1324295354
+      Nintendo Switch - Octopath Traveler - Mattias (1)_135: -1186022584
+      Nintendo Switch - Octopath Traveler - Mattias (1)_136: -1759565695
+      Nintendo Switch - Octopath Traveler - Mattias (1)_137: 1034340798
+      Nintendo Switch - Octopath Traveler - Mattias (1)_138: 1376451376
+      Nintendo Switch - Octopath Traveler - Mattias (1)_139: 139711839
+      Nintendo Switch - Octopath Traveler - Mattias (1)_14: 1848914567
+      Nintendo Switch - Octopath Traveler - Mattias (1)_140: -392421620
+      Nintendo Switch - Octopath Traveler - Mattias (1)_141: -886892843
+      Nintendo Switch - Octopath Traveler - Mattias (1)_142: 1189789318
+      Nintendo Switch - Octopath Traveler - Mattias (1)_143: -1922208427
+      Nintendo Switch - Octopath Traveler - Mattias (1)_144: -454344044
+      Nintendo Switch - Octopath Traveler - Mattias (1)_145: 1574028579
+      Nintendo Switch - Octopath Traveler - Mattias (1)_146: -93735213
+      Nintendo Switch - Octopath Traveler - Mattias (1)_147: 1652021646
+      Nintendo Switch - Octopath Traveler - Mattias (1)_148: 790717000
+      Nintendo Switch - Octopath Traveler - Mattias (1)_149: -996246253
+      Nintendo Switch - Octopath Traveler - Mattias (1)_15: 57561404
+      Nintendo Switch - Octopath Traveler - Mattias (1)_150: -1110548540
+      Nintendo Switch - Octopath Traveler - Mattias (1)_16: -1110348940
+      Nintendo Switch - Octopath Traveler - Mattias (1)_17: 691834484
+      Nintendo Switch - Octopath Traveler - Mattias (1)_18: -1049064734
+      Nintendo Switch - Octopath Traveler - Mattias (1)_19: 996607742
+      Nintendo Switch - Octopath Traveler - Mattias (1)_2: -268242822
+      Nintendo Switch - Octopath Traveler - Mattias (1)_20: -1127143084
+      Nintendo Switch - Octopath Traveler - Mattias (1)_21: 408113424
+      Nintendo Switch - Octopath Traveler - Mattias (1)_22: 1493871366
+      Nintendo Switch - Octopath Traveler - Mattias (1)_23: 1440223427
+      Nintendo Switch - Octopath Traveler - Mattias (1)_24: -1549974445
+      Nintendo Switch - Octopath Traveler - Mattias (1)_25: -2104812433
+      Nintendo Switch - Octopath Traveler - Mattias (1)_26: 1376168512
+      Nintendo Switch - Octopath Traveler - Mattias (1)_27: 1844239893
+      Nintendo Switch - Octopath Traveler - Mattias (1)_28: -1798469330
+      Nintendo Switch - Octopath Traveler - Mattias (1)_29: 614077793
+      Nintendo Switch - Octopath Traveler - Mattias (1)_3: -72077487
+      Nintendo Switch - Octopath Traveler - Mattias (1)_30: 925377028
+      Nintendo Switch - Octopath Traveler - Mattias (1)_31: -1759758630
+      Nintendo Switch - Octopath Traveler - Mattias (1)_32: 126756172
+      Nintendo Switch - Octopath Traveler - Mattias (1)_33: 1872567412
+      Nintendo Switch - Octopath Traveler - Mattias (1)_34: 1781472646
+      Nintendo Switch - Octopath Traveler - Mattias (1)_35: 272836878
+      Nintendo Switch - Octopath Traveler - Mattias (1)_36: 921989601
+      Nintendo Switch - Octopath Traveler - Mattias (1)_37: 424022385
+      Nintendo Switch - Octopath Traveler - Mattias (1)_38: 1607311654
+      Nintendo Switch - Octopath Traveler - Mattias (1)_39: -284685941
+      Nintendo Switch - Octopath Traveler - Mattias (1)_4: -1155443544
+      Nintendo Switch - Octopath Traveler - Mattias (1)_40: -1928781684
+      Nintendo Switch - Octopath Traveler - Mattias (1)_41: 250517295
+      Nintendo Switch - Octopath Traveler - Mattias (1)_42: -2057079882
+      Nintendo Switch - Octopath Traveler - Mattias (1)_43: 1084186950
+      Nintendo Switch - Octopath Traveler - Mattias (1)_44: -348691560
+      Nintendo Switch - Octopath Traveler - Mattias (1)_45: 1298097405
+      Nintendo Switch - Octopath Traveler - Mattias (1)_46: 1878841791
+      Nintendo Switch - Octopath Traveler - Mattias (1)_47: -317344609
+      Nintendo Switch - Octopath Traveler - Mattias (1)_48: 1743826015
+      Nintendo Switch - Octopath Traveler - Mattias (1)_49: -246485741
+      Nintendo Switch - Octopath Traveler - Mattias (1)_5: -1393513572
+      Nintendo Switch - Octopath Traveler - Mattias (1)_50: 994315384
+      Nintendo Switch - Octopath Traveler - Mattias (1)_51: -1869982975
+      Nintendo Switch - Octopath Traveler - Mattias (1)_52: 279379633
+      Nintendo Switch - Octopath Traveler - Mattias (1)_53: 717799222
+      Nintendo Switch - Octopath Traveler - Mattias (1)_54: 355152689
+      Nintendo Switch - Octopath Traveler - Mattias (1)_55: 2123488335
+      Nintendo Switch - Octopath Traveler - Mattias (1)_56: 1536711921
+      Nintendo Switch - Octopath Traveler - Mattias (1)_57: -554882824
+      Nintendo Switch - Octopath Traveler - Mattias (1)_58: -1308855917
+      Nintendo Switch - Octopath Traveler - Mattias (1)_59: -471208662
+      Nintendo Switch - Octopath Traveler - Mattias (1)_6: -1496192725
+      Nintendo Switch - Octopath Traveler - Mattias (1)_60: 421032533
+      Nintendo Switch - Octopath Traveler - Mattias (1)_61: 1006833805
+      Nintendo Switch - Octopath Traveler - Mattias (1)_62: -798296192
+      Nintendo Switch - Octopath Traveler - Mattias (1)_63: 1661190969
+      Nintendo Switch - Octopath Traveler - Mattias (1)_64: -1257310799
+      Nintendo Switch - Octopath Traveler - Mattias (1)_65: 983417522
+      Nintendo Switch - Octopath Traveler - Mattias (1)_66: -1558453699
+      Nintendo Switch - Octopath Traveler - Mattias (1)_67: -773583679
+      Nintendo Switch - Octopath Traveler - Mattias (1)_68: 1828031455
+      Nintendo Switch - Octopath Traveler - Mattias (1)_69: -874671967
+      Nintendo Switch - Octopath Traveler - Mattias (1)_7: 692220484
+      Nintendo Switch - Octopath Traveler - Mattias (1)_70: 662627780
+      Nintendo Switch - Octopath Traveler - Mattias (1)_71: 198149371
+      Nintendo Switch - Octopath Traveler - Mattias (1)_72: 338881344
+      Nintendo Switch - Octopath Traveler - Mattias (1)_73: 1291460970
+      Nintendo Switch - Octopath Traveler - Mattias (1)_74: -1814378067
+      Nintendo Switch - Octopath Traveler - Mattias (1)_75: 2080391638
+      Nintendo Switch - Octopath Traveler - Mattias (1)_76: -278811015
+      Nintendo Switch - Octopath Traveler - Mattias (1)_77: 1108277171
+      Nintendo Switch - Octopath Traveler - Mattias (1)_78: 191393065
+      Nintendo Switch - Octopath Traveler - Mattias (1)_79: 1062426430
+      Nintendo Switch - Octopath Traveler - Mattias (1)_8: -1468957348
+      Nintendo Switch - Octopath Traveler - Mattias (1)_80: 917150575
+      Nintendo Switch - Octopath Traveler - Mattias (1)_81: 1017989367
+      Nintendo Switch - Octopath Traveler - Mattias (1)_82: -1090930404
+      Nintendo Switch - Octopath Traveler - Mattias (1)_83: 1251710019
+      Nintendo Switch - Octopath Traveler - Mattias (1)_84: -2047073659
+      Nintendo Switch - Octopath Traveler - Mattias (1)_85: -1319549846
+      Nintendo Switch - Octopath Traveler - Mattias (1)_86: 1640964742
+      Nintendo Switch - Octopath Traveler - Mattias (1)_87: -1559006200
+      Nintendo Switch - Octopath Traveler - Mattias (1)_88: 1680689052
+      Nintendo Switch - Octopath Traveler - Mattias (1)_89: 263726807
+      Nintendo Switch - Octopath Traveler - Mattias (1)_9: -1855591221
+      Nintendo Switch - Octopath Traveler - Mattias (1)_90: 1830227551
+      Nintendo Switch - Octopath Traveler - Mattias (1)_91: -399190811
+      Nintendo Switch - Octopath Traveler - Mattias (1)_92: -1135582097
+      Nintendo Switch - Octopath Traveler - Mattias (1)_93: -2070069054
+      Nintendo Switch - Octopath Traveler - Mattias (1)_95: -1154161076
+      Nintendo Switch - Octopath Traveler - Mattias (1)_96: -2074837832
+      Nintendo Switch - Octopath Traveler - Mattias (1)_97: 1681153861
+      Nintendo Switch - Octopath Traveler - Mattias (1)_98: 39741211
+      Nintendo Switch - Octopath Traveler - Mattias (1)_99: -229220799
+      front-test: 1820535921
+      test_OT_Mattias_0: 10061790
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
