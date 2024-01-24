@@ -11,6 +11,6 @@ public class PlayerMove : TacticsMove
 
     private void Update()
     {
-        
+        FindSelectableTiles();
     }
 }
