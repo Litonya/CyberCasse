@@ -10,7 +10,7 @@ public class TacticsMove : MonoBehaviour
     Stack<Tile> _path = new Stack<Tile>();
     Tile _currentTile;
  
-
+    public bool moving = false;
     public int move = 5;
     public float jumpHeight = 2;
     public float moveSpeed = 2;
@@ -91,5 +91,19 @@ public class TacticsMove : MonoBehaviour
             }
         }
 
+    }
+
+    public void MoveToTile(Tile tile)
+    {
+        _path.Clear();
+        tile.target = true;
+        moving = true;
+
+        Tile next = tile;
+        while(next != null)
+        {
+            _path.Push(next);
+            next = next.parent;
+        }
     }
 }

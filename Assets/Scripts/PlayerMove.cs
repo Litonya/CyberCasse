@@ -11,6 +11,37 @@ public class PlayerMove : TacticsMove
 
     private void Update()
     {
-        FindSelectableTiles();
+        if (!moving)
+        {
+            FindSelectableTiles();
+            CheckMouse();
+        }
+        else
+        {
+            //todo: Move();
+        }
+    }
+
+    void CheckMouse()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "Tile")
+                {
+                    Tile t = hit.collider.GetComponent<Tile>();
+
+                    if (t.selectable)
+                    {
+                        //todo: move target
+                        MoveToTile(t);
+                    }
+                }
+            }
+        }
     }
 }
