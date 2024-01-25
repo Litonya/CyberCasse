@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class TacticsMove : MonoBehaviour
@@ -105,5 +106,65 @@ public class TacticsMove : MonoBehaviour
             _path.Push(next);
             next = next.parent;
         }
+    }
+
+    public void Move()
+    {
+        if (_path.Count > 0)
+        {
+            Tile t = _path.Peek();
+            Vector3 target = t.transform.position;
+
+            //calculate de unit's position on top of the target tile
+            target.y += _halfHeight + t.GetComponent<Collider>().bounds.extents.y;
+
+            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            {
+                CalculateHeading(target);
+                SetHorizontalVelocity();
+
+                transform.forward = _heading;
+                transform.position += _velocity * Time.deltaTime;
+            }
+            else
+            {
+                transform.position = target;
+                _path.Pop();
+
+            }
+        }
+        else
+        {
+            RemoveSelectableTiles();
+            moving = false;
+
+        }
+    }
+
+    protected void RemoveSelectableTiles()
+    {
+        if (_currentTile != null)
+        {
+            _currentTile.current = false;
+            _currentTile = null;
+        }
+
+        foreach (Tile tile in _selectableTiles)
+        {
+            tile.Reset();
+        }
+
+        _selectableTiles.Clear();
+    }
+
+    private void CalculateHeading(Vector3 target)
+    {
+        _heading = target - transform.position;
+        _heading.Normalize();
+    }
+
+    private void SetHorizontalVelocity()
+    {
+        _velocity = _heading * moveSpeed;
     }
 }
