@@ -120,9 +120,19 @@ public class TacticsMove : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target) >= 0.05f)
             {
-                CalculateHeading(target);
-                SetHorizontalVelocity();
+                bool jump = transform.position.y != target.y;
 
+                if (jump)
+                {
+                    Jump(target);
+                }
+                else
+                {
+                    CalculateHeading(target);
+                    SetHorizontalVelocity();
+                }
+
+                //Locomotion
                 transform.forward = _heading;
                 transform.position += _velocity * Time.deltaTime;
             }
@@ -166,5 +176,10 @@ public class TacticsMove : MonoBehaviour
     private void SetHorizontalVelocity()
     {
         _velocity = _heading * moveSpeed;
+    }
+
+    void Jump(Vector3 target)
+    {
+
     }
 }
