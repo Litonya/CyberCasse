@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TacticsMove : MonoBehaviour
 {
+    public bool turn = false;
+
     List<Tile> _selectableTiles = new List<Tile>();
     GameObject[] _tiles;
 
@@ -34,6 +36,7 @@ public class TacticsMove : MonoBehaviour
 
         _halfHeight = GetComponent<Collider>().bounds.extents.y;
 
+        AeliTurnManager.AddUnit(this);
     }
 
     public void GetCurrentTile()
@@ -154,6 +157,8 @@ public class TacticsMove : MonoBehaviour
         {
             RemoveSelectableTiles();
             moving = false;
+
+            AeliTurnManager.EndTurn();
 
         }
     }
@@ -279,5 +284,15 @@ public class TacticsMove : MonoBehaviour
             _velocity.y = 1.5f;
         }
 
+    }
+
+    public void BeginTurn()
+    {
+        turn = true;
+    }
+
+    public void EndTurn()
+    {
+        turn = false;
     }
 }
