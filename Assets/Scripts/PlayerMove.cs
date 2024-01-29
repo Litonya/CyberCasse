@@ -11,6 +11,8 @@ public class PlayerMove : TacticsMove
 
     private void Update()
     {
+        Debug.DrawRay(transform.position, transform.forward);
+
         if (!moving)
         {
             FindSelectableTiles();
