@@ -47,7 +47,7 @@ public class TacticsMove : MonoBehaviour
         RaycastHit hit;
         Tile tile = null;
 
-        if (Physics.Raycast(target.transform.position, -Vector3.up,out hit))
+        if (Physics.Raycast(target.transform.position, -Vector3.up,out hit, 1))
         {
             tile = hit.collider.GetComponent<Tile>();
         }
@@ -208,7 +208,6 @@ public class TacticsMove : MonoBehaviour
     void PrepareJump(Vector3 target)
     {
         float targetY = target.y;
-
         target.y = transform.position.y;
 
         CalculateHeading(target);
@@ -217,7 +216,7 @@ public class TacticsMove : MonoBehaviour
         {
             fallingDown = false;
             jumpingUp = false;
-            movingEdge = false;
+            movingEdge = true;
 
             jumpTarget = transform.position +(target - transform.position) / 2f;
         }
