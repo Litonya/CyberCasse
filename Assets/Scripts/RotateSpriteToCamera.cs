@@ -20,6 +20,6 @@ public class RotateSpriteToCamera : MonoBehaviour
     {
         Vector3 targetVector = Camera.main.transform.position - transform.position;
         float newYAngle = Mathf.Atan2(targetVector.z, targetVector.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(-45, 2 * newYAngle, 0);
+        transform.rotation = Quaternion.Euler(-45, /* 2 * newYAngle */ 180 , 0);
     }
 }
