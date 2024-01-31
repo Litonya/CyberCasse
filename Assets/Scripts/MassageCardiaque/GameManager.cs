@@ -7,8 +7,13 @@ public class GameManager : MonoBehaviour
 
     private PlayerCharacter characterSelected;
 
+    private List<Character> _characterList;
+
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
+
+    enum GameStates { Planification, Action}
+    private GameStates currentGameState;
 
     private void Awake()
     {
@@ -20,11 +25,24 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Start()
+    {
+        currentGameState = GameStates.Planification;
+        _characterList = GetAllCharacters();
+    }
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (currentGameState == GameStates.Planification)
         {
-            GetClickObject();
+            if (Input.GetMouseButtonDown(0))
+            {
+                GetClickObject();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                LaunchActionPhase();
+            }
         }
     }
 
@@ -42,6 +60,10 @@ public class GameManager : MonoBehaviour
                     Debug.Log("A PlayerCharacter is clicked");
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
+                }else if (hit.collider.gameObject.GetComponent<Cell>())
+                {
+                    Cell cell = hit.collider.gameObject.GetComponent<Cell>();
+                    CellSelect(cell);
                 }
             }
         }
@@ -49,7 +71,16 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void UnitSelect(PlayerCharacter character)
+    private void CellSelect(Cell cell)
+    {
+        if(characterSelected != null && cell.occupant == null && !cell.isSelected)
+        {
+            characterSelected.TargetCell(cell);
+            Unselect();
+        }
+    }
+
+    private void UnitSelect(PlayerCharacter character)
     {
         if (characterSelected == character)
         {
@@ -76,5 +107,35 @@ public class GameManager : MonoBehaviour
     {
         characterSelected = character;
         Debug.Log(character.name + " is selected");
+    }
+
+    private List<Character> GetAllCharacters()
+    {
+        GameObject[] gameobjectList = GameObject.FindGameObjectsWithTag("NPC");
+        List<Character> list = new List<Character>();
+        foreach(GameObject gameObject in gameobjectList)
+        {
+            Character characScript = gameObject.GetComponent<Character>();
+            if (characScript != null)
+            {
+                list.Add(characScript);
+            }
+        }
+        return list;
+    }
+
+    private void LaunchActionPhase()
+    {
+        Debug.Log("Launch Action phase");
+        foreach (Character character in _characterList) 
+        {
+            character.Acte();
+        }
+        LaunchPlanificationPhase();
+    }
+
+    private void LaunchPlanificationPhase()
+    {
+        currentGameState = GameStates.Planification;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField]
-    private Character occupant;
+    public Character occupant;
+
+    public bool isSelected;
 }
