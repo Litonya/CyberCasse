@@ -20,6 +20,34 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GetClickObject();
+        }
+    }
+
+
+    private void GetClickObject()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            if(hit.collider != null)
+            {
+                if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
+                {
+                    Debug.Log("A PlayerCharacter is clicked");
+                    PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
+                    UnitSelect(playerCharacter);
+                }
+            }
+        }
+
+
+    }
 
     public void UnitSelect(PlayerCharacter character)
     {
@@ -29,6 +57,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Unselect();
             Select(character);
         }
     }
@@ -36,8 +65,11 @@ public class GameManager : MonoBehaviour
 
     private void Unselect()
     {
+        if (characterSelected != null)
+        {
+            Debug.Log(characterSelected.name + " unselected");
+        }
         characterSelected = null;
-        Debug.Log("Unit unselect");
     }
 
     private void Select(PlayerCharacter character)

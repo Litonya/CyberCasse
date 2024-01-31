@@ -43,7 +43,7 @@ public class MapManager : MonoBehaviour
                 {
                     if (_logicalMap[i, j] != null)
                     {
-                        Debug.Log("[" + i + "," + j + "] coords: " + _logicalMap[i, j].transform.position);
+                        //Debug.Log("[" + i + "," + j + "] coords: " + _logicalMap[i, j].transform.position);
                     }
                 }
             }
