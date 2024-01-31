@@ -73,9 +73,10 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if(characterSelected != null && cell.occupant == null && !cell.isSelected)
+        if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable)
         {
             characterSelected.TargetCell(cell);
+
             Unselect();
         }
     }
@@ -101,12 +102,15 @@ public class GameManager : MonoBehaviour
             Debug.Log(characterSelected.name + " unselected");
         }
         characterSelected = null;
+        //MapManager.instance.ResetAllCells();
     }
 
     private void Select(PlayerCharacter character)
     {
         characterSelected = character;
         Debug.Log(character.name + " is selected");
+
+        MapManager.instance.SetCellsSelectable(character.GetCurrentCell(), character.movePoints);
     }
 
     private List<Character> GetAllCharacters()
@@ -127,6 +131,7 @@ public class GameManager : MonoBehaviour
     private void LaunchActionPhase()
     {
         Debug.Log("Launch Action phase");
+        Unselect();
         foreach (Character character in _characterList) 
         {
             character.Acte();

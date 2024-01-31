@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -9,13 +10,14 @@ public class MapManager : MonoBehaviour
     public static MapManager instance { get { return _instance; } }
     static MapManager _instance;
 
-
+    public List<Cell> selectableCells = new List<Cell>(); 
     private Cell[,] _logicalMap;
 
     [SerializeField]
     private int _mapXSize;
     [SerializeField]
     private int _mapZSize;
+    
 
     private void Awake()
     {
@@ -29,14 +31,10 @@ public class MapManager : MonoBehaviour
 
         //Initialisation tableau carte
         _logicalMap = new Cell[_mapXSize,_mapZSize];
-    }
 
-    private void Start()
-    {
         InitMap();
         InitCharacterPos();
     }
-
 
     private void InitMap()
     {
@@ -54,6 +52,8 @@ public class MapManager : MonoBehaviour
                 int cellZ = (int)cell.transform.position.z;
 
                 _logicalMap[cellX, cellZ] = cellScript;
+                cellScript.gridCoordX = cellX;
+                cellScript.gridCoordZ = cellZ;
             }
 
 
@@ -85,16 +85,72 @@ public class MapManager : MonoBehaviour
             {
                 int posX = (int)character.transform.position.x;
                 int posZ = (int)character.transform.position.z;
-
-                GetCell(posX, posZ).occupant = characterScript;
+                Debug.Log("jevekané");
+                characterScript.SetCurrentCell(GetCell(posX, posZ));
+                
             }
         }
     }
 
 
-
-    private Cell GetCell(int x, int z)
+    public Cell GetCell(int x, int z)
     {
-        return _logicalMap[x, z];
+        if (x>= 0 && z>= 0 && x < _logicalMap.GetLength(0) && z < _logicalMap.GetLength(1)) 
+        {
+            return _logicalMap[x, z];
+        }
+        Debug.LogWarning("Try to get Cell out of map");
+        return null;
+    }
+
+    public List<Cell> GetCellsReacheable(Cell origin, int distance)
+    {
+        Debug.Log(distance);
+        List<Cell> cells = new List<Cell>();
+        Debug.Log(origin);
+        if (distance > 0)
+        {
+            foreach (Cell cell in origin.adjencyList)
+            {
+                if (cell != null && cell.walkable)
+                {
+                    cells.Add(cell);
+                    List<Cell> cellList = GetCellsReacheable(cell, distance - 1);
+                    cells.AddRange(cellList);
+                }
+            }
+        }
+        foreach (Cell cell in cells)
+        {
+            Debug.Log(cell.name);
+        }
+        return cells;
+    }
+
+    public void ResetAllCells()
+    {
+        foreach (Cell cell in _logicalMap)
+        {
+            cell.Reset();
+        }
+    }
+
+    public void SetCellsSelectable(Cell origin, int distance)
+    {
+        selectableCells = GetCellsReacheable(origin, distance);
+
+        foreach(Cell cell in selectableCells)
+        {
+            cell.SetState(Cell.CellState.isSelectable);
+        }
+    }
+
+    public void ResetSelectableCells()
+    {
+        foreach(Cell cell in selectableCells)
+        {
+            cell.SetState(Cell.CellState.Idle);
+        }
+        selectableCells.Clear();
     }
 }
