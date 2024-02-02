@@ -105,25 +105,19 @@ public class MapManager : MonoBehaviour
 
     public List<Cell> GetCellsReacheable(Cell origin, int distance)
     {
-        Debug.Log(distance);
         List<Cell> cells = new List<Cell>();
-        Debug.Log(origin);
         if (distance > 0)
         {
             foreach (Cell cell in origin.adjencyList)
             {
                 Debug.Log(cell);
-                if (cell != null && cell.walkable)
+                if (cell != null && cell.walkable && cell.currentState == Cell.CellState.Idle)
                 {
                     cells.Add(cell);
                     List<Cell> cellList = GetCellsReacheable(cell, distance - 1);
                     cells.AddRange(cellList);
                 }
             }
-        }
-        foreach (Cell cell in cells)
-        {
-            //Debug.Log(cell.name);
         }
         return cells;
     }
@@ -132,7 +126,10 @@ public class MapManager : MonoBehaviour
     {
         foreach (Cell cell in _logicalMap)
         {
-            cell.Reset();
+            if (cell != null)
+            {
+                cell.Reset();
+            }
         }
     }
 
@@ -150,7 +147,10 @@ public class MapManager : MonoBehaviour
     {
         foreach(Cell cell in selectableCells)
         {
-            cell.SetState(Cell.CellState.Idle);
+            if (cell != null && cell.currentState != Cell.CellState.isSelected)
+            {
+                cell.SetState(Cell.CellState.Idle);
+            }
         }
         selectableCells.Clear();
     }

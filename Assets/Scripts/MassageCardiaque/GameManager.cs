@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(characterSelected.name + " unselected");
         }
         characterSelected = null;
-        //MapManager.instance.ResetAllCells();
+        MapManager.instance.ResetSelectableCells();
     }
 
     private void Select(PlayerCharacter character)

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    //Faire action selection qui demande au GM de selectionner cet objet
-
     [SerializeField]
     private float _yOffset = 1.25f; 
     private Cell _target;
@@ -33,6 +31,7 @@ public class Character : MonoBehaviour
     {
          Vector3 destination = new Vector3(target.transform.position.x, _yOffset, target.transform.position.z);
          transform.position = destination;
+        SetCurrentCell(target);
     }
 
     public void SetCurrentCell(Cell cell)
