@@ -118,3 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35cbd2c56929344faf8b9d4a7bc0f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridCoordX: 0
+  gridCoordZ: 0
+  occupant: {fileID: 0}
+  walkable: 1
+  isVisited: 0
+  currentState: 0
+  adjencyList: []

@@ -112,6 +112,7 @@ public class MapManager : MonoBehaviour
         {
             foreach (Cell cell in origin.adjencyList)
             {
+                Debug.Log(cell);
                 if (cell != null && cell.walkable)
                 {
                     cells.Add(cell);
@@ -122,7 +123,7 @@ public class MapManager : MonoBehaviour
         }
         foreach (Cell cell in cells)
         {
-            Debug.Log(cell.name);
+            //Debug.Log(cell.name);
         }
         return cells;
     }
