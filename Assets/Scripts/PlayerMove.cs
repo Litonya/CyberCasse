@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : TacticsMove
 {
+    private bool _isSelected = false;
+
     private void Start()
     {
         Init();
@@ -47,8 +49,27 @@ public class PlayerMove : TacticsMove
                         //todo: move target
                         MoveToTile(t);
                     }
+                }else if (hit.collider.tag == "Player")
+                {
+                    SelectPlayer();
                 }
             }
+            
+        }
+    }
+
+    void SelectPlayer()
+    {
+        if (_isSelected)
+        {
+            //Le personnage est déjà selectionné
+            EndTurn();
+        }
+        else
+        {
+            //Le personnage n'est pas encore selectionner
+            BeginTurn();
+
         }
     }
 }
