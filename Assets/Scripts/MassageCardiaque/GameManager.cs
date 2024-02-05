@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
     enum GameStates { Planification, Action}
     private GameStates currentGameState;
 
+    [SerializeField]
+    private float _timePlanification = 10;
+
+    private float _timeRemain;
+
     private void Awake()
     {
         if (_instance != null)
@@ -29,6 +35,8 @@ public class GameManager : MonoBehaviour
     {
         _characterList = GetAllCharacters();
 
+        UIManager.instance.SetMaximumTime(_timePlanification);
+
         LaunchPlanificationPhase();
     }
 
@@ -36,14 +44,30 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == GameStates.Planification)
         {
+            /*---------------------------PLANIFICATION---------------------------------*/
+            //Vérifie de le temps réstant pour la phase de Planification
+            if (_timeRemain > 0)
+            {
+                _timeRemain -= Time.deltaTime;
+                UIManager.instance.UpdateTimeBar(_timeRemain);
+            }
+            else
+            {
+                LaunchActionPhase();
+            }
+
+            //Vérifie les Inputs
+            //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
                 GetClickObject();
             }
+            //Input echap -> Fin de la phase
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
                 LaunchActionPhase();
             }
+            //Input emplacement souris -> Si un personnage est selectionné, récupère les cellules sélectionnées survolées par la souris
             else if (characterSelected != null)
             {
                 Cell cell = GetTargetCell();
@@ -52,7 +76,10 @@ public class GameManager : MonoBehaviour
                     AddToPath(characterSelected, cell);
                 }
             }
-        }else if (currentGameState == GameStates.Action)
+        }
+
+        /*-----------------------------------ACTION----------------------------*/
+        else if (currentGameState == GameStates.Action)
         {
             bool allActionComplete = true;
             foreach (Character character in _characterList)
@@ -168,8 +195,10 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         MapManager.instance.ResetAllCells();
+        ResetAllCharacter();
         currentGameState = GameStates.Planification;
         UIManager.instance.SetUIPlanificationPhase();
+        _timeRemain = _timePlanification;
     }
 
     private void AddToPath(Character character, Cell cell)
@@ -195,5 +224,13 @@ public class GameManager : MonoBehaviour
             return hit.collider.gameObject.GetComponent<Cell>();
         }
         return null;
+    }
+
+    private void ResetAllCharacter()
+    {
+        foreach (Character character in _characterList)
+        {
+            character.Reset();
+        }
     }
 }
