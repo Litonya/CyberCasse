@@ -27,6 +27,9 @@ public class Character : MonoBehaviour
         if (isMoving)
         {
             MoveToNextCell();
+        }else if (currentAct)
+        {
+            Action();
         }
     }
 

@@ -52,6 +52,20 @@ public class GameManager : MonoBehaviour
                     AddToPath(characterSelected, cell);
                 }
             }
+        }else if (currentGameState == GameStates.Action)
+        {
+            bool allActionComplete = true;
+            foreach (Character character in _characterList)
+            {
+                if (character.currentAct)
+                {
+                    allActionComplete = false;
+                }
+            }
+            if (allActionComplete)
+            {
+                LaunchPlanificationPhase();
+            }
         }
     }
 
@@ -142,13 +156,13 @@ public class GameManager : MonoBehaviour
     private void LaunchActionPhase()
     {
         Debug.Log("Launch Action phase");
+        currentGameState = GameStates.Action;
         Unselect();
         foreach (Character character in _characterList) 
         {
             character.Acte();
         }
         UIManager.instance.SetUIActionPhase();
-        LaunchPlanificationPhase();
     }
 
     private void LaunchPlanificationPhase()
