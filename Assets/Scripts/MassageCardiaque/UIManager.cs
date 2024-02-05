@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class UIManager : MonoBehaviour
     private Color _actionPhaseColor = Color.red;
     [SerializeField]
     private Color _planificationPhaseColor = Color.blue;
+
+    [SerializeField]
+    private Slider _timerProgressBar;
 
     private void Awake()
     {
@@ -36,6 +40,16 @@ public class UIManager : MonoBehaviour
     {
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
+    }
+
+    public void SetMaximumTime(float maxTime)
+    {
+        _timerProgressBar.maxValue = maxTime;
+    }
+
+    public void UpdateTimeBar(float timeRemain)
+    {
+        _timerProgressBar.value = timeRemain;
     }
 }
 
