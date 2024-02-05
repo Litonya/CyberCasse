@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _pathMarker;
+
     public int gridCoordX;
     public int gridCoordZ;
 
@@ -24,6 +27,16 @@ public class Cell : MonoBehaviour
         SetState(CellState.Idle);
     }
 
+    public void MarkPath()
+    {
+        _pathMarker.SetActive(true);
+    }
+
+    public void UnmarkPath()
+    {
+        _pathMarker.SetActive(false);
+    }
+
     private void Start()
     {
         adjencyList.Add(MapManager.instance.GetCell(gridCoordX + 1, gridCoordZ));
@@ -35,6 +48,7 @@ public class Cell : MonoBehaviour
     public void Reset()
     {
         isVisited = false;
+        UnmarkPath();
         SetState(CellState.Idle);
     }
 

@@ -64,9 +64,12 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
+            SetCurrentCell(_nextCell);
+            _nextCell.UnmarkPath();
         }
         else
         {
+            _nextCell.UnmarkPath();
             path.Remove(_nextCell);
             SetCurrentCell(_nextCell);
             _nextCell = path[0];

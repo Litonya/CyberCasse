@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
         Debug.Log(character.name + " is selected");
 
         MapManager.instance.SetCellsSelectable(character.GetCurrentCell(), character.movePoints);
+
+        character.path.Add(character.GetCurrentCell());
     }
 
     private List<Character> GetAllCharacters()
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchPlanificationPhase()
     {
+        MapManager.instance.ResetAllCells();
         currentGameState = GameStates.Planification;
     }
 
@@ -157,10 +160,12 @@ public class GameManager : MonoBehaviour
         if (character.path.Count == 0)
         {
             character.path.Add(cell);
+            cell.MarkPath();
         }
         else if (cell.walkable && cell.currentState == Cell.CellState.isSelectable && !character.path.Contains(cell) && character.path[character.path.Count - 1].adjencyList.Contains(cell))
         {
             character.path.Add(cell);
+            cell.MarkPath();
         }
     }
 
