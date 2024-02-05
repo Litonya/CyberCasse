@@ -64,6 +64,7 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
+            SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
         }
         else
