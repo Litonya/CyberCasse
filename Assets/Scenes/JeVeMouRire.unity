@@ -710,6 +710,7 @@ MonoBehaviour:
   _phaseLabel: {fileID: 482060678}
   _actionPhaseColor: {r: 1, g: 0, b: 0, a: 1}
   _planificationPhaseColor: {r: 0, g: 0, b: 1, a: 1}
+  _timerProgressBar: {fileID: 2080011307}
 --- !u!114 &373068272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2060,6 +2061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a2c2425f0638a42a939cd08b107e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timePlanification: 10
 --- !u!1 &1313258143
 GameObject:
   m_ObjectHideFlags: 0
