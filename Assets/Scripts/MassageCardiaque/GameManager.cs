@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentGameState = GameStates.Planification;
         _characterList = GetAllCharacters();
+
+        LaunchPlanificationPhase();
     }
 
     private void Update()
@@ -146,6 +147,7 @@ public class GameManager : MonoBehaviour
         {
             character.Acte();
         }
+        UIManager.instance.SetUIActionPhase();
         LaunchPlanificationPhase();
     }
 
@@ -153,6 +155,7 @@ public class GameManager : MonoBehaviour
     {
         MapManager.instance.ResetAllCells();
         currentGameState = GameStates.Planification;
+        UIManager.instance.SetUIPlanificationPhase();
     }
 
     private void AddToPath(Character character, Cell cell)

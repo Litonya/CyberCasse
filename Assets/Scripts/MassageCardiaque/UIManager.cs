@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     static UIManager _instance;
 
     [SerializeField]
-    private TextMeshPro _phaseLabel;
+    private TextMeshProUGUI _phaseLabel;
 
     [SerializeField]
     private Color _actionPhaseColor = Color.red;
