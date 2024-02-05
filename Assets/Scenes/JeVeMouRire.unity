@@ -310,6 +310,7 @@ MonoBehaviour:
   _moveSpeed: 2
   path: []
   isMoving: 0
+  currentAct: 0
   movePoints: 4
 --- !u!1001 &78249222
 PrefabInstance:
@@ -670,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4012485ec751dff4b81d31398fcf22bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _phaseLabel: {fileID: 0}
+  _phaseLabel: {fileID: 482060678}
   _actionPhaseColor: {r: 1, g: 0, b: 0, a: 1}
   _planificationPhaseColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &373068272
@@ -1666,6 +1667,7 @@ MonoBehaviour:
   _moveSpeed: 2
   path: []
   isMoving: 0
+  currentAct: 0
   movePoints: 4
 --- !u!136 &1122186026
 CapsuleCollider:

@@ -17,6 +17,8 @@ public class Character : MonoBehaviour
     public bool isMoving = false;
     private Cell _nextCell;
 
+    public bool currentAct = false;
+
     public int movePoints = 4;
 
 
@@ -36,6 +38,7 @@ public class Character : MonoBehaviour
 
     public void Acte()
     {
+        currentAct = true;
         if (_target != null)
         {
             Move();
@@ -102,5 +105,10 @@ public class Character : MonoBehaviour
     public Cell GetCurrentCell()
     {
         return _currentCell;
+    }
+
+    private void Action()
+    {
+        currentAct = false;
     }
 }
