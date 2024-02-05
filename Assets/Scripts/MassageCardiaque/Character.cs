@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     private Cell _currentCell;
 
     [SerializeField]
-    private float _moveSpeed;
+    private float _moveSpeed = 2f;
 
     public List<Cell> path = new List<Cell>();
     public bool isMoving = false;
@@ -56,10 +56,10 @@ public class Character : MonoBehaviour
         {
             //Rendre le mouvement smooth
 
-            transform.position = target;
+            transform.position = Vector3.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
 
-            //Sa marche pas, jsp pk:
-            //Vector3.MoveTowards(transform.position, target, _moveSpeed /** Time.deltaTime*/);
+
+
         }
         else if(_nextCell == _target)
         {
