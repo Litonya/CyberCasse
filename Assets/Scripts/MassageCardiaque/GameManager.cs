@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable)
+        if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count-1] == cell)
         {
             characterSelected.TargetCell(cell);
 
