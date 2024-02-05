@@ -43,6 +43,14 @@ public class GameManager : MonoBehaviour
             {
                 LaunchActionPhase();
             }
+            else if (characterSelected != null)
+            {
+                Cell cell = GetTargetCell();
+                if (cell != null)
+                {
+                    AddToPath(characterSelected, cell);
+                }
+            }
         }
     }
 
@@ -142,5 +150,28 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         currentGameState = GameStates.Planification;
+    }
+
+    private void AddToPath(Character character, Cell cell)
+    {
+        if (character.path.Count == 0)
+        {
+            character.path.Add(cell);
+        }
+        else if (cell.walkable && cell.currentState == Cell.CellState.isSelectable && !character.path.Contains(cell) && character.path[character.path.Count - 1].adjencyList.Contains(cell))
+        {
+            character.path.Add(cell);
+        }
+    }
+
+    private Cell GetTargetCell()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit) && hit.collider != null && hit.collider.gameObject.GetComponent<Cell>())
+        {
+            return hit.collider.gameObject.GetComponent<Cell>();
+        }
+        return null;
     }
 }
