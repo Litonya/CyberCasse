@@ -26,11 +26,16 @@ public class Cell : MonoBehaviour
 
     private void Start()
     {
-        adjencyList.Add(MapManager.instance.GetCell(gridCoordX + 1, gridCoordZ));
-        adjencyList.Add(MapManager.instance.GetCell(gridCoordX - 1, gridCoordZ));
-        adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ + 1));
-        adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ - 1));
+        if (MapManager.instance.GetCell(gridCoordX + 1, gridCoordZ) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX + 1, gridCoordZ));
+        if (MapManager.instance.GetCell(gridCoordX - 1, gridCoordZ) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX - 1, gridCoordZ));
+        if (MapManager.instance.GetCell(gridCoordX, gridCoordZ + 1) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ + 1));
+        if (MapManager.instance.GetCell(gridCoordX, gridCoordZ - 1) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ - 1));
     }
+
+    /*public void SetNeighbors(List<Cell> neighbors)
+    {
+        adjencyList = neighbors;
+    }*/
 
     public void Reset()
     {
@@ -48,9 +53,9 @@ public class Cell : MonoBehaviour
         {
             cellMat.material.color = Color.white;
         }
-        else if(currentState == CellState.isSelectable)
+        else if (currentState == CellState.isSelectable)
         {
-            cellMat.material.color= Color.magenta;
+            cellMat.material.color = Color.magenta;
         }
         else if (currentState == CellState.isSelected)
         {

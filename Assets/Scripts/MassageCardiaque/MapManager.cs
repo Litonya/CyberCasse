@@ -154,4 +154,95 @@ public class MapManager : MonoBehaviour
         }
         selectableCells.Clear();
     }
+
+
+    //ADD Liam
+
+    public List<Cell> FindPath(Cell startCell, Cell targetCell)
+    {
+        List<Cell> openSet = new List<Cell>();
+        HashSet<Cell> closedSet = new HashSet<Cell>();
+        Dictionary<Cell, Cell> cameFrom = new Dictionary<Cell, Cell>();
+        Dictionary<Cell, float> gScore = new Dictionary<Cell, float>();
+        Dictionary<Cell, float> fScore = new Dictionary<Cell, float>();
+
+        openSet.Add(startCell);
+        gScore[startCell] = 0;
+        fScore[startCell] = HeuristicCostEstimate(startCell, targetCell);
+        while (openSet.Count > 0)
+        {
+            Cell currentCell = GetLowestFScore(openSet, fScore);
+            if (currentCell == targetCell)
+            {
+                return ReconstructPath(cameFrom, targetCell);
+            }
+            
+            openSet.Remove(currentCell);
+            closedSet.Add(currentCell);
+
+            foreach (Cell neighbor in currentCell.adjencyList)
+                {
+                    if (closedSet.Contains(neighbor))
+                        continue;
+
+                    float tentativeGScore = gScore[currentCell] + DistanceBetween(currentCell, neighbor);
+
+                    if (!openSet.Contains(neighbor) || tentativeGScore < gScore[neighbor])
+                    {
+                        cameFrom[neighbor] = currentCell;
+                        gScore[neighbor] = tentativeGScore;
+                        fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, targetCell);
+
+                        if (!openSet.Contains(neighbor))
+                            openSet.Add(neighbor);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+ 
+
+    private Cell GetLowestFScore(List<Cell> openSet, Dictionary<Cell, float> fScore)
+    {
+        float lowestFScore = float.MaxValue;
+        Cell lowestCell = null;
+
+        foreach (Cell cell in openSet)
+        {
+            if (fScore.ContainsKey(cell) && fScore[cell] < lowestFScore)
+            {
+                lowestFScore = fScore[cell];
+                lowestCell = cell;
+            }
+        }
+
+        return lowestCell;
+    }
+
+    private List<Cell> ReconstructPath(Dictionary<Cell, Cell> cameFrom, Cell currentCell)
+    {
+        List<Cell> path = new List<Cell> { currentCell };
+
+        while (cameFrom.ContainsKey(currentCell))
+        {
+            currentCell = cameFrom[currentCell];
+            path.Insert(0, currentCell);
+        }
+
+        return path;
+    }
+
+    private float HeuristicCostEstimate(Cell startCell, Cell targetCell)
+    {
+        // Example: Manhattan distance heuristic
+        return Mathf.Abs(startCell.gridCoordX - targetCell.gridCoordX) + Mathf.Abs(startCell.gridCoordZ - targetCell.gridCoordZ);
+    }
+
+    private float DistanceBetween(Cell cellA, Cell cellB)
+    {
+        // Example: Euclidean distance
+        return Vector2.Distance(new Vector2(cellA.gridCoordX, cellA.gridCoordZ), new Vector2(cellB.gridCoordX, cellB.gridCoordZ));
+    }
 }

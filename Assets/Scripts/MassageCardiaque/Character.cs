@@ -5,22 +5,22 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField]
-    private float _yOffset = 1.25f;
-    private Cell _target;
+    protected float _yOffset = 1.25f;
+    protected Cell _target;
     [SerializeField]
-    private Cell _currentCell;
+    protected Cell _currentCell;
 
     [SerializeField]
-    private float _moveSpeed = 2f;
+    protected float _moveSpeed = 2f;
 
     public List<Cell> path = new List<Cell>();
     public bool isMoving = false;
-    private Cell _nextCell;
+    protected Cell _nextCell;
 
     public int movePoints = 4;
 
 
-    private void Update()
+    protected void Update()
     {
         if (isMoving)
         {
@@ -36,6 +36,12 @@ public class Character : MonoBehaviour
 
     public void Acte()
     {
+        if(path.Count == 0)
+        {
+            Debug.LogError("path array empty.");
+            return;
+        }
+
         if (_target != null)
         {
             Move();
@@ -49,8 +55,14 @@ public class Character : MonoBehaviour
         cell.SetState(Cell.CellState.isSelected);
     }
 
-    private void MoveToNextCell()
+    protected void MoveToNextCell()
     {
+        if(_nextCell == null)
+        {
+            Debug.LogError("Next Cell not found! Aborting");
+            return;
+        }
+
         Vector3 target = new Vector3(_nextCell.transform.position.x, _nextCell.transform.position.y + _yOffset, _nextCell.transform.position.z);
         if (Vector3.Distance(transform.position, target) >= 0.05f)
         {
@@ -75,14 +87,8 @@ public class Character : MonoBehaviour
 
     public void Move()
     {
-        if (_target != null)
-        {
-            isMoving = true;
-            _nextCell = path[0];
-        }
-         //Vector3 destination = new Vector3(target.transform.position.x, _yOffset, target.transform.position.z);
-         //transform.position = destination;
-         //SetCurrentCell(target);
+         isMoving = true;
+         _nextCell = path[0];
     }
 
     public void SetCurrentCell(Cell cell)
