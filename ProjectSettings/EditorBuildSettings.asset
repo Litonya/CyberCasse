@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/JeVeMouRire.unity
+    guid: 61c4af7d018206942af70b86fc748baf
   m_configObjects: {}
