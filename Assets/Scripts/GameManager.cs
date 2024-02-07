@@ -212,6 +212,18 @@ public class GameManager : MonoBehaviour
             character.path.Add(cell);
             cell.MarkPath();
         }
+        if (character.path.Count>character.movePoints + 1)
+        {
+            foreach(Cell markCell in character.path)
+            {
+                markCell.UnmarkPath();
+            }
+            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell);
+            foreach (Cell toMarkCell in character.path)
+            {
+                toMarkCell.MarkPath();
+            }
+        }
     }
 
     private Cell GetTargetCell()
