@@ -22,7 +22,10 @@ public class EnemyCharacter : Character
     {
         base.Reset();
 
-        PrepareTurnAction();
+        if (_patrolTargets.Count > 0)
+        {
+            PrepareTurnAction();
+        }
     }
 
     protected override void MoveToNextCell()
