@@ -16,6 +16,10 @@ public class EnemyCharacter : Character
         _target = fullPath[movePoints];
 
         path = fullPath.GetRange(0, movePoints + 1);
+
+        _target.SetState(CellState.isSelected);
+
+        ShowPath();
     }
 
     public override void Reset()
@@ -37,6 +41,15 @@ public class EnemyCharacter : Character
             _currentPatrolIndex++;
             if (_currentPatrolIndex >= _patrolTargets.Count) {  _currentPatrolIndex = 0; }
         }
+    }
+
+    private void ShowPath()
+    {
+        foreach (Cell cell in path)
+        {
+            cell.MarkPath();
+        }
+        
     }
 
 }
