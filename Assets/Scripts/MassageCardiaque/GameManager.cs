@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (currentGameState == GameStates.Planification)
         {
             /*---------------------------PLANIFICATION---------------------------------*/
-            //Vérifie de le temps réstant pour la phase de Planification
+            //Vï¿½rifie de le temps rï¿½stant pour la phase de Planification
             if (_timeRemain > 0)
             {
                 _timeRemain -= Time.deltaTime;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 LaunchActionPhase();
             }
 
-            //Vérifie les Inputs
+            //Vï¿½rifie les Inputs
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             {
                 LaunchActionPhase();
             }
-            //Input emplacement souris -> Si un personnage est selectionné, récupère les cellules sélectionnées survolées par la souris
+            //Input emplacement souris -> Si un personnage est selectionnï¿½, rï¿½cupï¿½re les cellules sï¿½lectionnï¿½es survolï¿½es par la souris
             else if (characterSelected != null)
             {
                 Cell cell = GetTargetCell();
