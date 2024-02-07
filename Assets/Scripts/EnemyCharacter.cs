@@ -43,13 +43,6 @@ public class EnemyCharacter : Character
         }
     }
 
-    private void ShowPath()
-    {
-        foreach (Cell cell in path)
-        {
-            cell.MarkPath();
-        }
-        
-    }
+    
 
 }

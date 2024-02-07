@@ -121,4 +121,13 @@ public class Character : MonoBehaviour
     {
         currentAct = false;
     }
+
+    protected void ShowPath()
+    {
+        foreach (Cell cell in path)
+        {
+            cell.MarkPath();
+        }
+
+    }
 }
