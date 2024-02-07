@@ -6,9 +6,28 @@ using static MapManager;
 
 public class EnemyCharacter : Character
 {
+    [SerializeField] 
+    EnemyFOV fieldOfView;
+
     [SerializeField]
     private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
+
+
+    private void Start()
+    {
+        StartCoroutine(UpdateFieldOfView());
+    }
+
+    private IEnumerator UpdateFieldOfView()
+    {
+        while (true)
+        {
+            fieldOfView.SetOrigin(transform.position);
+            fieldOfView.SetDirection(transform.forward);
+            yield return null; 
+        }
+    }
 
     public void PrepareTurnAction()
     {
@@ -51,5 +70,7 @@ public class EnemyCharacter : Character
         }
         
     }
+
+
 
 }
