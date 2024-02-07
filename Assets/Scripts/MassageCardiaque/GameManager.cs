@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentGameState = GameStates.Planification;
         _characterList = GetAllCharacters();
+        LaunchPlanificationPhase();
     }
 
     private void Update()
@@ -144,12 +144,13 @@ public class GameManager : MonoBehaviour
         {
             character.Acte();
         }
-        LaunchPlanificationPhase();
+        //LaunchPlanificationPhase();
     }
 
     private void LaunchPlanificationPhase()
     {
         currentGameState = GameStates.Planification;
+        ResetAllCharacter();
     }
 
     private void AddToPath(Character character, Cell cell)
@@ -173,5 +174,13 @@ public class GameManager : MonoBehaviour
             return hit.collider.gameObject.GetComponent<Cell>();
         }
         return null;
+    }
+
+    private void ResetAllCharacter()
+    {
+        foreach (Character character in _characterList)
+        {
+            character.Reset();
+        }
     }
 }

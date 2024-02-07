@@ -1513,9 +1513,10 @@ MonoBehaviour:
   _moveSpeed: 2
   path: []
   isMoving: 0
-  movePoints: 4
-  patrolPath:
+  movePoints: 2
+  _patrolTargets:
   - {fileID: 825935567}
+  - {fileID: 1986287081}
 --- !u!1001 &1151234996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2554,6 +2555,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5663354492122629650, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
   m_PrefabInstance: {fileID: 1986287079}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1986287081 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+  m_PrefabInstance: {fileID: 1986287079}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35cbd2c56929344faf8b9d4a7bc0f3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2073758867
 GameObject:
   m_ObjectHideFlags: 0

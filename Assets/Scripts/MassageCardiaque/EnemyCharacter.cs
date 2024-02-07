@@ -7,12 +7,33 @@ using static MapManager;
 public class EnemyCharacter : Character
 {
     [SerializeField]
-    private List<Cell> _patrolPath;
+    private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
 
-    private void Start()
+    public void PrepareTurnAction()
     {
-        path = MapManager.instance.FindPath(_currentCell, _patrolPath[0]);
+        List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
+        _target = fullPath[movePoints];
+
+        path = fullPath.GetRange(0, movePoints + 1);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+
+        PrepareTurnAction();
+    }
+
+    protected override void MoveToNextCell()
+    {
+        base.MoveToNextCell();
+
+        if (_currentCell == _patrolTargets[_currentPatrolIndex])
+        {
+            _currentPatrolIndex++;
+            if (_currentPatrolIndex >= _patrolTargets.Count) {  _currentPatrolIndex = 0; }
+        }
     }
 
 }

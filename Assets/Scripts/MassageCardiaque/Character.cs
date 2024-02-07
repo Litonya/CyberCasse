@@ -28,10 +28,11 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         _target = null;
         path.Clear();
+        path.Add(_currentCell);
     }
 
     public void Acte()
@@ -55,7 +56,7 @@ public class Character : MonoBehaviour
         cell.SetState(Cell.CellState.isSelected);
     }
 
-    protected void MoveToNextCell()
+    protected virtual void MoveToNextCell()
     {
         if(_nextCell == null)
         {
@@ -76,6 +77,7 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
+            SetCurrentCell(_nextCell);
         }
         else
         {
