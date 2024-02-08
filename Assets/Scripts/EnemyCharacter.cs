@@ -13,20 +13,21 @@ public class EnemyCharacter : Character
     public void PrepareTurnAction()
     {
         List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
-        int index = movePoints;
-        
-        //Vérifie la présence d'une autre cible ou non au bout du chemin
-        while (fullPath[index].occupant != null)
-        {
-            index--;
-            if (index <= 0) { break; } //S'il ne reste que l'origine alors on arrête et le NPC ne bougera donc pas
-        }
 
-        _target = fullPath[index];
-        
-        if(index > 0) { path = fullPath.GetRange(0, index + 1);} //On vérifie si le NPC bouge effectivement
-        else { path.Add(_currentCell); }
-        
+        //Initialise le chemin en utilisant la case actuelle du NPC
+        path.Add(_currentCell);
+        _target = _currentCell;
+
+        //Parcours le chemin le plus cours jusqu'à la case en vérifiant que personne ne se trouve sur sa route pour le moment
+        for (int i = 1; i <= movePoints && i < fullPath.Count; i++)
+        {
+            if (fullPath[i].occupant != null) { break; }
+            else 
+            { 
+                path.Add(fullPath[i]); 
+                _target = fullPath[i];
+            }
+        }
 
         _target.SetState(CellState.isSelected);
 
