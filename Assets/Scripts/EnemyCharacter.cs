@@ -8,10 +8,14 @@ public class EnemyCharacter : Character
 {
     [SerializeField] 
     EnemyFOV fieldOfView;
-
+    [SerializeField]
+    PlayerCharacter player;
     [SerializeField]
     private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
+    private Direction _direction = Direction.North;
+    [SerializeField]
+    private Cell cellDirection;
 
 
     private void Start()
@@ -19,22 +23,60 @@ public class EnemyCharacter : Character
         StartCoroutine(UpdateFieldOfView());
     }
 
+    enum Direction
+    {
+        North,
+        West,
+        East,
+        South
+    }
+
     private IEnumerator UpdateFieldOfView()
     {
         while (true)
         {
             fieldOfView.SetOrigin(transform.position);
-            fieldOfView.SetDirection(transform.forward);
+
+            switch(_direction)
+            {
+                case Direction.North:
+                    fieldOfView.SetDirection(transform.forward);
+                    break;
+                case Direction.South:
+                    fieldOfView.SetDirection(-transform.forward);
+                    break;
+                case Direction.West:
+                    fieldOfView.SetDirection(transform.right);
+                    break;
+                case Direction.East:
+                    fieldOfView.SetDirection(-transform.right);
+                    break;
+                default:
+                    break;
+            }
+
+            Debug.Log(fieldOfView.IsTarget);
             yield return null; 
         }
     }
 
     public void PrepareTurnAction()
     {
-        List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
-        _target = fullPath[movePoints];
 
-        path = fullPath.GetRange(0, movePoints + 1);
+        if (fieldOfView.IsTarget) // Joueur detecté
+        {
+            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
+            _target = fullPath[movePoints];
+
+            path = fullPath.GetRange(0, movePoints + 1);
+        }
+        else
+        {
+            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
+            _target = fullPath[movePoints];
+
+            path = fullPath.GetRange(0, movePoints + 1);
+        }
 
         _target.SetState(CellState.isSelected);
 
@@ -54,6 +96,23 @@ public class EnemyCharacter : Character
     protected override void MoveToNextCell()
     {
         base.MoveToNextCell();
+        if (_nextCell != null)
+        {
+            cellDirection.gridCoordX = _nextCell.gridCoordX - _currentCell.gridCoordX;
+            cellDirection.gridCoordZ = _nextCell.gridCoordZ - _currentCell.gridCoordZ;
+
+            // Debug.Log(cellDirection.gridCoordX);
+
+            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == 1)
+                _direction = Direction.North;
+            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == -1)
+                _direction = Direction.South;
+            if (cellDirection.gridCoordX == 1 && cellDirection.gridCoordZ == 0)
+                _direction = Direction.West;
+            if (cellDirection.gridCoordX == -1 && cellDirection.gridCoordZ == 0)
+                _direction = Direction.East;
+
+        }
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
         {

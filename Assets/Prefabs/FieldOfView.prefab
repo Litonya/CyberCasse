@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4209cc916496be74ab48b04887a1b25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshFilter: {fileID: 0}
+  meshFilter: {fileID: 6428819693069505428}
   rayCount: 2
   fieldOfView: 90
   distance: 50
