@@ -181,8 +181,8 @@ public class MapManager : MonoBehaviour
             closedSet.Add(currentCell);
 
             foreach (Cell neighbor in currentCell.adjencyList)
-                // on vérifie si la case voisine est walkable et s'il n'y personne sur cette case
-                if(neighbor.walkable == true /* && neighbor.occupant == null */) { 
+                // on vérifie si la case voisine est walkable
+                if(neighbor.walkable == true) {
                     {
                         if (closedSet.Contains(neighbor))
                             continue;
