@@ -127,6 +127,4 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 2
-  _patrolTargets:
-  - {fileID: 0}
-  - {fileID: 0}
+  _patrolTargets: []
