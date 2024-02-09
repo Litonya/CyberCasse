@@ -120,24 +120,25 @@ public class EnemyCharacter : Character
             List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
             _target = fullPath[movePoints];
 
-        //Initialise le chemin en utilisant la case actuelle du NPC
-        path.Add(_currentCell);
-        _target = _currentCell;
+            //Initialise le chemin en utilisant la case actuelle du NPC
+            path.Add(_currentCell);
+            _target = _currentCell;
 
-        //Parcours le chemin le plus cours jusqu'à la case en vérifiant que personne ne se trouve sur sa route pour le moment
-        for (int i = 1; i <= movePoints && i < fullPath.Count; i++)
-        {
-            if (fullPath[i].occupant != null) { break; }
-            else 
-            { 
-                path.Add(fullPath[i]); 
-                _target = fullPath[i];
+            //Parcours le chemin le plus cours jusqu'à la case en vérifiant que personne ne se trouve sur sa route pour le moment
+            for (int i = 1; i <= movePoints && i < fullPath.Count; i++)
+            {
+                if (fullPath[i].occupant != null) { break; }
+                else
+                {
+                    path.Add(fullPath[i]);
+                    _target = fullPath[i];
+                }
             }
+
+            _target.SetState(CellState.isSelected);
+
+            ShowPath();
         }
-
-        _target.SetState(CellState.isSelected);
-
-        ShowPath();
     }
 
     public override void Reset()
