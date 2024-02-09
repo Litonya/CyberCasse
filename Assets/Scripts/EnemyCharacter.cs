@@ -16,12 +16,57 @@ public class EnemyCharacter : Character
     private Direction _direction = Direction.North;
     [SerializeField]
     private Cell cellDirection;
+    [SerializeField]
+    public GuardState guardState;
 
 
     private void Start()
     {
         StartCoroutine(UpdateFieldOfView());
+        StartCoroutine(GererEtatGarde());
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////// STATE MACHINE GUARD ///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    public enum GuardState
+    {
+        Patrol,
+        Chasing
+    }
+
+    IEnumerator GererEtatGarde()
+    {
+        while (true)
+        {
+            switch (guardState)
+            {
+                case GuardState.Patrol:
+                    Debug.Log("En patrouille");
+                    yield return new WaitForSeconds(1f);
+                    break;
+                case GuardState.Chasing:
+
+                    Debug.Log("En Chasse");
+                    yield return new WaitForSeconds(1f); 
+                    break;
+            }
+
+            if (fieldOfView.IsTarget)
+            {
+                guardState = GuardState.Chasing;
+            }
+            else
+            {
+                guardState = GuardState.Patrol;
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+
 
     enum Direction
     {
@@ -63,7 +108,7 @@ public class EnemyCharacter : Character
     public void PrepareTurnAction()
     {
 
-        if (fieldOfView.IsTarget) // Joueur detecté
+        if (guardState == GuardState.Chasing) // Joueur detecté
         {
             List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
             _target = fullPath[movePoints];
