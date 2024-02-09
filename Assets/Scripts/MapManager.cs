@@ -17,6 +17,8 @@ public class MapManager : MonoBehaviour
     private int _mapXSize;
     [SerializeField]
     private int _mapZSize;
+
+    public GameObject[] cellArrayTemp;
     
 
     private void Awake()
@@ -40,6 +42,7 @@ public class MapManager : MonoBehaviour
     {
         //Récupére toutes les cellules de la scène
         GameObject[] cellList = GameObject.FindGameObjectsWithTag("Tile");
+        cellArrayTemp = cellList;
 
         //Place les cellules dans le champs _logicalMap selon leurs coords
         foreach (GameObject cell in cellList)
@@ -99,7 +102,7 @@ public class MapManager : MonoBehaviour
         {
             return _logicalMap[x, z];
         }
-        Debug.LogWarning("Try to get Cell out of map");
+        //Debug.LogWarning("Try to get Cell out of map");
         return null;
     }
 

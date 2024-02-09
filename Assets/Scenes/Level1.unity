@@ -1174,6 +1174,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3314862889375624292, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      propertyPath: gridCoordX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314862889375624292, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      propertyPath: gridCoordZ
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8477332558987522037, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1218,7 +1226,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4534490879311300478, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4295248086487962617, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 669057190}
   m_SourcePrefab: {fileID: 100100000, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
 --- !u!4 &319354947 stripped
 Transform:
@@ -3052,6 +3063,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d305b9f37c179b140b30fdd7427615b5, type: 3}
+--- !u!1 &669057184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4295248086487962617, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+  m_PrefabInstance: {fileID: 319354946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &669057190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669057184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bbf0bf615f2274cbed30943fac04c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &670490462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5572,6 +5600,7 @@ MonoBehaviour:
   selectableCells: []
   _mapXSize: 64
   _mapZSize: 30
+  cellArrayTemp: []
 --- !u!4 &1518833729
 Transform:
   m_ObjectHideFlags: 0
