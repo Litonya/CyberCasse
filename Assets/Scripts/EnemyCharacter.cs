@@ -24,6 +24,7 @@ public class EnemyCharacter : Character
     {
         StartCoroutine(UpdateFieldOfView());
         StartCoroutine(GererEtatGarde());
+        cellDirection = _currentCell;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,12 +43,12 @@ public class EnemyCharacter : Character
             switch (guardState)
             {
                 case GuardState.Patrol:
-                    Debug.Log("En patrouille");
+                    //Debug.Log("En patrouille");
                     yield return new WaitForSeconds(1f);
                     break;
                 case GuardState.Chasing:
 
-                    Debug.Log("En Chasse");
+                    //Debug.Log("En Chasse");
                     yield return new WaitForSeconds(1f); 
                     break;
             }
@@ -100,7 +101,7 @@ public class EnemyCharacter : Character
                     break;
             }
 
-            Debug.Log(fieldOfView.IsTarget);
+            //Debug.Log(fieldOfView.IsTarget);
             yield return null; 
         }
     }
@@ -108,37 +109,22 @@ public class EnemyCharacter : Character
     public void PrepareTurnAction()
     {
 
+        List<Cell> fullPath = new List<Cell>();
+
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
-            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
-            _target = fullPath[movePoints];
-
-            path = fullPath.GetRange(0, movePoints + 1);
+            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
         }
         else
         {
-            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
-            _target = fullPath[movePoints];
-
-            //Initialise le chemin en utilisant la case actuelle du NPC
-            path.Add(_currentCell);
-            _target = _currentCell;
-
-            //Parcours le chemin le plus cours jusqu'à la case en vérifiant que personne ne se trouve sur sa route pour le moment
-            for (int i = 1; i <= movePoints && i < fullPath.Count; i++)
-            {
-                if (fullPath[i].occupant != null) { break; }
-                else
-                {
-                    path.Add(fullPath[i]);
-                    _target = fullPath[i];
-                }
-            }
-
-            _target.SetState(CellState.isSelected);
-
-            ShowPath();
+            fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
         }
+
+        _target = fullPath[movePoints];
+        path = fullPath.GetRange(0, movePoints + 1);
+
+        _target.SetState(CellState.isSelected);
+        ShowPath();
     }
 
     public override void Reset()
@@ -159,7 +145,7 @@ public class EnemyCharacter : Character
             cellDirection.gridCoordX = _nextCell.gridCoordX - _currentCell.gridCoordX;
             cellDirection.gridCoordZ = _nextCell.gridCoordZ - _currentCell.gridCoordZ;
 
-            // Debug.Log(cellDirection.gridCoordX);
+            //Debug.Log(cellDirection.gridCoordX);
 
             if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == 1)
                 _direction = Direction.North;

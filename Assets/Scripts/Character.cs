@@ -103,7 +103,6 @@ public class Character : MonoBehaviour
 
     public void SetCurrentCell(Cell cell)
     {
-        Debug.Log("Character = " + this);
         if (_currentCell != null)
         {
             _currentCell.occupant = null;
