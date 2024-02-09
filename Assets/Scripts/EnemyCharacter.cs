@@ -6,13 +6,119 @@ using static MapManager;
 
 public class EnemyCharacter : Character
 {
+    [SerializeField] 
+    EnemyFOV fieldOfView;
+    [SerializeField]
+    PlayerCharacter player;
     [SerializeField]
     private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
+    private Direction _direction = Direction.North;
+    [SerializeField]
+    private Cell cellDirection;
+    [SerializeField]
+    public GuardState guardState;
+
+
+    private void Start()
+    {
+        StartCoroutine(UpdateFieldOfView());
+        StartCoroutine(GererEtatGarde());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////// STATE MACHINE GUARD ///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    public enum GuardState
+    {
+        Patrol,
+        Chasing
+    }
+
+    IEnumerator GererEtatGarde()
+    {
+        while (true)
+        {
+            switch (guardState)
+            {
+                case GuardState.Patrol:
+                    Debug.Log("En patrouille");
+                    yield return new WaitForSeconds(1f);
+                    break;
+                case GuardState.Chasing:
+
+                    Debug.Log("En Chasse");
+                    yield return new WaitForSeconds(1f); 
+                    break;
+            }
+
+            if (fieldOfView.IsTarget)
+            {
+                guardState = GuardState.Chasing;
+            }
+            else
+            {
+                guardState = GuardState.Patrol;
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+
+
+    enum Direction
+    {
+        North,
+        West,
+        East,
+        South
+    }
+
+    private IEnumerator UpdateFieldOfView()
+    {
+        while (true)
+        {
+            fieldOfView.SetOrigin(transform.position);
+
+            switch(_direction)
+            {
+                case Direction.North:
+                    fieldOfView.SetDirection(transform.forward);
+                    break;
+                case Direction.South:
+                    fieldOfView.SetDirection(-transform.forward);
+                    break;
+                case Direction.West:
+                    fieldOfView.SetDirection(transform.right);
+                    break;
+                case Direction.East:
+                    fieldOfView.SetDirection(-transform.right);
+                    break;
+                default:
+                    break;
+            }
+
+            Debug.Log(fieldOfView.IsTarget);
+            yield return null; 
+        }
+    }
 
     public void PrepareTurnAction()
     {
-        List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
+
+        if (guardState == GuardState.Chasing) // Joueur detecté
+        {
+            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
+            _target = fullPath[movePoints];
+
+            path = fullPath.GetRange(0, movePoints + 1);
+        }
+        else
+        {
+            List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
+            _target = fullPath[movePoints];
 
         //Initialise le chemin en utilisant la case actuelle du NPC
         path.Add(_currentCell);
@@ -47,6 +153,23 @@ public class EnemyCharacter : Character
     protected override void MoveToNextCell()
     {
         base.MoveToNextCell();
+        if (_nextCell != null)
+        {
+            cellDirection.gridCoordX = _nextCell.gridCoordX - _currentCell.gridCoordX;
+            cellDirection.gridCoordZ = _nextCell.gridCoordZ - _currentCell.gridCoordZ;
+
+            // Debug.Log(cellDirection.gridCoordX);
+
+            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == 1)
+                _direction = Direction.North;
+            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == -1)
+                _direction = Direction.South;
+            if (cellDirection.gridCoordX == 1 && cellDirection.gridCoordZ == 0)
+                _direction = Direction.West;
+            if (cellDirection.gridCoordX == -1 && cellDirection.gridCoordZ == 0)
+                _direction = Direction.East;
+
+        }
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
         {
@@ -56,5 +179,7 @@ public class EnemyCharacter : Character
     }
 
     
+
+
 
 }
