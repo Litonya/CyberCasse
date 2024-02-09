@@ -193,6 +193,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchPlanificationPhase()
     {
+        Debug.Log("Launch Planification phase");
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;

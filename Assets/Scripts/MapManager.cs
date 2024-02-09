@@ -88,7 +88,6 @@ public class MapManager : MonoBehaviour
             {
                 int posX = (int)character.transform.position.x;
                 int posZ = (int)character.transform.position.z;
-                Debug.Log("jevekané");
                 characterScript.SetCurrentCell(GetCell(posX, posZ));
                 
             }

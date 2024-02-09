@@ -132,9 +132,7 @@ MonoBehaviour:
   movePoints: 2
   fieldOfView: {fileID: 8483418035100787567}
   player: {fileID: 0}
-  _patrolTargets:
-  - {fileID: 0}
-  - {fileID: 0}
+  _patrolTargets: []
   cellDirection: {fileID: 0}
   guardState: 0
 --- !u!1 &3071496306009638339
