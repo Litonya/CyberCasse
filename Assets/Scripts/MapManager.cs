@@ -176,25 +176,27 @@ public class MapManager : MonoBehaviour
             {
                 return ReconstructPath(cameFrom, targetCell);
             }
-            
+
             openSet.Remove(currentCell);
             closedSet.Add(currentCell);
 
             foreach (Cell neighbor in currentCell.adjencyList)
-                {
-                    if (closedSet.Contains(neighbor))
-                        continue;
-
-                    float tentativeGScore = gScore[currentCell] + DistanceBetween(currentCell, neighbor);
-
-                    if (!openSet.Contains(neighbor) || tentativeGScore < gScore[neighbor])
+                if(neighbor.walkable == true && neighbor.occupant == null) { 
                     {
-                        cameFrom[neighbor] = currentCell;
-                        gScore[neighbor] = tentativeGScore;
-                        fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, targetCell);
+                        if (closedSet.Contains(neighbor))
+                            continue;
 
-                        if (!openSet.Contains(neighbor))
-                            openSet.Add(neighbor);
+                        float tentativeGScore = gScore[currentCell] + DistanceBetween(currentCell, neighbor);
+
+                        if (!openSet.Contains(neighbor) || tentativeGScore < gScore[neighbor])
+                        {
+                            cameFrom[neighbor] = currentCell;
+                            gScore[neighbor] = tentativeGScore;
+                            fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, targetCell);
+
+                            if (!openSet.Contains(neighbor))
+                                openSet.Add(neighbor);
+                        }
                     }
                 }
             }
