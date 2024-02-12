@@ -28,6 +28,7 @@ public class EnemyCharacter : Character
         StartCoroutine(UpdateFieldOfView());
         StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
+        _patrolTargets.Add(_currentCell);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
