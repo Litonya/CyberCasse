@@ -12,12 +12,15 @@ public class EnemyCharacter : Character
     PlayerCharacter player;
     [SerializeField]
     private List<Cell> _patrolTargets;
+    [SerializeField]
     private int _currentPatrolIndex = 0;
     private Direction _direction = Direction.North;
     [SerializeField]
     private Cell cellDirection;
     [SerializeField]
     public GuardState guardState;
+
+    public List<Cell> testPath = new List<Cell>();
 
 
     private void Start()
@@ -120,8 +123,17 @@ public class EnemyCharacter : Character
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
         }
 
-        _target = fullPath[movePoints];
-        path = fullPath.GetRange(0, movePoints + 1);
+        testPath = fullPath;
+
+        foreach (Cell cell in fullPath)
+        {
+            if (path.Count > _moveSpeed + 1)
+            {
+                break;
+            }
+            path.Add(cell);
+        }
+        _target = path[path.Count-1];
 
         _target.SetState(CellState.isSelected);
         ShowPath();
