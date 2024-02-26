@@ -100,7 +100,7 @@ public class EnemyCharacter : Character
                     break;
             }
 
-            Debug.Log(fieldOfView.IsTarget);
+            // Debug.Log(fieldOfView.IsTarget);
             yield return null; 
         }
     }

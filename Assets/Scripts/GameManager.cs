@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     private float _timeRemain;
 
+    //Context menu
+
+
     private void Awake()
     {
         if (_instance != null)
@@ -109,7 +112,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("A PlayerCharacter is clicked");
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
-                }else if (hit.collider.gameObject.GetComponent<Cell>())
+                } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
@@ -125,7 +128,8 @@ public class GameManager : MonoBehaviour
         if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count-1] == cell)
         {
             characterSelected.TargetCell(cell);
-
+            UIManager.instance.SetSelectedCell(cell);
+            UIManager.instance.SetUIActionMenuON();
             Unselect();
         }
     }

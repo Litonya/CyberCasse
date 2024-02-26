@@ -22,6 +22,8 @@ public class Cell : MonoBehaviour
 
     public List<Cell> adjencyList = new List<Cell>();
 
+    private UIManager uiManager;
+
     private void Awake()
     {
         SetState(CellState.Idle);
@@ -43,6 +45,18 @@ public class Cell : MonoBehaviour
         if (MapManager.instance.GetCell(gridCoordX - 1, gridCoordZ) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX - 1, gridCoordZ));
         if (MapManager.instance.GetCell(gridCoordX, gridCoordZ + 1) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ + 1));
         if (MapManager.instance.GetCell(gridCoordX, gridCoordZ - 1) != null) adjencyList.Add(MapManager.instance.GetCell(gridCoordX, gridCoordZ - 1));
+
+        uiManager = FindObjectOfType<UIManager>();
+
+        if (uiManager == null)
+        {
+            Debug.LogError("UI Manager non trouvé dans la scène !");
+        }
+    }
+
+    void Update()
+    {
+        Vector3 cellPosition = new Vector3(gridCoordX, 0.5f, gridCoordZ);
     }
 
     /*public void SetNeighbors(List<Cell> neighbors)

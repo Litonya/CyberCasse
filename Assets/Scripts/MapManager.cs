@@ -110,7 +110,7 @@ public class MapManager : MonoBehaviour
         {
             foreach (Cell cell in origin.adjencyList)
             {
-                Debug.Log(cell);
+                // Debug.Log(cell);
                 if (cell != null && cell.walkable && cell.currentState == Cell.CellState.Idle)
                 {
                     cells.Add(cell);
