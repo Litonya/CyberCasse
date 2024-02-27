@@ -118,20 +118,40 @@ public class UIManager : MonoBehaviour
             ActionMenuItem attackAction = _actionMenu.transform.Find("AttackAction").GetComponent<ActionMenuItem>();
             attackAction.gameObject.SetActive(adjacentEnemyFound);
 
+            // Vérifier si la cellule sélectionnée est adjacente à une porte
+            bool isAdjacentToDoor = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.TryGetComponent(out Door door));
+
+            // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
+            _actionMenu.transform.Find("OpenDoorAction").gameObject.SetActive(isAdjacentToDoor);
+
+            // Activer l'action "Observer"
+            _actionMenu.transform.Find("ObserveDoorAction").gameObject.SetActive(isAdjacentToDoor);
+
         }
     }
 
     // Méthode appelée lorsqu'une action est sélectionnée dans le menu
-    public void OnActionSelected()
+    public void OnOpenDoorSelected()
     {
-        // Exécuter l'action sélectionnée
-        // Par exemple :
-        // selectedCell.ExecuteSelectedAction();
+        // Si la cellule sélectionnée est adjacente à une porte, ouvrir la porte
+        Door door = selectedCell.adjencyList.FirstOrDefault(adjacentCell => adjacentCell.TryGetComponent(out Door doorComponent))?.GetComponent<Door>();
+        if (door != null && door.IsClosed())
+        {
+            door.OpenDoor();
+        }
 
         // Faire disparaître le menu
         SetUIActionMenuOFF();
     }
 
+    // Méthode appelée lorsqu'on sélectionne l'action "Observer" dans le menu
+    public void OnObserveDoorSelected()
+    {
+        // Implémentez le comportement d'observation de la porte ici
+        Debug.Log("Observing the door.");
 
+        // Faire disparaître le menu
+        SetUIActionMenuOFF();
+    }
 }
 
