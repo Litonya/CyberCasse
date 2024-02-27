@@ -135,6 +135,7 @@ MonoBehaviour:
   _patrolTargets: []
   cellDirection: {fileID: 0}
   guardState: 0
+  loopingPatrol: 1
 --- !u!1 &3071496306009638339
 GameObject:
   m_ObjectHideFlags: 0

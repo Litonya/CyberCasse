@@ -19,6 +19,8 @@ public class EnemyCharacter : Character
     [SerializeField]
     public GuardState guardState;
     public bool loopingPatrol;
+    
+    private bool _goBackOnPath = false;
 
 
     private void Start()
@@ -26,7 +28,7 @@ public class EnemyCharacter : Character
         StartCoroutine(UpdateFieldOfView());
         StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
-        _patrolTargets.Add(_currentCell);
+        //_patrolTargets.Add(_currentCell);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +146,25 @@ public class EnemyCharacter : Character
 
     private void NormalPatrol()
     {
-
+        if (!_goBackOnPath)
+        {
+            _currentPatrolIndex++;
+            if (_currentPatrolIndex >= _patrolTargets.Count)
+            {
+                _currentPatrolIndex = _patrolTargets.Count-2;
+                _goBackOnPath = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Back");
+            _currentPatrolIndex--;
+            if(_currentPatrolIndex < 0)
+            {
+                _currentPatrolIndex = 1;
+                _goBackOnPath = false;
+            }
+        }
     }
 
     public override void Reset()
