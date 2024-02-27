@@ -13,6 +13,7 @@ public class EnemyCharacter : Character
     [SerializeField]
     private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
+    [SerializeField]
     private Direction _direction = Direction.North;
     [SerializeField]
     private Cell cellDirection;
