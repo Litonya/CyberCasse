@@ -18,6 +18,9 @@ public class EnemyCharacter : Character
     private Cell cellDirection;
     [SerializeField]
     public GuardState guardState;
+    public bool loopingPatrol;
+    
+    private bool _goBackOnPath = false;
 
 
     private void Start()
@@ -25,7 +28,7 @@ public class EnemyCharacter : Character
         StartCoroutine(UpdateFieldOfView());
         StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
-        _patrolTargets.Add(_currentCell);
+        //_patrolTargets.Add(_currentCell);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,6 +138,35 @@ public class EnemyCharacter : Character
         ShowPath();
     }
 
+    private void LoopPatrol()
+    {
+        _currentPatrolIndex++;
+        if (_currentPatrolIndex >= _patrolTargets.Count) _currentPatrolIndex = 0;
+    }
+
+    private void NormalPatrol()
+    {
+        if (!_goBackOnPath)
+        {
+            _currentPatrolIndex++;
+            if (_currentPatrolIndex >= _patrolTargets.Count)
+            {
+                _currentPatrolIndex = _patrolTargets.Count-2;
+                _goBackOnPath = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Back");
+            _currentPatrolIndex--;
+            if(_currentPatrolIndex < 0)
+            {
+                _currentPatrolIndex = 1;
+                _goBackOnPath = false;
+            }
+        }
+    }
+
     public override void Reset()
     {
         base.Reset();
@@ -168,8 +200,14 @@ public class EnemyCharacter : Character
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
         {
-            _currentPatrolIndex++;
-            if (_currentPatrolIndex >= _patrolTargets.Count) {  _currentPatrolIndex = 0; }
+            if (loopingPatrol)
+            {
+                LoopPatrol();
+            }
+            else
+            {
+                NormalPatrol();
+            }
         }
     }
 
