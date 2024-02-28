@@ -1,26 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Transform mainCameraTransform;
+
     void Start()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.flipX = true;
+        mainCameraTransform = Camera.main.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        RotateUnitSprite();
-    }
+        // Aligner la rotation du sprite avec celle de la caméra
+        transform.LookAt(transform.position + mainCameraTransform.forward, mainCameraTransform.up);
 
-    public void RotateUnitSprite()
-    {
-        Vector3 targetVector = Camera.main.transform.position - transform.position;
-        float newYAngle = Mathf.Atan2(targetVector.z, targetVector.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(-50, /* 2 * newYAngle */ 180, 0);
+        // Fixer la rotation sur l'axe X à 50 degrés
+        Vector3 eulerAngles = transform.eulerAngles;
+        eulerAngles.x = 50f;
+        transform.eulerAngles = eulerAngles;
     }
 }
