@@ -8594,7 +8594,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 3
   zoomSpeed: 5
-  yRotationSpeed: 2
+  yRotationSpeed: 0.5
 --- !u!114 &655907750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10745,7 +10745,7 @@ Transform:
   m_GameObject: {fileID: 882192724}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: -0.26666674, z: 0.080000564}
+  m_LocalPosition: {x: 0, y: -0.441, z: 0.226}
   m_LocalScale: {x: 1.3333334, y: 1.3333333, z: 1.3333333}
   m_ConstrainProportionsScale: 0
   m_Children: []
