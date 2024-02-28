@@ -4,6 +4,9 @@ using UnityEngine;
 using static Cell;
 using static MapManager;
 
+
+
+
 public class EnemyCharacter : Character
 {
     [SerializeField] 
@@ -26,7 +29,6 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        StartCoroutine(UpdateFieldOfView());
         StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
         //_patrolTargets.Add(_currentCell);
@@ -74,42 +76,7 @@ public class EnemyCharacter : Character
     //////////////////////////////////////////////////////////////////////////////////////
 
 
-    enum Direction
-    {
-        North,
-        West,
-        East,
-        South
-    }
-
-    private IEnumerator UpdateFieldOfView()
-    {
-        while (true)
-        {
-            fieldOfView.SetOrigin(transform.position);
-
-            switch(_direction)
-            {
-                case Direction.North:
-                    fieldOfView.SetDirection(transform.forward);
-                    break;
-                case Direction.South:
-                    fieldOfView.SetDirection(-transform.forward);
-                    break;
-                case Direction.West:
-                    fieldOfView.SetDirection(transform.right);
-                    break;
-                case Direction.East:
-                    fieldOfView.SetDirection(-transform.right);
-                    break;
-                default:
-                    break;
-            }
-
-            //Debug.Log(fieldOfView.IsTarget);
-            yield return null; 
-        }
-    }
+    
 
     public void PrepareTurnAction()
     {
