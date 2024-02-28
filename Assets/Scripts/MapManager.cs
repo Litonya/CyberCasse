@@ -1,9 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+
+public enum Direction
+{
+    North,
+    West,
+    East,
+    South
+}
 
 public class MapManager : MonoBehaviour
 {
@@ -20,6 +30,13 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
     
+    enum Side
+    {
+        LEFT,
+        RIGHT,
+        BACK
+    }
+
 
     private void Awake()
     {
@@ -124,6 +141,24 @@ public class MapManager : MonoBehaviour
         return cells;
     }
 
+    public Vector3 DirectionToVector3 (Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.North:
+                return Vector3.forward;
+            case Direction.South:
+                return Vector3.back;
+            case Direction.East:
+                return Vector3.right;
+            case Direction.West:
+                return Vector3.left;
+            default:
+                Debug.LogError("Can't convert null Direction into Vector3");
+                return Vector3.zero;
+        }
+    }
+
     public void ResetAllCells()
     {
         foreach (Cell cell in _logicalMap)
@@ -155,6 +190,94 @@ public class MapManager : MonoBehaviour
             }
         }
         selectableCells.Clear();
+    }
+
+    public List<Cell> GetSightOfView(Direction direction,Cell origin, int range)
+    {
+        List<Cell> visibleCells = new List<Cell>();
+        Cell lookingCell = GetAdjacentCell(direction, origin);
+        if (lookingCell != null && lookingCell.seeThrough && range>0) 
+        {
+            visibleCells.Add(lookingCell);
+            visibleCells.AddRange(RecursiveSightOfView(direction, lookingCell, range - 1));
+            visibleCells = visibleCells.Distinct().ToList();
+        }
+        return visibleCells;
+    }
+
+    private List<Cell> RecursiveSightOfView(Direction direction, Cell origin, int range)
+    {
+        List<Cell> visibleCells = new List<Cell>();
+        Cell looking = GetAdjacentCell(direction, origin);
+
+        if (looking !=null && looking.seeThrough && range > 0)
+        {
+            visibleCells.Add(looking);
+            Cell leftCell = GetAdjacentCell(GetDirectionSide(direction, Side.LEFT), origin);
+            visibleCells.AddRange(RecursiveSightOfView(direction, leftCell, range - 1));
+
+            Cell rightCell = GetAdjacentCell(GetDirectionSide(direction,Side.RIGHT), origin);
+            visibleCells.AddRange(RecursiveSightOfView(direction, rightCell, range -1));
+
+            visibleCells = visibleCells.Distinct().ToList();
+        }
+        return visibleCells;
+    }
+
+    private Direction GetDirectionSide(Direction direction, Side side)
+    {
+        switch(direction)
+        {
+            case Direction.North:
+                if (side == Side.LEFT) return Direction.West;
+                if (side == Side.RIGHT) return Direction.East;
+                if (side == Side.BACK) return Direction.South;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.South:
+                if(side == Side.LEFT) return Direction.East;
+                if (side==Side.RIGHT) return Direction.West;
+                if (side == Side.BACK) return Direction.North;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.West:
+                if (side == Side.LEFT) return Direction.North;
+                if (side == Side.RIGHT) return Direction.South;
+                if (side == Side.BACK) return Direction.East;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.East:
+                if (side == Side.LEFT) return Direction.South;
+                if (side == Side.RIGHT) return Direction.North;
+                if (side == Side.BACK) return Direction.West;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            default:
+                 Debug.LogError("null Direction can't have sides");
+                 return Direction.North;
+        }
+    }
+
+    public Cell GetAdjacentCell(Direction direction,Cell origin)
+    {
+        Vector3 adjacentCellPos = origin.transform.position + DirectionToVector3(direction);
+        foreach (Cell cell in origin.adjencyList)
+        {
+            if (cell.transform.position == adjacentCellPos) return cell;
+        }
+        return null;
     }
 
 

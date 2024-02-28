@@ -14,6 +14,7 @@ public class Cell : MonoBehaviour
     public Character occupant;
 
     public bool walkable;
+    public bool seeThrough = true;
 
     public bool isVisited = false;
 
