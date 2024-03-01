@@ -43,7 +43,7 @@ public class FreeLookCameraController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.E) || Input.GetMouseButton(1))
         {
-            target = null;
+            SetTarget(null);
             float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
             transform.Rotate(Vector3.up, mouseX, Space.World);
         }
