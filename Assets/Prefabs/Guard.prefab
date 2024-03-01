@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 956718762963003260}
   - component: {fileID: 7128495088795336153}
   - component: {fileID: 8406581677778715408}
+  - component: {fileID: 2047914941698884458}
   m_Layer: 7
   m_Name: Guard
   m_TagString: NPC
@@ -130,12 +131,26 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 2
-  fieldOfView: {fileID: 8483418035100787567}
   player: {fileID: 0}
   _patrolTargets: []
+  _direction: 0
   cellDirection: {fileID: 0}
   guardState: 0
   loopingPatrol: 1
+--- !u!114 &2047914941698884458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2562765368539036645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f220e3967d1c845a530338f018f924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _range: 7
+  _triggerViewObjectPrefab: {fileID: 2124073927835179713, guid: cacd2d6af1f52544386ef44d3cd1d1ce, type: 3}
 --- !u!1 &3071496306009638339
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,17 +451,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69139908be52c2141b67194ab23443e6, type: 3}
---- !u!114 &8483418035100787567 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4888748012366988183, guid: 69139908be52c2141b67194ab23443e6, type: 3}
-  m_PrefabInstance: {fileID: 3919105478559998200}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4209cc916496be74ab48b04887a1b25b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8483418035100787568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4888748012366988168, guid: 69139908be52c2141b67194ab23443e6, type: 3}

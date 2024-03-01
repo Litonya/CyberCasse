@@ -4,12 +4,8 @@ using UnityEngine;
 using static Cell;
 using static MapManager;
 
-
-
-
 public class EnemyCharacter : Character
 {
-    [SerializeField] 
     EnemyFOV fieldOfView;
     [SerializeField]
     PlayerCharacter player;
@@ -26,11 +22,16 @@ public class EnemyCharacter : Character
     
     private bool _goBackOnPath = false;
 
+    private void Awake()
+    {
+        fieldOfView = GetComponent<EnemyFOV>();
+    }
 
     private void Start()
     {
         StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
+        fieldOfView.UpdateSightOfView(_direction, _currentCell);
         //_patrolTargets.Add(_currentCell);
     }
 
@@ -58,15 +59,6 @@ public class EnemyCharacter : Character
                     //Debug.Log("En Chasse");
                     yield return new WaitForSeconds(1f); 
                     break;
-            }
-
-            if (fieldOfView.IsTarget)
-            {
-                guardState = GuardState.Chasing;
-            }
-            else
-            {
-                guardState = GuardState.Patrol;
             }
         }
     }
@@ -168,6 +160,7 @@ public class EnemyCharacter : Character
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
         {
+            fieldOfView.UpdateSightOfView(_direction, _currentCell);
             if (loopingPatrol)
             {
                 LoopPatrol();

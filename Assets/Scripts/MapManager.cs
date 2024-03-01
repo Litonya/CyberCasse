@@ -122,6 +122,13 @@ public class MapManager : MonoBehaviour
         return null;
     }
 
+    public Cell GetCell(Vector3 position)
+    {
+        int x = (int)position.x;
+        int z = (int)position.z;
+        return GetCell(x, z);
+    }
+
     public List<Cell> GetCellsReacheable(Cell origin, int distance)
     {
         List<Cell> cells = new List<Cell>();
