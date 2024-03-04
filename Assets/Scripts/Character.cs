@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
         currentAct = true;
         if(path.Count == 0)
         {
-            Debug.LogError("path array empty.");
+            //Debug.LogError("path array empty.");
             return;
         }
 
@@ -103,7 +103,7 @@ public class Character : MonoBehaviour
 
     public void SetCurrentCell(Cell cell)
     {
-        Debug.Log("Character = " + this);
+        //Debug.Log("Character = " + this);
         if (_currentCell != null)
         {
             _currentCell.occupant = null;

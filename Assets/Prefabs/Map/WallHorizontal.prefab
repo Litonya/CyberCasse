@@ -147,7 +147,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4710814416349964583, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: m_Name
-      value: Wall
+      value: WallHorizontal
       objectReference: {fileID: 0}
     - target: {fileID: 5663354492122629650, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,6 +191,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: walkable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: seeThrough
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

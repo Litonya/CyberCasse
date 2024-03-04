@@ -29,7 +29,18 @@ public class MapManager : MonoBehaviour
     private int _mapZSize;
 
     public GameObject[] cellArrayTemp;
-    
+
+
+    [Header("TEST")]
+    public Cell cell;
+    public Direction direction = Direction.North;
+    public Cell adjacentCell;
+
+    private void Start()
+    {
+        adjacentCell = GetAdjacentCell(direction, cell);
+    }
+
     enum Side
     {
         LEFT,
@@ -199,6 +210,10 @@ public class MapManager : MonoBehaviour
         selectableCells.Clear();
     }
 
+
+    //Methode permettant d'obtenir toutes les cells d'un champs de vision en forme de cone:
+    //XXX
+    // X
     public List<Cell> GetSightOfView(Direction direction,Cell origin, int range)
     {
         List<Cell> visibleCells = new List<Cell>();
@@ -215,16 +230,26 @@ public class MapManager : MonoBehaviour
     private List<Cell> RecursiveSightOfView(Direction direction, Cell origin, int range)
     {
         List<Cell> visibleCells = new List<Cell>();
+        //Récupère la cellule suivante
         Cell looking = GetAdjacentCell(direction, origin);
 
         if (looking !=null && looking.seeThrough && range > 0)
         {
             visibleCells.Add(looking);
-            Cell leftCell = GetAdjacentCell(GetDirectionSide(direction, Side.LEFT), origin);
-            visibleCells.AddRange(RecursiveSightOfView(direction, leftCell, range - 1));
+            Cell leftCell = GetAdjacentCell(GetDirectionSide(direction, Side.LEFT), looking);
+            if (leftCell != null && leftCell.seeThrough)
+            {
+                visibleCells.Add(leftCell);
+                visibleCells.AddRange(RecursiveSightOfView(direction, leftCell, range - 1));
+            }
 
-            Cell rightCell = GetAdjacentCell(GetDirectionSide(direction,Side.RIGHT), origin);
-            visibleCells.AddRange(RecursiveSightOfView(direction, rightCell, range -1));
+
+            Cell rightCell = GetAdjacentCell(GetDirectionSide(direction,Side.RIGHT), looking);
+            if (rightCell != null && rightCell.seeThrough)
+            {
+                visibleCells.Add(rightCell);
+                visibleCells.AddRange(RecursiveSightOfView(direction, rightCell, range - 1));
+            }
 
             visibleCells = visibleCells.Distinct().ToList();
         }
@@ -280,11 +305,12 @@ public class MapManager : MonoBehaviour
     public Cell GetAdjacentCell(Direction direction,Cell origin)
     {
         Vector3 adjacentCellPos = origin.transform.position + DirectionToVector3(direction);
-        foreach (Cell cell in origin.adjencyList)
+        /*foreach (Cell cell in origin.adjencyList)
         {
             if (cell.transform.position == adjacentCellPos) return cell;
-        }
-        return null;
+        }*/
+        return GetCell(adjacentCellPos);
+        //return null;
     }
 
 
