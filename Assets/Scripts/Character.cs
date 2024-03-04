@@ -21,6 +21,8 @@ public class Character : MonoBehaviour
 
     public int movePoints = 4;
 
+    protected WinCondition attachedWinCondition;
+
 
     protected void Update()
     {
