@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static Cell;
 using static MapManager;
 
@@ -14,6 +16,14 @@ public class EnemyCharacter : Character
     private int _currentPatrolIndex = 0;
     [SerializeField]
     private Direction _direction = Direction.North;
+    /*{
+        get { return _direction; }
+        set
+        {
+            _direction = value;
+            fieldOfView.UpdateSightOfView(_direction, _currentCell);
+        }
+    }*/
     [SerializeField]
     private Cell cellDirection;
     [SerializeField]
@@ -22,6 +32,17 @@ public class EnemyCharacter : Character
     
     private bool _goBackOnPath = false;
 
+    /*protected new Cell _currentCell
+    {
+        get { return _currentCell; }
+        set
+        {
+            _currentCell = value;
+            //fieldOfView.UpdateSightOfView(_direction, _currentCell);
+        }
+    }*/
+
+
     private void Awake()
     {
         fieldOfView = GetComponent<EnemyFOV>();
@@ -29,11 +50,12 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        StartCoroutine(GererEtatGarde());
+        //StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
         fieldOfView.UpdateSightOfView(_direction, _currentCell);
         //_patrolTargets.Add(_currentCell);
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////// STATE MACHINE GUARD ///////////////////////////////////////////////////
@@ -44,7 +66,7 @@ public class EnemyCharacter : Character
         Chasing
     }
 
-    IEnumerator GererEtatGarde()
+    /*IEnumerator GererEtatGarde()
     {
         while (true)
         {
@@ -61,7 +83,7 @@ public class EnemyCharacter : Character
                     break;
             }
         }
-    }
+    }*/
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
@@ -155,12 +177,10 @@ public class EnemyCharacter : Character
                 _direction = Direction.West;
             if (cellDirection.gridCoordX == -1 && cellDirection.gridCoordZ == 0)
                 _direction = Direction.East;
-
         }
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
         {
-            fieldOfView.UpdateSightOfView(_direction, _currentCell);
             if (loopingPatrol)
             {
                 LoopPatrol();
@@ -172,7 +192,11 @@ public class EnemyCharacter : Character
         }
     }
 
-    
+    public void LaunchChase(PlayerCharacter newTarget)
+    {
+        guardState = GuardState.Chasing;
+        player = newTarget;
+    }
 
 
 

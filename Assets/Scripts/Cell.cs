@@ -12,11 +12,31 @@ public class Cell : MonoBehaviour
     public int gridCoordZ;
 
     public Character occupant;
+    /*{
+        get { return occupant; }
+        set 
+        {
+            occupant = value;
+            if (value != null)
+            {
+                PlayerCharacter playerCharacter = value.GetComponent<PlayerCharacter>();
+                if (playerCharacter != null)
+                {
+                    foreach (EnemyFOV enemyFOV in viewBy)
+                    {
+                        enemyFOV.PlayerDetected(playerCharacter);
+                    }
+                }
+            }
+        }
+    }*/
 
     public bool walkable;
     public bool seeThrough = true;
 
     public bool isVisited = false;
+
+    private List<EnemyFOV> viewBy = new List<EnemyFOV>();
 
     public enum CellState { Idle, isSelectable, isSelected }
     public CellState currentState;
@@ -53,12 +73,10 @@ public class Cell : MonoBehaviour
         {
             Debug.LogError("UI Manager non trouvé dans la scène !");
         }
-    }
 
-    void Update()
-    {
         Vector3 cellPosition = new Vector3(gridCoordX, 0.5f, gridCoordZ);
     }
+
 
     /*public void SetNeighbors(List<Cell> neighbors)
     {
@@ -72,13 +90,25 @@ public class Cell : MonoBehaviour
         SetState(CellState.Idle);
     }
 
-    public void SetState(CellState state)
+    public void VisibleBy(EnemyFOV enemy)
     {
-        currentState = state;
+        viewBy.Add(enemy);
+        RefreshStateVisual();
+    }
 
+    public void OutOfView(EnemyFOV enemy)
+    {
+        if (viewBy.Remove(enemy) && viewBy.Count == 0)
+        {
+            RefreshStateVisual();
+        }
+    }
+
+    public void RefreshStateVisual()
+    {
         Renderer cellMat = this.GetComponent<Renderer>();
 
-        if (currentState == CellState.Idle)
+        if (currentState == CellState.Idle && viewBy.Count == 0)
         {
             cellMat.material.color = Color.white;
         }
@@ -90,5 +120,16 @@ public class Cell : MonoBehaviour
         {
             cellMat.material.color = Color.blue;
         }
+        else if (viewBy.Count != 0)
+        {
+            cellMat.material.color = Color.red;
+        }
+    }
+
+    public void SetState(CellState state)
+    {
+        currentState = state;
+
+        RefreshStateVisual();
     }
 }

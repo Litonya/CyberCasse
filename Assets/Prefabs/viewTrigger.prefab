@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7390660548279698361}
   - component: {fileID: 3004366274991406698}
   - component: {fileID: 6967386444661920088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: viewTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
