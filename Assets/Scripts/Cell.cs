@@ -39,16 +39,12 @@ public class Cell : MonoBehaviour
     private List<EnemyFOV> viewBy = new List<EnemyFOV>();
 
     public enum CellState { Idle, isSelectable, isSelected }
-    public CellState currentState;
+    [HideInInspector]
+    public CellState currentState = CellState.Idle;
 
     public List<Cell> adjencyList = new List<Cell>();
 
     private UIManager uiManager;
-
-    private void Awake()
-    {
-        SetState(CellState.Idle);
-    }
 
     public void MarkPath()
     {
