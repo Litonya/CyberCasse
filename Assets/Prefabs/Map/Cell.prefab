@@ -124,6 +124,7 @@ MonoBehaviour:
   gridCoordZ: 0
   occupant: {fileID: 0}
   walkable: 1
+  seeThrough: 1
   isVisited: 0
   currentState: 0
   adjencyList: []

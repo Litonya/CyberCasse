@@ -1,12 +1,13 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static Cell;
 using static MapManager;
 
 public class EnemyCharacter : Character
 {
-    [SerializeField] 
     EnemyFOV fieldOfView;
     [SerializeField]
     PlayerCharacter player;
@@ -14,7 +15,8 @@ public class EnemyCharacter : Character
     private List<Cell> _patrolTargets;
     private int _currentPatrolIndex = 0;
     [SerializeField]
-    private Direction _direction = Direction.North;
+    private Direction _direction;
+    private Direction _currentDirection = Direction.North;
     [SerializeField]
     private Cell cellDirection;
     [SerializeField]
@@ -23,14 +25,31 @@ public class EnemyCharacter : Character
     
     private bool _goBackOnPath = false;
 
+    /*protected new Cell _currentCell
+    {
+        get { return _currentCell; }
+        set
+        {
+            _currentCell = value;
+            //fieldOfView.UpdateSightOfView(_direction, _currentCell);
+        }
+    }*/
+
+
+    private void Awake()
+    {
+        fieldOfView = GetComponent<EnemyFOV>();
+    }
 
     private void Start()
     {
-        StartCoroutine(UpdateFieldOfView());
-        StartCoroutine(GererEtatGarde());
+        //StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
+        _currentDirection = _direction;
+        fieldOfView.UpdateSightOfView(_direction, _currentCell);
         //_patrolTargets.Add(_currentCell);
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////// STATE MACHINE GUARD ///////////////////////////////////////////////////
@@ -41,7 +60,7 @@ public class EnemyCharacter : Character
         Chasing
     }
 
-    IEnumerator GererEtatGarde()
+    /*IEnumerator GererEtatGarde()
     {
         while (true)
         {
@@ -57,59 +76,15 @@ public class EnemyCharacter : Character
                     yield return new WaitForSeconds(1f); 
                     break;
             }
-
-            if (fieldOfView.IsTarget)
-            {
-                guardState = GuardState.Chasing;
-            }
-            else
-            {
-                guardState = GuardState.Patrol;
-            }
         }
-    }
+    }*/
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
     //////////////////////////////////////////////////////////////////////////////////////
 
 
-    enum Direction
-    {
-        North,
-        West,
-        East,
-        South
-    }
-
-    private IEnumerator UpdateFieldOfView()
-    {
-        while (true)
-        {
-            fieldOfView.SetOrigin(transform.position);
-
-            switch(_direction)
-            {
-                case Direction.North:
-                    fieldOfView.SetDirection(transform.forward);
-                    break;
-                case Direction.South:
-                    fieldOfView.SetDirection(-transform.forward);
-                    break;
-                case Direction.West:
-                    fieldOfView.SetDirection(transform.right);
-                    break;
-                case Direction.East:
-                    fieldOfView.SetDirection(-transform.right);
-                    break;
-                default:
-                    break;
-            }
-
-            //Debug.Log(fieldOfView.IsTarget);
-            yield return null; 
-        }
-    }
+    
 
     public void PrepareTurnAction()
     {
@@ -178,6 +153,23 @@ public class EnemyCharacter : Character
         }
     }
 
+    void ChangeDirection(Direction pNewDirection)
+    {
+        if (pNewDirection == _currentDirection) return;
+
+        _direction = pNewDirection;
+        _currentDirection = _direction;
+        fieldOfView.UpdateSightOfView(_direction, _currentCell);
+    }
+
+    public override void SetCurrentCell(Cell cell)
+    {
+        base._currentCell = cell;
+
+        fieldOfView.UpdateSightOfView(_direction, _currentCell);
+
+    }
+
     protected override void MoveToNextCell()
     {
         base.MoveToNextCell();
@@ -189,14 +181,13 @@ public class EnemyCharacter : Character
             //Debug.Log(cellDirection.gridCoordX);
 
             if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == 1)
-                _direction = Direction.North;
+                ChangeDirection(Direction.North);
             if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == -1)
-                _direction = Direction.South;
+                ChangeDirection(Direction.South);
             if (cellDirection.gridCoordX == 1 && cellDirection.gridCoordZ == 0)
-                _direction = Direction.West;
+                ChangeDirection(Direction.East);
             if (cellDirection.gridCoordX == -1 && cellDirection.gridCoordZ == 0)
-                _direction = Direction.East;
-
+                ChangeDirection(Direction.West);
         }
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
@@ -212,8 +203,14 @@ public class EnemyCharacter : Character
         }
     }
 
-    
+    public void LaunchChase(PlayerCharacter newTarget)
+    {
+        Debug.Log(newTarget.gameObject.name + " is detected by " + this.gameObject.name);
+        guardState = GuardState.Chasing;
+        player = newTarget;
+    }
 
+    
 
 
 }

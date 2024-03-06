@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
         currentAct = true;
         if(path.Count == 0)
         {
-            Debug.LogError("path array empty.");
+            //Debug.LogError("path array empty.");
             return;
         }
 
@@ -101,15 +101,15 @@ public class Character : MonoBehaviour
          _nextCell = path[0];
     }
 
-    public void SetCurrentCell(Cell cell)
+    public virtual void SetCurrentCell(Cell cell)
     {
-        Debug.Log("Character = " + this);
+        //Debug.Log("Character = " + this);
         if (_currentCell != null)
         {
-            _currentCell.occupant = null;
+            _currentCell.RemoveOccupant();
         }
         _currentCell = cell;
-        cell.occupant = this;
+        cell.SetOccupant(this);
     }
 
     public Cell GetCurrentCell()
