@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public class VictoryArea : MonoBehaviour
 {
     // public Collider collider;
-    private int totalPlayer = 4; // Nombre total de joueurs dans la scène
+    public int totalPlayer = 4; // Nombre total de joueurs dans la scène
     [SerializeField]
-    private List<PlayerCharacter> playersInVictoryZone = new List<PlayerCharacter>();
+    public List<PlayerCharacter> playersInVictoryZone = new List<PlayerCharacter>();
 
     void OnTriggerEnter(Collider other)
     {

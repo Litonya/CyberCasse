@@ -316,13 +316,9 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-
+        Debug.Log("allPlayerInZone = " + allPlayersInZone);
+        Debug.Log("atLeastOnePlayerHasWinCondition = " + atLeastOnePlayerHasWinCondition);
         // Conditions de victoire remplies si tous les joueurs sont dans la zone ET au moins un a la winCondition attachée
         return allPlayersInZone && atLeastOnePlayerHasWinCondition;
-    }
-
-    public void PauseExecution(int dureePause)
-    {
-        Thread.Sleep(dureePause); // Met en pause l'exécution pendant 50 millisecondes
     }
 }

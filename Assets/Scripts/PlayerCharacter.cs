@@ -28,17 +28,7 @@ public class PlayerCharacter : Character
         VictoryArea victoryArea = FindObjectOfType<VictoryArea>();
         if (victoryArea != null)
         {
-            // Vérifie si le joueur se trouve à l'intérieur du cube de collider de la VictoryArea
-            Collider playerCollider = GetComponent<Collider>();
-            if (playerCollider != null)
-            {
-                return victoryArea.GetComponent<Collider>().bounds.Contains(playerCollider.bounds.center);
-            }
-            else
-            {
-                Debug.LogWarning("Le joueur n'a pas de composant Collider attaché.");
-                return false;
-            }
+           return victoryArea.playersInVictoryZone.Count == victoryArea.totalPlayer;
         }//
         else
         {
