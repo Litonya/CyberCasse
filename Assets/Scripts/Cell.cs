@@ -12,24 +12,6 @@ public class Cell : MonoBehaviour
     public int gridCoordZ;
 
     public Character occupant;
-    /*{
-        get { return occupant; }
-        set 
-        {
-            occupant = value;
-            if (value != null)
-            {
-                PlayerCharacter playerCharacter = value.GetComponent<PlayerCharacter>();
-                if (playerCharacter != null)
-                {
-                    foreach (EnemyFOV enemyFOV in viewBy)
-                    {
-                        enemyFOV.PlayerDetected(playerCharacter);
-                    }
-                }
-            }
-        }
-    }*/
 
     public bool walkable;
     public bool seeThrough = true;
@@ -73,11 +55,32 @@ public class Cell : MonoBehaviour
         Vector3 cellPosition = new Vector3(gridCoordX, 0.5f, gridCoordZ);
     }
 
-
-    /*public void SetNeighbors(List<Cell> neighbors)
+    public void SetOccupant(Character character)
     {
-        adjencyList = neighbors;
-    }*/
+        occupant = character;
+        CheckForPlayer();
+        
+    }
+
+    public void RemoveOccupant()
+    {
+        occupant = null;
+    }
+
+    private void CheckForPlayer()
+    {
+        if (viewBy.Count != 0)
+        {
+            PlayerCharacter playerCharater = occupant.GetComponent<PlayerCharacter>();
+            if (playerCharater != null)
+            {
+                foreach (EnemyFOV enemy in viewBy)
+                {
+                    enemy.PlayerDetected(playerCharater);
+                }
+            }
+        }
+    }
 
     public void Reset()
     {
