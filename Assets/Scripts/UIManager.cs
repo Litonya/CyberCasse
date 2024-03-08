@@ -150,6 +150,8 @@ public class UIManager : MonoBehaviour
             // Activer l'action "Observer"
             _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(isAdjacentToDoor);
 
+            // Grab et Hack ne sont pas encore programmé donc ne t'inquiète pas s'ils s'affichent tout le temps
+
         }
     }
 
