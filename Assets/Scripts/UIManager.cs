@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -84,9 +85,6 @@ public class UIManager : MonoBehaviour
     public void SetUIActionMenuON()
     {
         // Afficher le menu uniquement si la cellule sélectionnée a des actions disponibles
-        if (_actionMenu.activeSelf)
-            _actionMenu.SetActive(false);
-        else
             _actionMenu.SetActive(true);
 
         // Obtenir la position de la souris en pixels par rapport à l'écran
@@ -110,29 +108,47 @@ public class UIManager : MonoBehaviour
     // Méthode pour mettre à jour les actions du menu en fonction de la cellule sélectionnée
     private void UpdateActionMenu()
     {
+        Debug.Log("Le menu contextuel est update");
         if (selectedCell != null)
         {
+            Transform action = _actionMenu.transform.Find("Container/Image/Container");
+            if (!action.gameObject.activeSelf) action.gameObject.SetActive(true);
+
+            /*  if (action != null)
+              {
+                  // Parcourir tous les enfants de containerTransform
+                  for (int i = 0; i < action.childCount; i++)
+                  {
+                      // Récupérer le Transform de l'enfant à l'index i
+                      Transform child = action.GetChild(i);
+
+                      // Désactiver l'enfant
+                      child.gameObject.SetActive(false);
+                  }
+              } */
+
             Debug.Log("Cell selectionné : " + selectedCell);
             // Activer ou désactiver les actions en fonction des caractéristiques de la cellule sélectionnée
             // Par exemple, si la cellule est praticable, activer l'action "Move"
-            ActionMenuItem moveAction = _actionMenu.transform.Find("MoveAction").GetComponent<ActionMenuItem>();
+            ActionMenuItem moveAction = _actionMenu.transform.Find("Container/Image/Container/MoveAction").GetComponent<ActionMenuItem>();
+            moveAction.gameObject.SetActive(true);
             moveAction.SetInteractable(selectedCell.walkable);
 
             // Vérifier si la cellule sélectionnée est adjacente à une cellule occupée par un EnemyCharacter
             bool adjacentEnemyFound = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.occupant != null && adjacentCell.occupant is EnemyCharacter);
 
             // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
-            ActionMenuItem attackAction = _actionMenu.transform.Find("AttackAction").GetComponent<ActionMenuItem>();
+            ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
             attackAction.gameObject.SetActive(adjacentEnemyFound);
 
             // Vérifier si la cellule sélectionnée est adjacente à une porte
             bool isAdjacentToDoor = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.TryGetComponent(out Door door));
 
             // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
-            _actionMenu.transform.Find("OpenDoorAction").gameObject.SetActive(isAdjacentToDoor);
+            _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(isAdjacentToDoor);
 
             // Activer l'action "Observer"
-            _actionMenu.transform.Find("ObserveDoorAction").gameObject.SetActive(isAdjacentToDoor);
+            _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(isAdjacentToDoor);
 
         }
     }
