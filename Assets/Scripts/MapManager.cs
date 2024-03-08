@@ -30,17 +30,6 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
-
-    [Header("TEST")]
-    public Cell cell;
-    public Direction direction = Direction.North;
-    public Cell adjacentCell;
-
-    private void Start()
-    {
-        adjacentCell = GetAdjacentCell(direction, cell);
-    }
-
     enum Side
     {
         LEFT,
@@ -63,6 +52,11 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        
+    }
+
+    private void Start()
+    {
         InitCharacterPos();
     }
 
