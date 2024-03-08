@@ -3331,6 +3331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell 0;0
       objectReference: {fileID: 0}
+    - target: {fileID: 5552342912165857973, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 5663354492122629650, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

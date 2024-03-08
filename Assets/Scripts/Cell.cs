@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _pathMarker;
+    protected GameObject _pathMarker;
 
     public int gridCoordX;
     public int gridCoordZ;
@@ -26,7 +26,7 @@ public class Cell : MonoBehaviour
 
     public List<Cell> adjencyList = new List<Cell>();
 
-    private UIManager uiManager;
+    protected UIManager uiManager;
 
     public bool isDoor = false;
 

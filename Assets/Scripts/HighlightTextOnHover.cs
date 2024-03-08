@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // Référence au texte que vous souhaitez mettre en surbrillance
-    public Text textToHighlight;
+    public TextMeshProUGUI textToHighlight;
 
     // Couleur du texte en surbrillance
     public Color highlightColor = Color.yellow;
