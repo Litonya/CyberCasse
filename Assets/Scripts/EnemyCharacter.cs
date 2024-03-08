@@ -25,15 +25,7 @@ public class EnemyCharacter : Character
     
     private bool _goBackOnPath = false;
 
-    /*protected new Cell _currentCell
-    {
-        get { return _currentCell; }
-        set
-        {
-            _currentCell = value;
-            //fieldOfView.UpdateSightOfView(_direction, _currentCell);
-        }
-    }*/
+    [SerializeField] private int _guardLevel = 2;
 
 
     private void Awake()
