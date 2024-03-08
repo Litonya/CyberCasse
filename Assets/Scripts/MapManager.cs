@@ -52,6 +52,11 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        
+    }
+
+    private void Start()
+    {
         InitCharacterPos();
     }
 
