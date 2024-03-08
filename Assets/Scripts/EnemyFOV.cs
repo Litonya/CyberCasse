@@ -19,7 +19,7 @@ public class EnemyFOV : MonoBehaviour
 
     public void UpdateSightOfView(Direction direction, Cell currentCell)
     {
-        Debug.Log("Create sight of View");
+        //Debug.Log("Create sight of View");
         //Supprime les anciencs triggers
         foreach (Cell cell in _sightOfView)
         {

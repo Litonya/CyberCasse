@@ -274,6 +274,8 @@ public class GameManager : MonoBehaviour
             // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
             Debug.Log("Victory!");
 
+            UIManager.instance.ShowVictory();
+
             // Exemple : Charger l'écran de victoire
             // SceneManager.LoadScene("VictoryScreen");
         }

@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17a0504cb6ab8241a6814a917b8f89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalPlayer: 4
   playersInVictoryZone: []
 --- !u!65 &66379344
 BoxCollider:
@@ -16723,6 +16724,10 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7941602904970504314, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 8477332558987522037, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17588,6 +17593,9 @@ MonoBehaviour:
   _mapXSize: 64
   _mapZSize: 32
   cellArrayTemp: []
+  cell: {fileID: 0}
+  direction: 0
+  adjacentCell: {fileID: 0}
 --- !u!4 &1518833729
 Transform:
   m_ObjectHideFlags: 0
@@ -24341,11 +24349,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1972116234367638467, guid: e20cf63c0bad70e4faf68b68a650bb29, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4060708751825392218, guid: e20cf63c0bad70e4faf68b68a650bb29, type: 3}
       propertyPath: m_Name
       value: Crocheteuse
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7980348133882845882, guid: e20cf63c0bad70e4faf68b68a650bb29, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1972116234367638467, guid: e20cf63c0bad70e4faf68b68a650bb29, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
