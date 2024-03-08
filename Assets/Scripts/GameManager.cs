@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,12 @@ public class GameManager : MonoBehaviour
 
     private float _timeRemain;
 
+    //Victoire
+    public int totalPlayers = 0; // Nombre total de joueurs dans la scène
+
+    private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
+
+
     //Context menu
 
 
@@ -38,7 +45,7 @@ public class GameManager : MonoBehaviour
         _characterList = GetAllCharacters();
 
         UIManager.instance.SetMaximumTime(_timePlanification);
-
+        GetAllPlayerCharacters();
         LaunchPlanificationPhase();
     }
 
@@ -152,7 +159,7 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected != null)
         {
-            Debug.Log(characterSelected.name + " unselected");
+            // Debug.Log(characterSelected.name + " unselected");
         }
         characterSelected = null;
         MapManager.instance.ResetSelectableCells();
@@ -161,7 +168,7 @@ public class GameManager : MonoBehaviour
     private void Select(PlayerCharacter character)
     {
         characterSelected = character;
-        Debug.Log(character.name + " is selected");
+      // Debug.Log(character.name + " is selected");
 
         MapManager.instance.SetCellsSelectable(character.GetCurrentCell(), character.movePoints);
 
@@ -185,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchActionPhase()
     {
-        Debug.Log("Launch Action phase");
+       // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
         foreach (Character character in _characterList) 
@@ -197,7 +204,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchPlanificationPhase()
     {
-        Debug.Log("Launch Planification phase");
+       // Debug.Log("Launch Planification phase");
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
@@ -248,5 +255,70 @@ public class GameManager : MonoBehaviour
         {
             character.Reset();
         }
+    }
+    /////////////////////////////////////////////////////////////////
+    /// GESTION DE LA VICTOIRE////
+    /////////////////////////////////////////////////
+
+    private void GetAllPlayerCharacters()
+    {
+        PlayerCharacter[] players = FindObjectsOfType<PlayerCharacter>();
+        totalPlayers = players.Length;
+    }
+
+    public void TriggerVictory()
+    {
+        // Vérifier si toutes les conditions de victoire sont remplies
+        if (VictoryConditionsMet())
+        {
+            // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
+            Debug.Log("Victory!");
+
+            // Exemple : Charger l'écran de victoire
+            // SceneManager.LoadScene("VictoryScreen");
+        }
+        else
+        {
+            Debug.Log("Victory conditions not met.");
+        }
+    }
+
+    private void OnCanvasGroupChanged()
+    {
+        PlayerCharacter[] players = FindObjectsOfType<PlayerCharacter>();
+        totalPlayers = players.Length;
+    }
+
+    private bool VictoryConditionsMet()
+    {
+
+        // Vérifier si tous les PlayerCharacters sont dans la zone de victoire
+        PlayerCharacter[] players = FindObjectsOfType<PlayerCharacter>();
+        bool allPlayersInZone = true;
+        foreach (PlayerCharacter player in players)
+        {
+            if (!player.IsInVictoryZone())
+            {
+                Debug.Log(player+ "n'est pas dans la zone de victoire");
+                allPlayersInZone = false;
+                break;
+            }
+        }
+
+        // Vérifier si au moins un PlayerCharacter a attaché un objet de type WinCondition
+        bool atLeastOnePlayerHasWinCondition = false;
+        foreach (PlayerCharacter player in players)
+        {
+            if (player.HasWinConditionAttached())
+            {
+                Debug.Log("Un joueur a bien la winCond");
+                atLeastOnePlayerHasWinCondition = true;
+                break;
+            }
+        }
+        Debug.Log("allPlayerInZone = " + allPlayersInZone);
+        Debug.Log("atLeastOnePlayerHasWinCondition = " + atLeastOnePlayerHasWinCondition);
+        // Conditions de victoire remplies si tous les joueurs sont dans la zone ET au moins un a la winCondition attachée
+        return allPlayersInZone && atLeastOnePlayerHasWinCondition;
     }
 }

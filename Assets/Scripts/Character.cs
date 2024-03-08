@@ -21,6 +21,8 @@ public class Character : MonoBehaviour
 
     public int movePoints = 4;
 
+    protected WinCondition attachedWinCondition;
+
 
     protected void Update()
     {
@@ -103,7 +105,6 @@ public class Character : MonoBehaviour
 
     public virtual void SetCurrentCell(Cell cell)
     {
-        //Debug.Log("Character = " + this);
         if (_currentCell != null)
         {
             _currentCell.RemoveOccupant();
