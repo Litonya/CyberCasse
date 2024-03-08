@@ -3,29 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 using static Cell;
 using static MapManager;
 
 public class EnemyCharacter : Character
 {
-    EnemyFOV fieldOfView;
-    [SerializeField]
-    PlayerCharacter player;
-    [SerializeField]
-    private List<Cell> _patrolTargets;
-    private int _currentPatrolIndex = 0;
     [SerializeField]
     private Direction _direction;
     private Direction _currentDirection = Direction.North;
-    [SerializeField]
-    private Cell cellDirection;
-    [SerializeField]
-    public GuardState guardState;
+    [SerializeField] private int _guardLevel = 2;
+
+    [Header("Patrol settings")]
+    //Sentinel
+    [SerializeField] private bool _isSentinel = false;
+    [SerializeField] private List<Direction> _sentinelDirection = new List<Direction>();
+    //Patrol
     public bool loopingPatrol;
+    [SerializeField] private List<Cell> _patrolTargets;
+
+
+    EnemyFOV fieldOfView;
+    PlayerCharacter player;
     
+    private int _currentPatrolIndex = 0;
+    
+    private Cell cellDirection;
+
+    private GuardState guardState;
     private bool _goBackOnPath = false;
 
-    [SerializeField] private int _guardLevel = 2;
+    
 
 
     private void Awake()
@@ -35,12 +43,17 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        cellDirection = _currentCell;
+        //cellDirection = _currentCell;
         _currentDirection = _direction;
+        if (_sentinelDirection.Count == 0) _sentinelDirection.Add(_direction);
         if (_patrolTargets.Count == 0) _patrolTargets.Add(_currentCell);
-        fieldOfView.UpdateSightOfView(_direction, _currentCell);
+        Invoke("AfterStart", 0.5f);
     }
 
+    private void AfterStart()
+    {
+        fieldOfView.UpdateSightOfView(_direction, _currentCell);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////// STATE MACHINE GUARD ///////////////////////////////////////////////////
@@ -63,17 +76,20 @@ public class EnemyCharacter : Character
 
         List<Cell> fullPath = new List<Cell>();
 
+
+
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
 
-            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(),true);
+            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
             /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
-            {
+            {f
                 List<Cell> potentielPath = new List<Cell>();
                 potentielPath = MapManager.instance.FindPath(_currentCell, cell, true);
                 if (potentielPath.Count > fullPath.Count) fullPath = potentielPath;
             }*/
         }
+        else if (_isSentinel) return;
         else
         {
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
@@ -122,6 +138,13 @@ public class EnemyCharacter : Character
         }
     }
 
+    private void SentinelRotate()
+    {
+        _currentPatrolIndex++;
+        if(_currentPatrolIndex >= _sentinelDirection.Count) _currentPatrolIndex = 0;
+        ChangeDirection(_sentinelDirection[_currentPatrolIndex]);
+    }
+
     public override void Reset()
     {
         base.Reset();
@@ -148,21 +171,9 @@ public class EnemyCharacter : Character
     protected override void MoveToNextCell()
     {
         base.MoveToNextCell();
-        if (_nextCell != null)
+        if (_nextCell != null && _nextCell!=_currentCell)
         {
-            cellDirection.gridCoordX = _nextCell.gridCoordX - _currentCell.gridCoordX;
-            cellDirection.gridCoordZ = _nextCell.gridCoordZ - _currentCell.gridCoordZ;
-
-            //Debug.Log(cellDirection.gridCoordX);
-
-            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == 1)
-                ChangeDirection(Direction.North);
-            if (cellDirection.gridCoordX == 0 && cellDirection.gridCoordZ == -1)
-                ChangeDirection(Direction.South);
-            if (cellDirection.gridCoordX == 1 && cellDirection.gridCoordZ == 0)
-                ChangeDirection(Direction.East);
-            if (cellDirection.gridCoordX == -1 && cellDirection.gridCoordZ == 0)
-                ChangeDirection(Direction.West);
+            ChangeDirection(MapManager.instance.GetAdjacentCellDirection(_currentCell, _nextCell));
         }
 
         if (_currentCell == _patrolTargets[_currentPatrolIndex])
@@ -185,7 +196,16 @@ public class EnemyCharacter : Character
         player = newTarget;
     }
 
-    
+    public override void Acte()
+    {
+        if (!_isSentinel || guardState == GuardState.Chasing)
+        {
+            base.Acte();
+        }
+        else SentinelRotate();
+    }
+
+
 
 
 }

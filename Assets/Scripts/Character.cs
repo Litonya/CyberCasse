@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
         path.Add(_currentCell);
     }
 
-    public void Acte()
+    public virtual void Acte()
     {
         currentAct = true;
         if(path.Count == 0)
