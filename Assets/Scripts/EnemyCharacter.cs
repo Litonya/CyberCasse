@@ -85,12 +85,14 @@ public class EnemyCharacter : Character
 
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
-            foreach (Cell cell in player.GetCurrentCell().adjencyList)
+
+            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(),true);
+            /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
             {
                 List<Cell> potentielPath = new List<Cell>();
                 potentielPath = MapManager.instance.FindPath(_currentCell, cell, true);
                 if (potentielPath.Count > fullPath.Count) fullPath = potentielPath;
-            }
+            }*/
         }
         else
         {
