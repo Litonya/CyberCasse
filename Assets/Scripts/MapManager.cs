@@ -30,17 +30,6 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
-
-    [Header("TEST")]
-    public Cell cell;
-    public Direction direction = Direction.North;
-    public Cell adjacentCell;
-
-    private void Start()
-    {
-        adjacentCell = GetAdjacentCell(direction, cell);
-    }
-
     enum Side
     {
         LEFT,
