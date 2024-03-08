@@ -71,7 +71,7 @@ public class Cell : MonoBehaviour
 
     private void CheckForPlayer()
     {
-        if (viewBy.Count != 0)
+        if (viewBy.Count != 0 && occupant != null)
         {
             PlayerCharacter playerCharater = occupant.GetComponent<PlayerCharacter>();
             if (playerCharater != null)
@@ -95,6 +95,7 @@ public class Cell : MonoBehaviour
     {
         viewBy.Add(enemy);
         RefreshStateVisual();
+        CheckForPlayer();
     }
 
     public void OutOfView(EnemyFOV enemy)

@@ -27,8 +27,6 @@ public class EnemyCharacter : Character
 
     [SerializeField] private int _guardLevel = 2;
 
-    [SerializeField] private List<Cell> debugFullPath = new List<Cell>();
-
 
     private void Awake()
     {
@@ -37,11 +35,10 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        //StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
         _currentDirection = _direction;
+        if (_patrolTargets.Count == 0) _patrolTargets.Add(_currentCell);
         fieldOfView.UpdateSightOfView(_direction, _currentCell);
-        //_patrolTargets.Add(_currentCell);
     }
 
 
@@ -53,25 +50,6 @@ public class EnemyCharacter : Character
         Patrol,
         Chasing
     }
-
-    /*IEnumerator GererEtatGarde()
-    {
-        while (true)
-        {
-            switch (guardState)
-            {
-                case GuardState.Patrol:
-                    //Debug.Log("En patrouille");
-                    yield return new WaitForSeconds(1f);
-                    break;
-                case GuardState.Chasing:
-
-                    //Debug.Log("En Chasse");
-                    yield return new WaitForSeconds(1f); 
-                    break;
-            }
-        }
-    }*/
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
@@ -87,14 +65,19 @@ public class EnemyCharacter : Character
 
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
-            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+
+            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(),true);
+            /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
+            {
+                List<Cell> potentielPath = new List<Cell>();
+                potentielPath = MapManager.instance.FindPath(_currentCell, cell, true);
+                if (potentielPath.Count > fullPath.Count) fullPath = potentielPath;
+            }*/
         }
         else
         {
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
         }
-
-        debugFullPath = fullPath;
 
         foreach (Cell cell in fullPath)
         {
@@ -142,11 +125,7 @@ public class EnemyCharacter : Character
     public override void Reset()
     {
         base.Reset();
-
-        if (_patrolTargets.Count > 0)
-        {
-            PrepareTurnAction();
-        }
+        PrepareTurnAction();
     }
 
     void ChangeDirection(Direction pNewDirection)
