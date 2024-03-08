@@ -37,6 +37,7 @@ public class EnemyCharacter : Character
     {
         cellDirection = _currentCell;
         _currentDirection = _direction;
+        if (_patrolTargets.Count == 0) _patrolTargets.Add(_currentCell);
         fieldOfView.UpdateSightOfView(_direction, _currentCell);
     }
 
@@ -124,11 +125,7 @@ public class EnemyCharacter : Character
     public override void Reset()
     {
         base.Reset();
-
-        if (_patrolTargets.Count > 0)
-        {
-            PrepareTurnAction();
-        }
+        PrepareTurnAction();
     }
 
     void ChangeDirection(Direction pNewDirection)
