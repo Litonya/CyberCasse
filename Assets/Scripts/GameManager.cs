@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
             {
                 markCell.UnmarkPath();
             }
-            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell);
+            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false) ;
             foreach (Cell toMarkCell in character.path)
             {
                 toMarkCell.MarkPath();

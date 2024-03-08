@@ -316,7 +316,7 @@ public class MapManager : MonoBehaviour
 
     //ADD Liam
 
-    public List<Cell> FindPath(Cell startCell, Cell targetCell)
+    public List<Cell> FindPath(Cell startCell, Cell targetCell, bool walkThroughDoors)
     {
         List<Cell> openSet = new List<Cell>();
         HashSet<Cell> closedSet = new HashSet<Cell>();
@@ -340,7 +340,7 @@ public class MapManager : MonoBehaviour
 
             foreach (Cell neighbor in currentCell.adjencyList)
                 // on vérifie si la case voisine est walkable
-                if(neighbor.walkable == true) {
+                if(neighbor.walkable == true || (walkThroughDoors && neighbor.isDoor)) {
                     {
                         if (closedSet.Contains(neighbor))
                             continue;

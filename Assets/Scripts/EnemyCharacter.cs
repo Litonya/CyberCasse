@@ -27,6 +27,8 @@ public class EnemyCharacter : Character
 
     [SerializeField] private int _guardLevel = 2;
 
+    [SerializeField] private List<Cell> debugFullPath = new List<Cell>();
+
 
     private void Awake()
     {
@@ -85,12 +87,14 @@ public class EnemyCharacter : Character
 
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
-            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell());
+            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
         }
         else
         {
-            fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex]);
+            fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
         }
+
+        debugFullPath = fullPath;
 
         foreach (Cell cell in fullPath)
         {

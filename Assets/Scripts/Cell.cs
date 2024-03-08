@@ -28,6 +28,8 @@ public class Cell : MonoBehaviour
 
     private UIManager uiManager;
 
+    public bool isDoor = false;
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
