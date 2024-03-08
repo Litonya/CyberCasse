@@ -22,7 +22,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Slider _timerProgressBar;
 
-    //CONTEXTE MENU
+    [SerializeField] private TextMeshProUGUI _victoryLabel;
+
+    [Header("Context Menu")]
     [SerializeField]
     private GameObject _actionMenu;
 
@@ -64,6 +66,11 @@ public class UIManager : MonoBehaviour
     public void UpdateTimeBar(float timeRemain)
     {
         _timerProgressBar.value = timeRemain;
+    }
+
+    public void ShowVictory()
+    {
+        _victoryLabel.gameObject.SetActive(true);
     }
 
     public void SetSelectedCell(Cell cell)

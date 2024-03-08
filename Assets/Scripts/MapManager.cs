@@ -1,9 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+
+public enum Direction
+{
+    North,
+    West,
+    East,
+    South
+}
 
 public class MapManager : MonoBehaviour
 {
@@ -19,7 +29,14 @@ public class MapManager : MonoBehaviour
     private int _mapZSize;
 
     public GameObject[] cellArrayTemp;
-    
+
+    enum Side
+    {
+        LEFT,
+        RIGHT,
+        BACK
+    }
+
 
     private void Awake()
     {
@@ -35,6 +52,11 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        
+    }
+
+    private void Start()
+    {
         InitCharacterPos();
     }
 
@@ -105,6 +127,13 @@ public class MapManager : MonoBehaviour
         return null;
     }
 
+    public Cell GetCell(Vector3 position)
+    {
+        int x = (int)position.x;
+        int z = (int)position.z;
+        return GetCell(x, z);
+    }
+
     public List<Cell> GetCellsReacheable(Cell origin, int distance)
     {
         List<Cell> cells = new List<Cell>();
@@ -122,6 +151,24 @@ public class MapManager : MonoBehaviour
             }
         }
         return cells;
+    }
+
+    public Vector3 DirectionToVector3 (Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.North:
+                return Vector3.forward;
+            case Direction.South:
+                return Vector3.back;
+            case Direction.East:
+                return Vector3.right;
+            case Direction.West:
+                return Vector3.left;
+            default:
+                Debug.LogError("Can't convert null Direction into Vector3");
+                return Vector3.zero;
+        }
     }
 
     public void ResetAllCells()
@@ -158,9 +205,112 @@ public class MapManager : MonoBehaviour
     }
 
 
+    //Methode permettant d'obtenir toutes les cells d'un champs de vision en forme de cone:
+    //XXX
+    // X
+    public List<Cell> GetSightOfView(Direction direction,Cell origin, int range)
+    {
+        List<Cell> visibleCells = new List<Cell>();
+        Cell lookingCell = GetAdjacentCell(direction, origin);
+        if (lookingCell != null && lookingCell.seeThrough && range>0) 
+        {
+            visibleCells.Add(lookingCell);
+            visibleCells.AddRange(RecursiveSightOfView(direction, lookingCell, range - 1));
+            visibleCells = visibleCells.Distinct().ToList();
+        }
+        return visibleCells;
+    }
+
+    private List<Cell> RecursiveSightOfView(Direction direction, Cell origin, int range)
+    {
+        List<Cell> visibleCells = new List<Cell>();
+        //Récupère la cellule suivante
+        Cell looking = GetAdjacentCell(direction, origin);
+
+        if (looking !=null && looking.seeThrough && range > 0)
+        {
+            visibleCells.Add(looking);
+            Cell leftCell = GetAdjacentCell(GetDirectionSide(direction, Side.LEFT), looking);
+            if (leftCell != null && leftCell.seeThrough)
+            {
+                visibleCells.Add(leftCell);
+                visibleCells.AddRange(RecursiveSightOfView(direction, leftCell, range - 1));
+            }
+
+
+            Cell rightCell = GetAdjacentCell(GetDirectionSide(direction,Side.RIGHT), looking);
+            if (rightCell != null && rightCell.seeThrough)
+            {
+                visibleCells.Add(rightCell);
+                visibleCells.AddRange(RecursiveSightOfView(direction, rightCell, range - 1));
+            }
+
+            visibleCells = visibleCells.Distinct().ToList();
+        }
+        return visibleCells;
+    }
+
+    private Direction GetDirectionSide(Direction direction, Side side)
+    {
+        switch(direction)
+        {
+            case Direction.North:
+                if (side == Side.LEFT) return Direction.West;
+                if (side == Side.RIGHT) return Direction.East;
+                if (side == Side.BACK) return Direction.South;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.South:
+                if(side == Side.LEFT) return Direction.East;
+                if (side==Side.RIGHT) return Direction.West;
+                if (side == Side.BACK) return Direction.North;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.West:
+                if (side == Side.LEFT) return Direction.North;
+                if (side == Side.RIGHT) return Direction.South;
+                if (side == Side.BACK) return Direction.East;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            case Direction.East:
+                if (side == Side.LEFT) return Direction.South;
+                if (side == Side.RIGHT) return Direction.North;
+                if (side == Side.BACK) return Direction.West;
+                else
+                {
+                    Debug.LogError("Sides can't be null");
+                    return Direction.North;
+                }
+            default:
+                 Debug.LogError("null Direction can't have sides");
+                 return Direction.North;
+        }
+    }
+
+    public Cell GetAdjacentCell(Direction direction,Cell origin)
+    {
+        Vector3 adjacentCellPos = origin.transform.position + DirectionToVector3(direction);
+        /*foreach (Cell cell in origin.adjencyList)
+        {
+            if (cell.transform.position == adjacentCellPos) return cell;
+        }*/
+        return GetCell(adjacentCellPos);
+        //return null;
+    }
+
+
     //ADD Liam
 
-    public List<Cell> FindPath(Cell startCell, Cell targetCell)
+    public List<Cell> FindPath(Cell startCell, Cell targetCell, bool walkThroughDoors)
     {
         List<Cell> openSet = new List<Cell>();
         HashSet<Cell> closedSet = new HashSet<Cell>();
@@ -184,7 +334,7 @@ public class MapManager : MonoBehaviour
 
             foreach (Cell neighbor in currentCell.adjencyList)
                 // on vérifie si la case voisine est walkable
-                if(neighbor.walkable == true) {
+                if(neighbor.walkable == true || (walkThroughDoors && neighbor.isDoor)) {
                     {
                         if (closedSet.Contains(neighbor))
                             continue;
