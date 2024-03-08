@@ -35,11 +35,9 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        //StartCoroutine(GererEtatGarde());
         cellDirection = _currentCell;
         _currentDirection = _direction;
         fieldOfView.UpdateSightOfView(_direction, _currentCell);
-        //_patrolTargets.Add(_currentCell);
     }
 
 
@@ -51,25 +49,6 @@ public class EnemyCharacter : Character
         Patrol,
         Chasing
     }
-
-    /*IEnumerator GererEtatGarde()
-    {
-        while (true)
-        {
-            switch (guardState)
-            {
-                case GuardState.Patrol:
-                    //Debug.Log("En patrouille");
-                    yield return new WaitForSeconds(1f);
-                    break;
-                case GuardState.Chasing:
-
-                    //Debug.Log("En Chasse");
-                    yield return new WaitForSeconds(1f); 
-                    break;
-            }
-        }
-    }*/
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////// DIRECTION CHAMP DE VISION DES GARDES //////////////////////
