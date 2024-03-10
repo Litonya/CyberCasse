@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Actions
 {
     NONE,
+    MOVE, //Ne pas mettre move sur un tuile
     LOCKPICK,
     HACK,
     GETITEM,

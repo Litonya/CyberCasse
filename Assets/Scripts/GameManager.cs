@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     private List<AvailibleActionsOnAdjacentCells> availibleActions;
 
+    private Cell cellSelected;
+    private Actions _actionSelected;
+
     private List<Character> _characterList;
 
     public static GameManager instance { get { return _instance; } }
@@ -45,8 +48,10 @@ public class GameManager : MonoBehaviour
 
     enum SelectionState
     {
-        SELECTCHARACTER,
-        SELECTACTION
+        SELECT_CHARACTER,
+        SELECT_DESTINATION,
+        SELECT_ACTION,
+        SELECT_ACTION_TARGET
     }
 
     private void Awake()
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour
                 LaunchActionPhase();
             }
             //Input emplacement souris -> Si un personnage est selectionn�, r�cup�re les cellules s�lectionn�es survol�es par la souris
-            else if (characterSelected != null)
+            else if (characterSelected != null && _currentSelectionState == SelectionState.SELECT_DESTINATION)
             {
                 Cell cell = GetTargetCell();
                 if (cell != null)
@@ -145,27 +150,54 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void CellSelect(Cell cell)
     {
-        if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count-1] == cell)
+        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count - 1] == cell && _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
-            characterSelected.TargetCell(cell);
+            //characterSelected.TargetCell(cell);
+            cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
             UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
             UIManager.instance.SetUIActionMenuON();
-            Unselect();
+            MapManager.instance.ResetSelectableCells();
+            _currentSelectionState = SelectionState.SELECT_ACTION;
 
-            /*POUR IMPLEMENTER LES ACTIONS
-             * 1. Afficher le menu conxtetuel (utiliser GetAvailibleActions pour récupérer quelle cellule voisine peut faire telle action) avec prévisualisation de nb de tours
-             * 2. Quand le joueur selectionne un élément -> Rendre selectable les cases où l'action est possible
-             * 3. Quand le joueur clique sur un tile Unselect, enregister le path, et l'action à effectuer
-             */
-
+        }else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
+        {
+            TargetActionSelected(cell);
         }
+    }
+
+    private void TargetActionSelected(Cell targetCell)
+    {
+        characterSelected.TargetCell(cellSelected);
+        characterSelected.SetPreparedAction(_actionSelected, targetCell);
+        Unselect();
+    }
+
+    public void ActionSelect(Actions action)
+    {
+        if (action == Actions.MOVE)
+        {
+            characterSelected.TargetCell(cellSelected);
+            Unselect();
+            return;
+        }
+
+        _actionSelected = action;
+        UIManager.instance.SetUIActionMenuOFF();
+        List<Cell> selectableCell = new List<Cell>();
+        foreach (AvailibleActionsOnAdjacentCells actionCell in availibleActions)
+        {
+            if (actionCell.availibleActions.Contains(action))
+            {
+                selectableCell.Add(actionCell.cell);
+            }
+        }
+        MapManager.instance.SetPreciseSelectableCells(selectableCell);
+        _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
 
     private void UnitSelect(PlayerCharacter character)
@@ -173,11 +205,13 @@ public class GameManager : MonoBehaviour
         if (characterSelected == character)
         {
             Unselect();
+            _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
             Unselect();
             Select(character);
+            _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
@@ -189,6 +223,8 @@ public class GameManager : MonoBehaviour
             // Debug.Log(characterSelected.name + " unselected");
         }
         characterSelected = null;
+        cellSelected = null;
+        _actionSelected = Actions.NONE;
         MapManager.instance.ResetSelectableCells();
     }
 
@@ -241,6 +277,7 @@ public class GameManager : MonoBehaviour
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
+        _currentSelectionState = SelectionState.SELECT_CHARACTER;
         UIManager.instance.SetUIPlanificationPhase();
         _timeRemain = _timePlanification;
     }
@@ -407,4 +444,5 @@ public class GameManager : MonoBehaviour
 
         return actions;
     }
+
 }
