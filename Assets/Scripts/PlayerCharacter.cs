@@ -23,10 +23,12 @@ public class PlayerCharacter : Character
 
     private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
+    private Cell _previousActionCell;
 
 
     protected override void Action()
     {
+        _previousActionCell = _targetActionCell;
         if (_preparedAction != Actions.NONE) LaunchAction();
         base.Action();
     }
@@ -38,11 +40,22 @@ public class PlayerCharacter : Character
             if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat))
             {
                 SetPreparedAction(_preparedAction, _targetActionCell);
+                
             }else
             {
                 ClearPreparedAction();
             }
         }
+    }
+
+    public override void Acte()
+    {
+        if (_previousActionCell != null && _previousActionCell != _targetActionCell)
+        {
+            _previousActionCell.ResetDifficulty();
+        }
+
+        base.Acte();
     }
 
     public void SetPreparedAction(Actions action, Cell target)
