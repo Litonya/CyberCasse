@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     private Camera cam;
 
     private Cell selectedCell;
+
     
 
     private void Awake()
@@ -74,12 +75,12 @@ public class UIManager : MonoBehaviour
         _victoryLabel.gameObject.SetActive(true);
     }
 
-    public void SetSelectedCell(Cell cell)
+    public void SetSelectedCell(Cell cell, List<Actions> actions)
     {
         selectedCell = cell;
 
         // Mettre à jour les actions du menu en fonction de la cellule sélectionnée
-        UpdateActionMenu();
+        UpdateActionMenu(actions);
     }
 
     public void SetUIActionMenuON()
@@ -106,7 +107,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Méthode pour mettre à jour les actions du menu en fonction de la cellule sélectionnée
-    private void UpdateActionMenu()
+    private void UpdateActionMenu(List<Actions> actions)
     {
         Debug.Log("Le menu contextuel est update");
         if (selectedCell != null)
@@ -128,31 +129,49 @@ public class UIManager : MonoBehaviour
               } */
 
             Debug.Log("Cell selectionné : " + selectedCell);
-            // Activer ou désactiver les actions en fonction des caractéristiques de la cellule sélectionnée
-            // Par exemple, si la cellule est praticable, activer l'action "Move"
-            ActionMenuItem moveAction = _actionMenu.transform.Find("Container/Image/Container/MoveAction").GetComponent<ActionMenuItem>();
-            moveAction.gameObject.SetActive(true);
-            moveAction.SetInteractable(selectedCell.walkable);
-
-            // Vérifier si la cellule sélectionnée est adjacente à une cellule occupée par un EnemyCharacter
-            bool adjacentEnemyFound = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.occupant != null && adjacentCell.occupant is EnemyCharacter);
-
-            // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
-            ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
-            attackAction.gameObject.SetActive(adjacentEnemyFound);
-
-            // Vérifier si la cellule sélectionnée est adjacente à une porte
-            bool isAdjacentToDoor = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.TryGetComponent(out Door door));
-
-            // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
-            _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(isAdjacentToDoor);
-
-            // Activer l'action "Observer"
-            _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(isAdjacentToDoor);
-
-            // Grab et Hack ne sont pas encore programmé donc ne t'inquiète pas s'ils s'affichent tout le temps
-
+            
+            //Active ou desactive les actions selon les actions envoyées par le game manager
+            ShowAvailibleActions(actions);
         }
+    }
+
+    private void ShowAvailibleActions(List<Actions> actions)
+    {
+        //En théorie le joueur peut toujours se déplacer sur la case sélectionné
+        ShowMoveAction();
+
+        ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
+
+        ShowLockPickAction(actions.Contains(Actions.LOCKPICK));
+
+        ShowLookAction(actions.Contains(Actions.LOOK));
+    }
+
+
+    private void ShowMoveAction()
+    {
+        ActionMenuItem moveAction = _actionMenu.transform.Find("Container/Image/Container/MoveAction").GetComponent<ActionMenuItem>();
+        moveAction.gameObject.SetActive(true);
+        moveAction.SetInteractable(true);
+    }
+
+    private void ShowKnockoutAction(bool showIt)
+    {
+        // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
+        ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
+        attackAction.gameObject.SetActive(showIt);
+    }
+
+    private void ShowLockPickAction(bool showIt)
+    {
+        // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
+        _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowLookAction(bool showIt)
+    {
+        // Activer l'action "Observer"
+        _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(showIt);
     }
 
     // Méthode appelée lorsqu'une action est sélectionnée dans le menu

@@ -9,7 +9,8 @@ public enum Actions
     HACK,
     GETITEM,
     PLACEITEM,
-    KNOCKOUT
+    KNOCKOUT,
+    LOOK
 }
 
 public class PlayerCharacter : Character

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerCharacter characterSelected;
 
+    private List<AvailibleActionsOnAdjacentCells> availibleActions;
+
     private List<Character> _characterList;
 
     public static GameManager instance { get { return _instance; } }
@@ -18,6 +20,8 @@ public class GameManager : MonoBehaviour
 
 
     private GameStates currentGameState;
+
+    private SelectionState _currentSelectionState;
 
     [SerializeField]
     private float _timePlanification = 10;
@@ -37,6 +41,12 @@ public class GameManager : MonoBehaviour
         public Cell cell;
 
         public List<Actions> availibleActions;
+    }
+
+    enum SelectionState
+    {
+        SELECTCHARACTER,
+        SELECTACTION
     }
 
     private void Awake()
@@ -144,7 +154,8 @@ public class GameManager : MonoBehaviour
         if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count-1] == cell)
         {
             characterSelected.TargetCell(cell);
-            UIManager.instance.SetSelectedCell(cell);
+            availibleActions = GetAvailibleActions(cell);
+            UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
             UIManager.instance.SetUIActionMenuON();
             Unselect();
 
