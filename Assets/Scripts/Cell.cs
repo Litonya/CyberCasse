@@ -32,6 +32,12 @@ public class Cell : MonoBehaviour
 
     public List<Actions> possibleActions = new List<Actions>();
 
+    [SerializeField] private int _diffuculty = 0;
+    [HideInInspector]
+    public int remainDifficulty;
+
+    private List<CellAction> cellActions = new List<CellAction>();
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -40,6 +46,12 @@ public class Cell : MonoBehaviour
     public void UnmarkPath()
     {
         _pathMarker.SetActive(false);
+        remainDifficulty = _diffuculty;
+    }
+
+    private void Awake()
+    {
+        InitializeActions();
     }
 
     private void Start()
@@ -93,6 +105,11 @@ public class Cell : MonoBehaviour
         SetState(CellState.Idle);
     }
 
+    public void ResetDifficulty()
+    {
+        remainDifficulty = _diffuculty;
+    }
+
     public void VisibleBy(EnemyFOV enemy)
     {
         viewBy.Add(enemy);
@@ -135,5 +152,14 @@ public class Cell : MonoBehaviour
         currentState = state;
 
         RefreshStateVisual();
+    }
+
+    private void InitializeActions()
+    {
+        if (possibleActions.Contains(Actions.LOCKPICK))
+        {
+            LockPick lockPick = gameObject.AddComponent<LockPick>();
+            cellActions.Add(lockPick);
+        }
     }
 }

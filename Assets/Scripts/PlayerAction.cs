@@ -25,12 +25,12 @@ public class PlayerAction : MonoBehaviour
         character = GetComponent<PlayerCharacter>();
     }
 
-    public void LockPick()
+    public void LockPick(Cell cell)
     {
 
     }
 
-    public void Hack() 
+    public void Hack(Cell cell) 
     {
 
     }
