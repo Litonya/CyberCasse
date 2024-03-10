@@ -199,6 +199,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchActionPhase()
     {
+        EndPlanificationPhase();
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
@@ -209,14 +210,24 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetUIActionPhase();
     }
 
+    private void EndActionPhase()
+    {
+
+    }
+
     private void LaunchPlanificationPhase()
     {
-       // Debug.Log("Launch Planification phase");
+        EndActionPhase();
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
         UIManager.instance.SetUIPlanificationPhase();
         _timeRemain = _timePlanification;
+    }
+
+    private void EndPlanificationPhase()
+    {
+
     }
 
     private void AddToPath(Character character, Cell cell)
@@ -331,6 +342,10 @@ public class GameManager : MonoBehaviour
         return allPlayersInZone && atLeastOnePlayerHasWinCondition;
     }
 
+
+
+
+    //Gestion actions
     private List<AvailibleActionsOnAdjacentCells> GetAvailibleActions(Cell originCell)
     {
         List<AvailibleActionsOnAdjacentCells> availibleActions = new List<AvailibleActionsOnAdjacentCells>();
