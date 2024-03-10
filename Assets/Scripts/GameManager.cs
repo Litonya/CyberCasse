@@ -4,6 +4,8 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+public enum GameStates { Planification, Action }
 public class GameManager : MonoBehaviour
 {
 
@@ -14,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
 
-    enum GameStates { Planification, Action}
+
     private GameStates currentGameState;
 
     [SerializeField]
@@ -272,6 +274,11 @@ public class GameManager : MonoBehaviour
             return hit.collider.gameObject.GetComponent<Cell>();
         }
         return null;
+    }
+
+    public GameStates GetGameState()
+    {
+        return currentGameState;
     }
 
     private void ResetAllCharacter()

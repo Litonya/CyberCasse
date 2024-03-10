@@ -19,8 +19,15 @@ public class PlayerCharacter : Character
     [SerializeField] private int _hacking = 1;
     [SerializeField] private int _strenght = 1;
 
-    private Actions _preparedAction;
+    private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
+
+
+    protected override void Action()
+    {
+        if (_preparedAction != Actions.NONE) LaunchAction();
+        base.Action();
+    }
 
     private void LaunchAction()
     {
