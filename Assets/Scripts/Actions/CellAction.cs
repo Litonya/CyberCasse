@@ -11,5 +11,5 @@ public abstract class CellAction : MonoBehaviour
         _cell = GetComponent<Cell>();
     }
 
-    public abstract void Acte();
+    public abstract void Acte(int charcterStat);
 }

@@ -36,7 +36,7 @@ public class Cell : MonoBehaviour
     [HideInInspector]
     public int remainDifficulty;
 
-    private List<CellAction> cellActions = new List<CellAction>();
+    private List<CellAction> _cellActions = new List<CellAction>();
 
     public void MarkPath()
     {
@@ -159,7 +159,17 @@ public class Cell : MonoBehaviour
         if (possibleActions.Contains(Actions.LOCKPICK))
         {
             LockPick lockPick = gameObject.AddComponent<LockPick>();
-            cellActions.Add(lockPick);
+            _cellActions.Add(lockPick);
         }
+    }
+
+    public void SetWalkable()
+    {
+        walkable = true;
+    }
+
+    public void SetUnwalkable()
+    {
+        walkable = false;
     }
 }
