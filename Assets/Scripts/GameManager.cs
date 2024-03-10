@@ -381,4 +381,19 @@ public class GameManager : MonoBehaviour
 
         return availibleActions;
     }
+
+    private List<Actions> GetAllAvailibleActions(List<AvailibleActionsOnAdjacentCells> availibleActionsOnAdjacentCells)
+    {
+        List<Actions> actions = new List<Actions>();
+
+        foreach (AvailibleActionsOnAdjacentCells actionLinkToCell in availibleActionsOnAdjacentCells)
+        {
+            foreach (Actions currentCellAction in  actionLinkToCell.availibleActions)
+            {
+                if (!actions.Contains(currentCellAction)) actions.Add(currentCellAction);
+            }
+        }
+
+        return actions;
+    }
 }
