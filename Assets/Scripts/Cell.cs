@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,14 @@ public class Cell : MonoBehaviour
 
     public bool isDoor = false;
 
+    public List<Actions> possibleActions = new List<Actions>();
+
+    [SerializeField] private int _diffuculty = 0;
+    //[HideInInspector]
+    public int remainDifficulty;
+
+    private List<CellAction> _cellActions = new List<CellAction>();
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -38,6 +47,12 @@ public class Cell : MonoBehaviour
     public void UnmarkPath()
     {
         _pathMarker.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        InitializeActions();
+        remainDifficulty = _diffuculty;
     }
 
     private void Start()
@@ -91,6 +106,11 @@ public class Cell : MonoBehaviour
         SetState(CellState.Idle);
     }
 
+    public void ResetDifficulty()
+    {
+        remainDifficulty = _diffuculty;
+    }
+
     public void VisibleBy(EnemyFOV enemy)
     {
         viewBy.Add(enemy);
@@ -133,5 +153,38 @@ public class Cell : MonoBehaviour
         currentState = state;
 
         RefreshStateVisual();
+    }
+
+    private void InitializeActions()
+    {
+        if (possibleActions.Contains(Actions.LOCKPICK))
+        {
+            LockPick lockPick = gameObject.AddComponent<LockPick>();
+            _cellActions.Add(lockPick);
+        }
+    }
+
+    public void SetWalkable()
+    {
+        walkable = true;
+    }
+
+    public void SetUnwalkable()
+    {
+        walkable = false;
+    }
+
+    public bool Acte(Actions action, int characterStat)
+    {
+        foreach (CellAction cellAction in _cellActions)
+        {
+            if (cellAction.action == action)
+            {
+                return cellAction.Acte(characterStat);
+            }
+        }
+
+        Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
+        return true;
     }
 }

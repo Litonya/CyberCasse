@@ -204,6 +204,15 @@ public class MapManager : MonoBehaviour
         selectableCells.Clear();
     }
 
+    public void SetPreciseSelectableCells(List<Cell> cells)
+    {
+        foreach (Cell cell in cells)
+        {
+            cell.SetState(Cell.CellState.isSelectable);
+            selectableCells.Add(cell);
+        }
+    }
+
 
     //Methode permettant d'obtenir toutes les cells d'un champs de vision en forme de cone:
     //XXX
