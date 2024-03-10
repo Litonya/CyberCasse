@@ -7,7 +7,8 @@ public enum Actions
     LOCKPICK,
     HACK,
     GETITEM,
-    PLACEITEM
+    PLACEITEM,
+    KNOCKOUT
 }
 
 public class PlayerAction : MonoBehaviour

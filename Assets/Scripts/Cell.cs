@@ -30,6 +30,8 @@ public class Cell : MonoBehaviour
 
     public bool isDoor = false;
 
+    public List<Actions> possibleActions = new List<Actions>();
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);

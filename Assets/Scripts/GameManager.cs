@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _timePlanification = 10;
 
+    [SerializeField]
+    private int _knockoutLimit = 2;
+
     private float _timeRemain;
 
     //Victoire
@@ -26,9 +30,12 @@ public class GameManager : MonoBehaviour
 
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
+    private struct AvailibleActionsOnAdjacentCells
+    {
+        public Cell cell;
 
-    //Context menu
-
+        public List<Actions> availibleActions;
+    }
 
     private void Awake()
     {
@@ -322,5 +329,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("atLeastOnePlayerHasWinCondition = " + atLeastOnePlayerHasWinCondition);
         // Conditions de victoire remplies si tous les joueurs sont dans la zone ET au moins un a la winCondition attachée
         return allPlayersInZone && atLeastOnePlayerHasWinCondition;
+    }
+
+    private List<AvailibleActionsOnAdjacentCells> GetAvailibleActions(Cell originCell)
+    {
+        List<AvailibleActionsOnAdjacentCells> availibleActions = new List<AvailibleActionsOnAdjacentCells>();
+
+        foreach (Cell cell in originCell.adjencyList)
+        {
+            AvailibleActionsOnAdjacentCells currentCheckCell = new AvailibleActionsOnAdjacentCells();
+
+            currentCheckCell.cell = cell;
+            currentCheckCell.availibleActions = cell.possibleActions;
+
+            if (cell.occupant != null && cell.occupant.GetComponent<EnemyCharacter>() && _knockoutLimit>0)
+            {
+                currentCheckCell.availibleActions.Add(Actions.KNOCKOUT);
+            }
+
+            availibleActions.Add(currentCheckCell);
+        }
+
+        return availibleActions;
     }
 }
