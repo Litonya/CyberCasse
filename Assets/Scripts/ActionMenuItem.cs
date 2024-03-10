@@ -10,6 +10,9 @@ public class ActionMenuItem : MonoBehaviour, IPointerClickHandler
     // Référence au bouton de cette entrée de menu
     private Button button;
 
+    // Action lié au bouton
+    [SerializeField] private Actions _action;
+
     // Méthode appelée lorsque le GameObject est cliqué
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -28,6 +31,8 @@ public class ActionMenuItem : MonoBehaviour, IPointerClickHandler
         // Après avoir exécuté l'action, cachez le menu
         UIManager.instance.SetUIActionMenuON();
         transform.parent.gameObject.SetActive(false);
+
+        GameManager.instance.ActionSelect(_action);
     }
 
     public void SetInteractable(bool interactable)

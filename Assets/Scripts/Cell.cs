@@ -34,7 +34,7 @@ public class Cell : MonoBehaviour
     public List<Actions> possibleActions = new List<Actions>();
 
     [SerializeField] private int _diffuculty = 0;
-    [HideInInspector]
+    //[HideInInspector]
     public int remainDifficulty;
 
     private List<CellAction> _cellActions = new List<CellAction>();
@@ -47,12 +47,12 @@ public class Cell : MonoBehaviour
     public void UnmarkPath()
     {
         _pathMarker.SetActive(false);
-        remainDifficulty = _diffuculty;
     }
 
     private void Awake()
     {
         InitializeActions();
+        remainDifficulty = _diffuculty;
     }
 
     private void Start()

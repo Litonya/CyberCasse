@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
         if (action == Actions.MOVE)
         {
             characterSelected.TargetCell(cellSelected);
+            characterSelected.ClearPreparedAction();
             Unselect();
             return;
         }
@@ -225,6 +226,7 @@ public class GameManager : MonoBehaviour
         characterSelected = null;
         cellSelected = null;
         _actionSelected = Actions.NONE;
+        UIManager.instance.SetUIActionMenuOFF();
         MapManager.instance.ResetSelectableCells();
     }
 
@@ -268,7 +270,7 @@ public class GameManager : MonoBehaviour
 
     private void EndActionPhase()
     {
-
+        UIManager.instance.SetUIActionMenuOFF();
     }
 
     private void LaunchPlanificationPhase()

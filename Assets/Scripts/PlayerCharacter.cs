@@ -37,7 +37,7 @@ public class PlayerCharacter : Character
         {
             if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat))
             {
-                SetPreparedAction(_preparedAction, _target);
+                SetPreparedAction(_preparedAction, _targetActionCell);
             }else
             {
                 ClearPreparedAction();
