@@ -145,6 +145,13 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetSelectedCell(cell);
             UIManager.instance.SetUIActionMenuON();
             Unselect();
+
+            /*POUR IMPLEMENTER LES ACTIONS
+             * 1. Afficher le menu conxtetuel (utiliser GetAvailibleActions pour récupérer quelle cellule voisine peut faire telle action) avec prévisualisation de nb de tours
+             * 2. Quand le joueur selectionne un élément -> Rendre selectable les cases où l'action est possible
+             * 3. Quand le joueur clique sur un tile Unselect, enregister le path, et l'action à effectuer
+             */
+
         }
     }
 

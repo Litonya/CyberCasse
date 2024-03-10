@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -171,5 +172,19 @@ public class Cell : MonoBehaviour
     public void SetUnwalkable()
     {
         walkable = false;
+    }
+
+    public bool Acte(Actions action, int characterStat)
+    {
+        foreach (CellAction cellAction in _cellActions)
+        {
+            if (cellAction.action == action)
+            {
+                return cellAction.Acte(characterStat);
+            }
+        }
+
+        Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
+        return true;
     }
 }
