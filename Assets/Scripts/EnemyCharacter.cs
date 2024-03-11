@@ -43,7 +43,6 @@ public class EnemyCharacter : Character
 
     private void Start()
     {
-        //cellDirection = _currentCell;
         _currentDirection = _direction;
         if (_sentinelDirection.Count == 0) _sentinelDirection.Add(_direction);
         if (_patrolTargets.Count == 0) _patrolTargets.Add(_currentCell);
@@ -61,7 +60,8 @@ public class EnemyCharacter : Character
     public enum GuardState
     {
         Patrol,
-        Chasing
+        Chasing,
+        Looking
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,8 @@ public class EnemyCharacter : Character
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
 
-            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+            if (UpdateChase())fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+
             /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
             {f
                 List<Cell> potentielPath = new List<Cell>();
@@ -196,6 +197,25 @@ public class EnemyCharacter : Character
         player = newTarget;
     }
 
+    private bool UpdateChase()
+    {
+        PlayerCharacter closestVisibleCharacter = fieldOfView.GetClosestVisiblePlayer();
+        if (closestVisibleCharacter == null)
+        {
+            EndChase();
+            return false;
+        }
+        player = closestVisibleCharacter;
+        return true;
+        
+    }
+
+    public void EndChase()
+    {
+        guardState = GuardState.Patrol;
+        player = null;
+    }
+
     public override void Acte()
     {
         if (!_isSentinel || guardState == GuardState.Chasing)
@@ -205,7 +225,11 @@ public class EnemyCharacter : Character
         else SentinelRotate();
     }
 
+    protected virtual void PlayerDetected(PlayerCharacter target)
+    {
+        LaunchChase(target);
+    }
 
-
+    
 
 }
