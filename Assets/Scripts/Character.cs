@@ -20,6 +20,7 @@ public class Character : MonoBehaviour
     public bool currentAct = false;
 
     public int movePoints = 4;
+    private bool isWalking;
 
     protected WinCondition attachedWinCondition;
 
@@ -30,6 +31,8 @@ public class Character : MonoBehaviour
         {
             if (isMoving)
             {
+                isWalking = true;
+                PlayAnim();
                 MoveToNextCell();
             }
             else if (currentAct)
@@ -82,15 +85,14 @@ public class Character : MonoBehaviour
             //Rendre le mouvement smooth
 
             transform.position = Vector3.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
-
-
-
         }
         else if(_nextCell == _target)
         {
             isMoving = false;
             SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
+            isWalking = false;
+            PlayAnim();
         }
         else
         {
@@ -134,5 +136,25 @@ public class Character : MonoBehaviour
             cell.MarkPath();
         }
 
+    }
+
+    protected void PlayAnim()
+    {
+        // Jouer l'animation de marche
+        
+        if (GetComponentInChildren<SpriteController>() != null)
+        {
+            Debug.Log(isWalking);
+            if (isWalking)
+            {
+                GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+            }
+            else
+            {
+                GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
+            }
+        }
+            
+       
     }
 }

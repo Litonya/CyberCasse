@@ -3,10 +3,12 @@ using UnityEngine;
 public class SpriteController : MonoBehaviour
 {
     private Transform mainCameraTransform;
+    private Animator animator;
 
     void Start()
     {
         mainCameraTransform = Camera.main.transform;
+        animator = GetComponent<Animator>();
     }
 
     void LateUpdate()
@@ -18,5 +20,10 @@ public class SpriteController : MonoBehaviour
         Vector3 eulerAngles = transform.eulerAngles;
         eulerAngles.x = 50f;
         transform.eulerAngles = eulerAngles;
+    }
+
+    public void SetAnimationState(string state)
+    {
+        animator.Play(state);
     }
 }

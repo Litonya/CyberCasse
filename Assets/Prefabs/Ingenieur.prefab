@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4748455735690988191}
   - component: {fileID: 7457088530100653867}
   m_Layer: 6
-  m_Name: Crocheteuse 1
+  m_Name: Ingenieur
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 5693386133099334631}
   - component: {fileID: 6992379979136968218}
   - component: {fileID: 8042644637847753416}
+  - component: {fileID: 1031909411235403289}
   m_Layer: 6
   m_Name: Visual
   m_TagString: Player
@@ -205,7 +206,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -834462863, guid: ca113d6dad30df1478082652d99342bb, type: 3}
+  m_Sprite: {fileID: 1373914888, guid: ba1735c6c62c7f944b20735597b09e98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -228,3 +229,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddda7c5d414894d4d9e0561bd4688540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1031909411235403289
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980348133882845882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0e487b9e7e05a24d8bf63cda50b54af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
