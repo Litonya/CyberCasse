@@ -47,20 +47,7 @@ public class Character : MonoBehaviour
                 Action();
             }
         }
-
-        if (transform.position.x < previousXPosition)
-        {
-            // Si la position X décroît, appliquer un flip horizontal
-            FlipX(true);
-        }
-        else if (transform.position.x > previousXPosition)
-        {
-            // Si la position X augmente, annuler le flip horizontal
-            FlipX(false);
-        }
-
-        // Mettre à jour la position précédente
-        previousXPosition = transform.position.x;
+        turnAround();  
     }
 
     public virtual void Reset()
@@ -182,5 +169,22 @@ public class Character : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * (flip ? -1 : 1);
         transform.localScale = scale;
+    }
+
+    void turnAround()
+    {
+        if (transform.position.x < previousXPosition)
+        {
+            // Si la position X décroît, appliquer un flip horizontal
+            FlipX(true);
+        }
+        else if (transform.position.x > previousXPosition)
+        {
+            // Si la position X augmente, annuler le flip horizontal
+            FlipX(false);
+        }
+
+        // Mettre à jour la position précédente
+        previousXPosition = transform.position.x;
     }
 }
