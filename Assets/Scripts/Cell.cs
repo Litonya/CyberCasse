@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _pathMarker;
+    protected GameObject _pathMarker;
 
     public int gridCoordX;
     public int gridCoordZ;
@@ -26,9 +27,17 @@ public class Cell : MonoBehaviour
 
     public List<Cell> adjencyList = new List<Cell>();
 
-    private UIManager uiManager;
+    protected UIManager uiManager;
 
     public bool isDoor = false;
+
+    public List<Actions> possibleActions = new List<Actions>();
+
+    [SerializeField] private int _diffuculty = 0;
+    //[HideInInspector]
+    public int remainDifficulty;
+
+    private List<CellAction> _cellActions = new List<CellAction>();
 
     public void MarkPath()
     {
@@ -38,6 +47,12 @@ public class Cell : MonoBehaviour
     public void UnmarkPath()
     {
         _pathMarker.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        InitializeActions();
+        remainDifficulty = _diffuculty;
     }
 
     private void Start()
@@ -71,7 +86,7 @@ public class Cell : MonoBehaviour
 
     private void CheckForPlayer()
     {
-        if (viewBy.Count != 0)
+        if (viewBy.Count != 0 && occupant != null)
         {
             PlayerCharacter playerCharater = occupant.GetComponent<PlayerCharacter>();
             if (playerCharater != null)
@@ -91,10 +106,16 @@ public class Cell : MonoBehaviour
         SetState(CellState.Idle);
     }
 
+    public void ResetDifficulty()
+    {
+        remainDifficulty = _diffuculty;
+    }
+
     public void VisibleBy(EnemyFOV enemy)
     {
         viewBy.Add(enemy);
         RefreshStateVisual();
+        CheckForPlayer();
     }
 
     public void OutOfView(EnemyFOV enemy)
@@ -132,5 +153,38 @@ public class Cell : MonoBehaviour
         currentState = state;
 
         RefreshStateVisual();
+    }
+
+    private void InitializeActions()
+    {
+        if (possibleActions.Contains(Actions.LOCKPICK))
+        {
+            LockPick lockPick = gameObject.AddComponent<LockPick>();
+            _cellActions.Add(lockPick);
+        }
+    }
+
+    public void SetWalkable()
+    {
+        walkable = true;
+    }
+
+    public void SetUnwalkable()
+    {
+        walkable = false;
+    }
+
+    public bool Acte(Actions action, int characterStat)
+    {
+        foreach (CellAction cellAction in _cellActions)
+        {
+            if (cellAction.action == action)
+            {
+                return cellAction.Acte(characterStat);
+            }
+        }
+
+        Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
+        return true;
     }
 }

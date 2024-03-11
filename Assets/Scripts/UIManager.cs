@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
     private Camera cam;
 
     private Cell selectedCell;
+
     
 
     private void Awake()
@@ -73,20 +75,17 @@ public class UIManager : MonoBehaviour
         _victoryLabel.gameObject.SetActive(true);
     }
 
-    public void SetSelectedCell(Cell cell)
+    public void SetSelectedCell(Cell cell, List<Actions> actions)
     {
         selectedCell = cell;
 
         // Mettre à jour les actions du menu en fonction de la cellule sélectionnée
-        UpdateActionMenu();
+        UpdateActionMenu(actions);
     }
 
     public void SetUIActionMenuON()
     {
         // Afficher le menu uniquement si la cellule sélectionnée a des actions disponibles
-        if (_actionMenu.activeSelf)
-            _actionMenu.SetActive(false);
-        else
             _actionMenu.SetActive(true);
 
         // Obtenir la position de la souris en pixels par rapport à l'écran
@@ -108,37 +107,95 @@ public class UIManager : MonoBehaviour
     }
 
     // Méthode pour mettre à jour les actions du menu en fonction de la cellule sélectionnée
-    private void UpdateActionMenu()
+    private void UpdateActionMenu(List<Actions> actions)
     {
+        Debug.Log("Le menu contextuel est update");
         if (selectedCell != null)
         {
+            Transform action = _actionMenu.transform.Find("Container/Image/Container");
+            if (!action.gameObject.activeSelf) action.gameObject.SetActive(true);
+
+            /*  if (action != null)
+              {
+                  // Parcourir tous les enfants de containerTransform
+                  for (int i = 0; i < action.childCount; i++)
+                  {
+                      // Récupérer le Transform de l'enfant à l'index i
+                      Transform child = action.GetChild(i);
+
+                      // Désactiver l'enfant
+                      child.gameObject.SetActive(false);
+                  }
+              } */
+
             Debug.Log("Cell selectionné : " + selectedCell);
-            // Activer ou désactiver les actions en fonction des caractéristiques de la cellule sélectionnée
-            // Par exemple, si la cellule est praticable, activer l'action "Move"
-            ActionMenuItem moveAction = _actionMenu.transform.Find("MoveAction").GetComponent<ActionMenuItem>();
-            moveAction.SetInteractable(selectedCell.walkable);
-
-            // Vérifier si la cellule sélectionnée est adjacente à une cellule occupée par un EnemyCharacter
-            bool adjacentEnemyFound = selectedCell.adjencyList.Any(adjacentCell => adjacentCell.occupant != null && adjacentCell.occupant is EnemyCharacter);
-
-            // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
-            ActionMenuItem attackAction = _actionMenu.transform.Find("AttackAction").GetComponent<ActionMenuItem>();
-            attackAction.gameObject.SetActive(adjacentEnemyFound);
-
+            
+            //Active ou desactive les actions selon les actions envoyées par le game manager
+            ShowAvailibleActions(actions);
         }
     }
 
-    // Méthode appelée lorsqu'une action est sélectionnée dans le menu
-    public void OnActionSelected()
+    private void ShowAvailibleActions(List<Actions> actions)
     {
-        // Exécuter l'action sélectionnée
-        // Par exemple :
-        // selectedCell.ExecuteSelectedAction();
+        //En théorie le joueur peut toujours se déplacer sur la case sélectionné
+        ShowMoveAction();
+
+        ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
+
+        ShowLockPickAction(actions.Contains(Actions.LOCKPICK));
+
+        ShowLookAction(actions.Contains(Actions.LOOK));
+    }
+
+
+    private void ShowMoveAction()
+    {
+        ActionMenuItem moveAction = _actionMenu.transform.Find("Container/Image/Container/MoveAction").GetComponent<ActionMenuItem>();
+        moveAction.gameObject.SetActive(true);
+        moveAction.SetInteractable(true);
+    }
+
+    private void ShowKnockoutAction(bool showIt)
+    {
+        // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
+        ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
+        attackAction.gameObject.SetActive(showIt);
+    }
+
+    private void ShowLockPickAction(bool showIt)
+    {
+        // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
+        _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowLookAction(bool showIt)
+    {
+        // Activer l'action "Observer"
+        _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(showIt);
+    }
+
+    // Méthode appelée lorsqu'une action est sélectionnée dans le menu
+    public void OnOpenDoorSelected()
+    {
+        // Si la cellule sélectionnée est adjacente à une porte, ouvrir la porte
+        Door door = selectedCell.adjencyList.FirstOrDefault(adjacentCell => adjacentCell.TryGetComponent(out Door doorComponent))?.GetComponent<Door>();
+        if (door != null && door.IsClosed())
+        {
+            door.OpenDoor();
+        }
 
         // Faire disparaître le menu
         SetUIActionMenuOFF();
     }
 
+    // Méthode appelée lorsqu'on sélectionne l'action "Observer" dans le menu
+    public void OnObserveDoorSelected()
+    {
+        // Implémentez le comportement d'observation de la porte ici
+        Debug.Log("Observing the door.");
 
+        // Faire disparaître le menu
+        SetUIActionMenuOFF();
+    }
 }
 

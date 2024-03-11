@@ -26,12 +26,16 @@ public class Character : MonoBehaviour
 
     protected void Update()
     {
-        if (isMoving)
+        if (GameManager.instance.GetGameState() == GameStates.Action)
         {
-            MoveToNextCell();
-        }else if (currentAct)
-        {
-            Action();
+            if (isMoving)
+            {
+                MoveToNextCell();
+            }
+            else if (currentAct)
+            {
+                Action();
+            }
         }
     }
 
@@ -42,7 +46,7 @@ public class Character : MonoBehaviour
         path.Add(_currentCell);
     }
 
-    public void Acte()
+    public virtual void Acte()
     {
         currentAct = true;
         if(path.Count == 0)
@@ -118,7 +122,7 @@ public class Character : MonoBehaviour
         return _currentCell;
     }
 
-    private void Action()
+    protected virtual void Action()
     {
         currentAct = false;
     }

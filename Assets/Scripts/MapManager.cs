@@ -204,6 +204,15 @@ public class MapManager : MonoBehaviour
         selectableCells.Clear();
     }
 
+    public void SetPreciseSelectableCells(List<Cell> cells)
+    {
+        foreach (Cell cell in cells)
+        {
+            cell.SetState(Cell.CellState.isSelectable);
+            selectableCells.Add(cell);
+        }
+    }
+
 
     //Methode permettant d'obtenir toutes les cells d'un champs de vision en forme de cone:
     //XXX
@@ -307,6 +316,29 @@ public class MapManager : MonoBehaviour
         //return null;
     }
 
+    public Direction GetAdjacentCellDirection (Cell origin, Cell target) 
+    {
+        if (!origin.adjencyList.Contains(target))
+        {
+            Debug.LogError("Can't have direction between no adjacent cells");
+            return Direction.North;
+        }
+
+        int gridCoordsDifX = target.gridCoordX - origin.gridCoordX;
+        int gridCoordsDifZ = target.gridCoordZ - origin.gridCoordZ;
+
+        if (gridCoordsDifX == 0 && gridCoordsDifZ == 1)
+            return Direction.North;
+        if (gridCoordsDifX == 0 && gridCoordsDifZ == -1)
+            return Direction.South;
+        if (gridCoordsDifX == 1 && gridCoordsDifZ == 0)
+            return Direction.East;
+        if (gridCoordsDifX == -1 && gridCoordsDifZ == 0)
+            return Direction.West;
+
+        Debug.LogError("Can't define Direction");
+        return Direction.North;
+    }
 
     //ADD Liam
 

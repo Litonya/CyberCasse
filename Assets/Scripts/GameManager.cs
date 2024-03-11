@@ -1,23 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
+
+public enum GameStates { Planification, Action }
 public class GameManager : MonoBehaviour
 {
 
     private PlayerCharacter characterSelected;
+
+    private List<AvailibleActionsOnAdjacentCells> availibleActions;
+
+    private Cell cellSelected;
+    private Actions _actionSelected;
 
     private List<Character> _characterList;
 
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
 
-    enum GameStates { Planification, Action}
+
     private GameStates currentGameState;
+
+    private SelectionState _currentSelectionState;
 
     [SerializeField]
     private float _timePlanification = 10;
+
+    [SerializeField]
+    private int _knockoutLimit = 2;
 
     private float _timeRemain;
 
@@ -26,9 +39,20 @@ public class GameManager : MonoBehaviour
 
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
+    private struct AvailibleActionsOnAdjacentCells
+    {
+        public Cell cell;
 
-    //Context menu
+        public List<Actions> availibleActions;
+    }
 
+    enum SelectionState
+    {
+        SELECT_CHARACTER,
+        SELECT_DESTINATION,
+        SELECT_ACTION,
+        SELECT_ACTION_TARGET
+    }
 
     private void Awake()
     {
@@ -77,7 +101,7 @@ public class GameManager : MonoBehaviour
                 LaunchActionPhase();
             }
             //Input emplacement souris -> Si un personnage est selectionn�, r�cup�re les cellules s�lectionn�es survol�es par la souris
-            else if (characterSelected != null)
+            else if (characterSelected != null && _currentSelectionState == SelectionState.SELECT_DESTINATION)
             {
                 Cell cell = GetTargetCell();
                 if (cell != null)
@@ -126,19 +150,55 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void CellSelect(Cell cell)
     {
-        if(characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count-1] == cell)
+        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count - 1] == cell && _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
-            characterSelected.TargetCell(cell);
-            UIManager.instance.SetSelectedCell(cell);
+            //characterSelected.TargetCell(cell);
+            cellSelected = cell;
+            availibleActions = GetAvailibleActions(cell);
+            UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
             UIManager.instance.SetUIActionMenuON();
-            Unselect();
+            MapManager.instance.ResetSelectableCells();
+            _currentSelectionState = SelectionState.SELECT_ACTION;
+
+        }else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
+        {
+            TargetActionSelected(cell);
         }
+    }
+
+    private void TargetActionSelected(Cell targetCell)
+    {
+        characterSelected.TargetCell(cellSelected);
+        characterSelected.SetPreparedAction(_actionSelected, targetCell);
+        Unselect();
+    }
+
+    public void ActionSelect(Actions action)
+    {
+        if (action == Actions.MOVE)
+        {
+            characterSelected.TargetCell(cellSelected);
+            characterSelected.ClearPreparedAction();
+            Unselect();
+            return;
+        }
+
+        _actionSelected = action;
+        UIManager.instance.SetUIActionMenuOFF();
+        List<Cell> selectableCell = new List<Cell>();
+        foreach (AvailibleActionsOnAdjacentCells actionCell in availibleActions)
+        {
+            if (actionCell.availibleActions.Contains(action))
+            {
+                selectableCell.Add(actionCell.cell);
+            }
+        }
+        MapManager.instance.SetPreciseSelectableCells(selectableCell);
+        _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
 
     private void UnitSelect(PlayerCharacter character)
@@ -146,11 +206,13 @@ public class GameManager : MonoBehaviour
         if (characterSelected == character)
         {
             Unselect();
+            _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
             Unselect();
             Select(character);
+            _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
@@ -162,6 +224,9 @@ public class GameManager : MonoBehaviour
             // Debug.Log(characterSelected.name + " unselected");
         }
         characterSelected = null;
+        cellSelected = null;
+        _actionSelected = Actions.NONE;
+        UIManager.instance.SetUIActionMenuOFF();
         MapManager.instance.ResetSelectableCells();
     }
 
@@ -192,6 +257,7 @@ public class GameManager : MonoBehaviour
 
     private void LaunchActionPhase()
     {
+        EndPlanificationPhase();
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
@@ -202,14 +268,25 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetUIActionPhase();
     }
 
+    private void EndActionPhase()
+    {
+        UIManager.instance.SetUIActionMenuOFF();
+    }
+
     private void LaunchPlanificationPhase()
     {
-       // Debug.Log("Launch Planification phase");
+        EndActionPhase();
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
+        _currentSelectionState = SelectionState.SELECT_CHARACTER;
         UIManager.instance.SetUIPlanificationPhase();
         _timeRemain = _timePlanification;
+    }
+
+    private void EndPlanificationPhase()
+    {
+
     }
 
     private void AddToPath(Character character, Cell cell)
@@ -247,6 +324,11 @@ public class GameManager : MonoBehaviour
             return hit.collider.gameObject.GetComponent<Cell>();
         }
         return null;
+    }
+
+    public GameStates GetGameState()
+    {
+        return currentGameState;
     }
 
     private void ResetAllCharacter()
@@ -323,4 +405,46 @@ public class GameManager : MonoBehaviour
         // Conditions de victoire remplies si tous les joueurs sont dans la zone ET au moins un a la winCondition attachée
         return allPlayersInZone && atLeastOnePlayerHasWinCondition;
     }
+
+
+
+
+    //Gestion actions
+    private List<AvailibleActionsOnAdjacentCells> GetAvailibleActions(Cell originCell)
+    {
+        List<AvailibleActionsOnAdjacentCells> availibleActions = new List<AvailibleActionsOnAdjacentCells>();
+
+        foreach (Cell cell in originCell.adjencyList)
+        {
+            AvailibleActionsOnAdjacentCells currentCheckCell = new AvailibleActionsOnAdjacentCells();
+
+            currentCheckCell.cell = cell;
+            currentCheckCell.availibleActions = cell.possibleActions;
+
+            if (cell.occupant != null && cell.occupant.GetComponent<EnemyCharacter>() && _knockoutLimit>0)
+            {
+                currentCheckCell.availibleActions.Add(Actions.KNOCKOUT);
+            }
+
+            availibleActions.Add(currentCheckCell);
+        }
+
+        return availibleActions;
+    }
+
+    private List<Actions> GetAllAvailibleActions(List<AvailibleActionsOnAdjacentCells> availibleActionsOnAdjacentCells)
+    {
+        List<Actions> actions = new List<Actions>();
+
+        foreach (AvailibleActionsOnAdjacentCells actionLinkToCell in availibleActionsOnAdjacentCells)
+        {
+            foreach (Actions currentCellAction in  actionLinkToCell.availibleActions)
+            {
+                if (!actions.Contains(currentCellAction)) actions.Add(currentCellAction);
+            }
+        }
+
+        return actions;
+    }
+
 }
