@@ -24,6 +24,13 @@ public class Character : MonoBehaviour
 
     protected WinCondition attachedWinCondition;
 
+    private float previousXPosition;
+
+    void Start()
+    {
+        // Initialiser la position précédente à la position actuelle
+        previousXPosition = transform.position.x;
+    }
 
     protected void Update()
     {
@@ -40,6 +47,20 @@ public class Character : MonoBehaviour
                 Action();
             }
         }
+
+        if (transform.position.x < previousXPosition)
+        {
+            // Si la position X décroît, appliquer un flip horizontal
+            FlipX(true);
+        }
+        else if (transform.position.x > previousXPosition)
+        {
+            // Si la position X augmente, annuler le flip horizontal
+            FlipX(false);
+        }
+
+        // Mettre à jour la position précédente
+        previousXPosition = transform.position.x;
     }
 
     public virtual void Reset()
@@ -154,7 +175,12 @@ public class Character : MonoBehaviour
                 GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
             }
         }
-            
-       
+    }
+
+    void FlipX(bool flip)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (flip ? -1 : 1);
+        transform.localScale = scale;
     }
 }
