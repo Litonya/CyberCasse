@@ -21,6 +21,10 @@ public class Cell : MonoBehaviour
 
     private List<EnemyFOV> viewBy = new List<EnemyFOV>();
 
+    private Item _placeItem = null;
+
+    [SerializeField] private float itemOffset = 0f;
+
     public enum CellState { Idle, isSelectable, isSelected }
     [HideInInspector]
     public CellState currentState = CellState.Idle;
@@ -34,7 +38,6 @@ public class Cell : MonoBehaviour
     public List<Actions> possibleActions = new List<Actions>();
 
     [SerializeField] private int _diffuculty = 0;
-    //[HideInInspector]
     public int remainDifficulty;
 
     private List<CellAction> _cellActions = new List<CellAction>();
@@ -196,5 +199,21 @@ public class Cell : MonoBehaviour
 
         Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
         return true;
+    }
+
+    public void PlaceItem(Item item)
+    {
+        if (_placeItem != null)
+        {
+            Debug.LogError("This cell already have an item");
+        }
+        _placeItem = item;
+        item.gameObject.SetActive(true);
+        item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+    }
+
+    public Item GetItem()
+    {
+        return _placeItem;
     }
 }

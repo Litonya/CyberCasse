@@ -25,6 +25,8 @@ public class PlayerCharacter : Character
     private Cell _targetActionCell;
     private Cell _previousActionCell;
 
+    private Item CarriedItem;
+
 
     protected override void Action()
     {

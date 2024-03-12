@@ -30,6 +30,8 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
+    public List<Item> debugItemList = new List<Item>();
+
     enum Side
     {
         LEFT,
@@ -58,6 +60,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         InitCharacterPos();
+        InitItemPos();
     }
 
     private void InitMap()
@@ -116,6 +119,22 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
+    private void InitItemPos()
+    {
+        GameObject[] itemList = GameObject.FindGameObjectsWithTag("Item");
+
+        foreach(GameObject item in itemList)
+        {
+            Item itemScript = item.GetComponent<Item>();
+            if (item != null)
+            {
+                debugItemList.Add(itemScript);
+                Cell cell = GetCell((int)item.transform.position.x, (int)item.transform.position.z);
+                cell.PlaceItem(itemScript);
+            }
+        }
+    }
 
     public Cell GetCell(int x, int z)
     {
