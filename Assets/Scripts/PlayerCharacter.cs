@@ -8,10 +8,11 @@ public enum Actions
     MOVE, //Ne pas mettre move sur un tuile
     LOCKPICK,
     HACK,
-    GETITEM,
+    GETITEM, //Ne pas mettre directement GetItem sur une tuile
     PLACEITEM,
     KNOCKOUT,
-    LOOK
+    LOOK,
+    UNLOCK
 }
 
 public class PlayerCharacter : Character
@@ -25,6 +26,8 @@ public class PlayerCharacter : Character
     private Cell _targetActionCell;
     private Cell _previousActionCell;
 
+    private Item _carriedItem;
+
 
     protected override void Action()
     {
@@ -37,7 +40,7 @@ public class PlayerCharacter : Character
     {
         if (_preparedAction == Actions.LOCKPICK)
         {
-            if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat))
+            if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat, this))
             {
                 SetPreparedAction(_preparedAction, _targetActionCell);
                 
@@ -45,6 +48,14 @@ public class PlayerCharacter : Character
             {
                 ClearPreparedAction();
             }
+        }
+        if (_preparedAction == Actions.GETITEM)
+        {
+            _targetActionCell.Acte(_preparedAction, 0, this);
+        }
+        if (_preparedAction == Actions.UNLOCK)
+        {
+            _targetActionCell.Acte(_preparedAction, 0, this);
         }
     }
 
@@ -115,6 +126,23 @@ public class PlayerCharacter : Character
     {
         _currentCell.occupant = null;
         gameObject.SetActive(false);
+    }
+
+    public void SetCarriedItem(Item item)
+    {
+        _carriedItem = item;
+        _carriedItem.gameObject.SetActive(false);
+    }
+
+    public Item GetCarriedItem()
+    {
+        return _carriedItem;
+    }
+
+    public void DestroyCarriedItem()
+    {
+        Destroy(_carriedItem.gameObject);
+        _carriedItem=null;
     }
 }
 

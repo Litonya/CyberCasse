@@ -140,11 +140,15 @@ public class UIManager : MonoBehaviour
         //En théorie le joueur peut toujours se déplacer sur la case sélectionné
         ShowMoveAction();
 
-        ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
+        //ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
 
         ShowLockPickAction(actions.Contains(Actions.LOCKPICK));
 
         ShowLookAction(actions.Contains(Actions.LOOK));
+
+        ShowGrabItemAction(actions.Contains(Actions.GETITEM));
+
+        ShowUnlockAction(actions.Contains(Actions.UNLOCK));
     }
 
 
@@ -155,17 +159,28 @@ public class UIManager : MonoBehaviour
         moveAction.SetInteractable(true);
     }
 
-    private void ShowKnockoutAction(bool showIt)
+    /*private void ShowKnockoutAction(bool showIt)
     {
         // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
         ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
         attackAction.gameObject.SetActive(showIt);
-    }
+    }*/
 
     private void ShowLockPickAction(bool showIt)
     {
         // Activer l'action "Ouvrir" si la cellule est adjacente à une porte
         _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowUnlockAction(bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/UnlockAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowGrabItemAction(bool showIt)
+    {
+        ActionMenuItem grabAction = _actionMenu.transform.Find("Container/Image/Container/GrabAction").GetComponent<ActionMenuItem>();
+        grabAction.gameObject.SetActive(showIt);
     }
 
     private void ShowLookAction(bool showIt)

@@ -13,6 +13,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+      propertyPath: neededKey
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
       propertyPath: _diffuculty
       value: 2
       objectReference: {fileID: 0}
