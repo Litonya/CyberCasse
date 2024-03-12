@@ -284,5 +284,13 @@ public class EnemyCharacter : Character
         LaunchChase(target);
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("TRIGGGER");
+        PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+        if (player != null)
+        {
+            player.Caught();
+        }
+    }
 }
