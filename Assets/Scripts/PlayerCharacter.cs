@@ -8,10 +8,11 @@ public enum Actions
     MOVE, //Ne pas mettre move sur un tuile
     LOCKPICK,
     HACK,
-    GETITEM,
+    GETITEM, //Ne pas mettre directement GetItem sur une tuile
     PLACEITEM,
     KNOCKOUT,
-    LOOK
+    LOOK,
+    UNLOCK
 }
 
 public class PlayerCharacter : Character
@@ -49,6 +50,10 @@ public class PlayerCharacter : Character
             }
         }
         if (_preparedAction == Actions.GETITEM)
+        {
+            _targetActionCell.Acte(_preparedAction, 0, this);
+        }
+        if (_preparedAction == Actions.UNLOCK)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
         }
@@ -132,6 +137,12 @@ public class PlayerCharacter : Character
     public Item GetCarriedItem()
     {
         return _carriedItem;
+    }
+
+    public void DestroyCarriedItem()
+    {
+        Destroy(_carriedItem.gameObject);
+        _carriedItem=null;
     }
 }
 

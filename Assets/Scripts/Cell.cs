@@ -43,6 +43,10 @@ public class Cell : MonoBehaviour
     private List<CellAction> _cellActions = new List<CellAction>();
     private GrabItem _grabItemAction = null;
 
+    public KeyColor neededKey;
+
+    public List<Cell> linkCell = new List<Cell>();
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -175,6 +179,11 @@ public class Cell : MonoBehaviour
         {
             LockPick lockPick = gameObject.AddComponent<LockPick>();
             _cellActions.Add(lockPick);
+        }
+        if (possibleActions.Contains(Actions.UNLOCK))
+        {
+            UnlockDoor unlockDoor = gameObject.AddComponent<UnlockDoor>();
+            _cellActions.Add(unlockDoor);
         }
     }
 

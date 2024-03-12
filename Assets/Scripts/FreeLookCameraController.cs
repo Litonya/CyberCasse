@@ -22,7 +22,7 @@ public class FreeLookCameraController : MonoBehaviour
         // HandleRotationInput();
         HandleZoomInput();
         HandleSelectionInput();
-        MoveCameraTowardsTarget();
+        //MoveCameraTowardsTarget();
     }
 
     private void HandleMovementInput()

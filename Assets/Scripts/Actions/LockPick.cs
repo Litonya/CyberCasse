@@ -15,10 +15,21 @@ public class LockPick : CellAction
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
         {
-            _cell.SetWalkable();
-            _cell.possibleActions.Remove(Actions.LOCKPICK);
+            Unlock(_cell);
+
+            foreach(Cell cell in _cell.linkCell)
+            {
+                Unlock(cell);
+            }
+
             return true;
         }
         return false;
+    }
+
+    private void Unlock(Cell cell)
+    {
+        _cell.SetWalkable();
+        _cell.possibleActions.Remove(Actions.LOCKPICK);
     }
 }

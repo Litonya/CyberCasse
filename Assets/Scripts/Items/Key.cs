@@ -5,10 +5,11 @@ using UnityEngine;
 public enum KeyColor
 {
     GREEN,
-    BLUE
+    BLUE,
+    NONE
 }
 
 public class Key : Item
 {
-    public KeyColor color;
+    public KeyColor keyColor;
 }
