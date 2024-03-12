@@ -113,7 +113,7 @@ public class EnemyCharacter : Character
     {
         foreach (Cell cell in fullPath)
         {
-            if (path.Count > movePoints + 1)
+            if (path.Count > movePoints + 1 || (cell.occupant != null && cell.occupant.GetComponent<EnemyCharacter>() != null)) 
             {
                 break;
             }
@@ -286,11 +286,17 @@ public class EnemyCharacter : Character
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TRIGGGER");
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
         if (player != null)
         {
             player.Caught();
+            player = fieldOfView.GetClosestVisiblePlayer();
+            Debug.Log(player);
+            if (player == null)
+            {
+                guardState = GuardState.Patrol;
+            }
+
         }
     }
 }
