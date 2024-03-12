@@ -13,6 +13,8 @@ public class EnemyCharacter : Character
     private Direction _direction;
     private Direction _currentDirection = Direction.North;
     [SerializeField] private int _guardLevel = 2;
+    public int patrolMovePoints = 3;
+    public int chaseMovePoints = 6;
 
     [Header("Patrol settings")]
     //Sentinel
@@ -22,6 +24,8 @@ public class EnemyCharacter : Character
     public bool loopingPatrol;
     [SerializeField] private List<Cell> _patrolTargets;
 
+
+    
 
     EnemyFOV fieldOfView;
     PlayerCharacter player;
@@ -38,6 +42,7 @@ public class EnemyCharacter : Character
     private void Awake()
     {
         fieldOfView = GetComponent<EnemyFOV>();
+        movePoints = patrolMovePoints;
     }
 
     private void Start()
@@ -108,7 +113,7 @@ public class EnemyCharacter : Character
     {
         foreach (Cell cell in fullPath)
         {
-            if (path.Count > _moveSpeed + 1)
+            if (path.Count > movePoints + 1)
             {
                 break;
             }
@@ -203,7 +208,8 @@ public class EnemyCharacter : Character
 
     public void LaunchPatrol()
     {
-
+        guardState = GuardState.Patrol;
+        movePoints = patrolMovePoints;
     }
 
     public void LaunchLooking()
@@ -227,6 +233,7 @@ public class EnemyCharacter : Character
     {
         Debug.Log(newTarget.gameObject.name + " is detected by " + this.gameObject.name);
         guardState = GuardState.Chasing;
+        movePoints = chaseMovePoints;
         player = newTarget;
     }
 
@@ -256,7 +263,15 @@ public class EnemyCharacter : Character
         {
             if (guardState == GuardState.Chasing)
             {
-                List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetTargetCell(), true);
+                List<Cell> fullPath;
+                if (player.GetTargetCell() == null)
+                {
+                    fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+                }
+                else
+                {
+                    fullPath = MapManager.instance.FindPath(_currentCell, player.GetTargetCell(), true);
+                }
                 SetPath(fullPath);
             }
             base.Acte();
