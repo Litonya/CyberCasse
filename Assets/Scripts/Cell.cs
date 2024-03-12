@@ -187,13 +187,13 @@ public class Cell : MonoBehaviour
         walkable = false;
     }
 
-    public bool Acte(Actions action, int characterStat)
+    public bool Acte(Actions action, int characterStat, PlayerCharacter character)
     {
         foreach (CellAction cellAction in _cellActions)
         {
             if (cellAction.action == action)
             {
-                return cellAction.Acte(characterStat);
+                return cellAction.Acte(characterStat, character);
             }
         }
 
@@ -210,6 +210,12 @@ public class Cell : MonoBehaviour
         _placeItem = item;
         item.gameObject.SetActive(true);
         item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+    }
+
+    public void RemoveItem()
+    {
+        _placeItem.gameObject.SetActive(false);
+        _placeItem = null;
     }
 
     public Item GetItem()

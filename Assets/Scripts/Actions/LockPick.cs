@@ -10,7 +10,7 @@ public class LockPick : CellAction
         action = Actions.LOCKPICK;
     }
 
-    public override bool Acte(int characterStat)
+    public override bool Acte(int characterStat, PlayerCharacter character)
     {
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
