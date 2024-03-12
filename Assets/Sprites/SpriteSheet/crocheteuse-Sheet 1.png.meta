@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a14db7f03fb5fe40baba078f51df6f5
+guid: 08834716ef113c54e80ebbdde45f9179
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,19 +81,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -123,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Garde2 1_0
+      name: crocheteuse-Sheet 1_0
       rect:
         serializedVersion: 2
-        x: 17
+        x: 16
         y: 0
-        width: 32
-        height: 60
+        width: 33
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 212623bb829701746ba413c6a9630554
-      internalID: -682223642
+      spriteID: 3ee3e44924ce5724e889501478de17db
+      internalID: -1613610172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_1
+      name: crocheteuse-Sheet 1_1
       rect:
         serializedVersion: 2
-        x: 81
+        x: 80
         y: 0
-        width: 32
-        height: 60
+        width: 33
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7998360698d5f3141aa5098d616520b9
-      internalID: 1901602121
+      spriteID: 45beb475973cd0943996468cccb09fcd
+      internalID: -225306802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_2
+      name: crocheteuse-Sheet 1_2
       rect:
         serializedVersion: 2
-        x: 145
+        x: 144
         y: 0
-        width: 30
-        height: 60
+        width: 33
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 216db53f093670749b311f798a7e734e
-      internalID: -1764744153
+      spriteID: 9391c1aee967bdd409f73efd83c2706c
+      internalID: -339135909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_3
+      name: crocheteuse-Sheet 1_3
       rect:
         serializedVersion: 2
         x: 208
         y: 0
-        width: 31
-        height: 60
+        width: 33
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +187,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c35e84e7211c284281208275ca41b98
-      internalID: 320224366
+      spriteID: 5081cded314ea2947b94ae0876d7e56f
+      internalID: -1821439842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_4
+      name: crocheteuse-Sheet 1_4
       rect:
         serializedVersion: 2
-        x: 273
+        x: 272
+        y: 0
+        width: 33
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ccd6a7a000ea9744b1b85e10c833f26
+      internalID: 1190304292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crocheteuse-Sheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 336
         y: 0
         width: 29
-        height: 60
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7d1b06988ffe924fbcd3fb2b1107814
-      internalID: -1229999118
+      spriteID: c7a9a0f56c9081148a7d6a0ed59c0c59
+      internalID: 989808895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_5
+      name: crocheteuse-Sheet 1_6
       rect:
         serializedVersion: 2
-        x: 338
+        x: 400
         y: 0
-        width: 27
-        height: 60
+        width: 31
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,41 +250,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5844110fb82dc2241a404c039f3c0879
-      internalID: 1860946686
+      spriteID: 1778c7e31bce00c48b8689ee7d61c09f
+      internalID: 1522972547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_6
+      name: crocheteuse-Sheet 1_7
       rect:
         serializedVersion: 2
-        x: 403
+        x: 461
         y: 0
-        width: 34
-        height: 60
-      alignment: 9
-      pivot: {x: 0.40574288, y: 0.5000001}
+        width: 35
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d6eae1d7de7a314a92116486415336e
-      internalID: -949630794
+      spriteID: 66d0152faf69b2f40a6c6aefe1b886e9
+      internalID: -1931712246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_7
+      name: crocheteuse-Sheet 1_8
       rect:
         serializedVersion: 2
-        x: 465
+        x: 528
+        y: 0
+        width: 30
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf6704a753356b143969d9c1cb1768d1
+      internalID: 381855874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crocheteuse-Sheet 1_9
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 0
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4dddb592aec3244e8fb2baa3433a1cf
+      internalID: -1484644395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crocheteuse-Sheet 1_10
+      rect:
+        serializedVersion: 2
+        x: 656
         y: 0
         width: 32
-        height: 60
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,8 +334,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd99b2aa2d56c9e439e82cb8dd1d0c1c
-      internalID: -384862885
+      spriteID: ea620e0f9e118f2438fdf6790df63e72
+      internalID: -880256608
       vertices: []
       indices: 
       edges: []
@@ -293,7 +343,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: bfad2442d1db5024c888702ea39b4df8
+    spriteID: 3d2ab87257d80a3419fa96e4c19ac01c
     internalID: 0
     vertices: []
     indices: 
@@ -301,14 +351,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Garde2 1_0: -682223642
-      Garde2 1_1: 1901602121
-      Garde2 1_2: -1764744153
-      Garde2 1_3: 320224366
-      Garde2 1_4: -1229999118
-      Garde2 1_5: 1860946686
-      Garde2 1_6: -949630794
-      Garde2 1_7: -384862885
+      crocheteuse-Sheet 1_0: -1613610172
+      crocheteuse-Sheet 1_1: -225306802
+      crocheteuse-Sheet 1_10: -880256608
+      crocheteuse-Sheet 1_2: -339135909
+      crocheteuse-Sheet 1_3: -1821439842
+      crocheteuse-Sheet 1_4: 1190304292
+      crocheteuse-Sheet 1_5: 989808895
+      crocheteuse-Sheet 1_6: 1522972547
+      crocheteuse-Sheet 1_7: -1931712246
+      crocheteuse-Sheet 1_8: 381855874
+      crocheteuse-Sheet 1_9: -1484644395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

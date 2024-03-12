@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a14db7f03fb5fe40baba078f51df6f5
+guid: 6b5d89c90779ca4488d89ea32ce2667f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,19 +81,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -123,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Garde2 1_0
+      name: EclaireurFinal-Sheet 1_0
       rect:
         serializedVersion: 2
         x: 17
         y: 0
         width: 32
-        height: 60
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 212623bb829701746ba413c6a9630554
-      internalID: -682223642
+      spriteID: 28485c2e59df08245bd171c9990f55ff
+      internalID: 2060685287
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_1
+      name: EclaireurFinal-Sheet 1_1
       rect:
         serializedVersion: 2
         x: 81
         y: 0
         width: 32
-        height: 60
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7998360698d5f3141aa5098d616520b9
-      internalID: 1901602121
+      spriteID: 6196f800665bca448943cea7dae4fe7f
+      internalID: -745723859
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_2
+      name: EclaireurFinal-Sheet 1_2
       rect:
         serializedVersion: 2
         x: 145
         y: 0
-        width: 30
-        height: 60
+        width: 32
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 216db53f093670749b311f798a7e734e
-      internalID: -1764744153
+      spriteID: 0d737a3d79874b24b8b97dd289349636
+      internalID: 1921851272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_3
+      name: EclaireurFinal-Sheet 1_3
       rect:
         serializedVersion: 2
-        x: 208
+        x: 209
         y: 0
-        width: 31
-        height: 60
+        width: 32
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c35e84e7211c284281208275ca41b98
-      internalID: 320224366
+      spriteID: 88556dfc08921524db6c461f6bf22e98
+      internalID: -1007602873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_4
+      name: EclaireurFinal-Sheet 1_4
       rect:
         serializedVersion: 2
         x: 273
         y: 0
-        width: 29
-        height: 60
+        width: 32
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7d1b06988ffe924fbcd3fb2b1107814
-      internalID: -1229999118
+      spriteID: 42a67a5467e56fd468ab957b379bca69
+      internalID: -2142181633
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_5
+      name: EclaireurFinal-Sheet 1_5
       rect:
         serializedVersion: 2
-        x: 338
+        x: 337
         y: 0
-        width: 27
-        height: 60
+        width: 30
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,41 +229,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5844110fb82dc2241a404c039f3c0879
-      internalID: 1860946686
+      spriteID: 9c9d07f952884d84b99e55035946c86d
+      internalID: -1656948646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_6
+      name: EclaireurFinal-Sheet 1_6
       rect:
         serializedVersion: 2
-        x: 403
+        x: 400
         y: 0
-        width: 34
-        height: 60
-      alignment: 9
-      pivot: {x: 0.40574288, y: 0.5000001}
+        width: 31
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d6eae1d7de7a314a92116486415336e
-      internalID: -949630794
+      spriteID: fdb74bcffbcde7b48910e798c0903d3e
+      internalID: -1645266280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Garde2 1_7
+      name: EclaireurFinal-Sheet 1_7
       rect:
         serializedVersion: 2
         x: 465
         y: 0
-        width: 32
-        height: 60
+        width: 29
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,8 +271,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd99b2aa2d56c9e439e82cb8dd1d0c1c
-      internalID: -384862885
+      spriteID: 888318dd224932e49a9fd779be7631a4
+      internalID: -90391164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EclaireurFinal-Sheet 1_8
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 0
+        width: 27
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82037a2435721084a972cb08a0a18e5d
+      internalID: -289196725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EclaireurFinal-Sheet 1_9
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 0
+        width: 34
+        height: 63
+      alignment: 9
+      pivot: {x: 0.38178387, y: 0.49999994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7b7be94f7bbfbb45b0013a32be93dbc
+      internalID: 1759486466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EclaireurFinal-Sheet 1_10
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 0
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4281dda8d65b4548b3f4e4063075889
+      internalID: -586436415
       vertices: []
       indices: 
       edges: []
@@ -293,7 +343,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: bfad2442d1db5024c888702ea39b4df8
+    spriteID: 7fbace9bf12b7844a8e6aa95bb2f225a
     internalID: 0
     vertices: []
     indices: 
@@ -301,14 +351,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Garde2 1_0: -682223642
-      Garde2 1_1: 1901602121
-      Garde2 1_2: -1764744153
-      Garde2 1_3: 320224366
-      Garde2 1_4: -1229999118
-      Garde2 1_5: 1860946686
-      Garde2 1_6: -949630794
-      Garde2 1_7: -384862885
+      EclaireurFinal-Sheet 1_0: 2060685287
+      EclaireurFinal-Sheet 1_1: -745723859
+      EclaireurFinal-Sheet 1_10: -586436415
+      EclaireurFinal-Sheet 1_2: 1921851272
+      EclaireurFinal-Sheet 1_3: -1007602873
+      EclaireurFinal-Sheet 1_4: -2142181633
+      EclaireurFinal-Sheet 1_5: -1656948646
+      EclaireurFinal-Sheet 1_6: -1645266280
+      EclaireurFinal-Sheet 1_7: -90391164
+      EclaireurFinal-Sheet 1_8: -289196725
+      EclaireurFinal-Sheet 1_9: 1759486466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
