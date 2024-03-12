@@ -80,7 +80,7 @@ public class EnemyCharacter : Character
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
 
-            if (UpdateChase())fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+            return; //Le le joueur chasse, le chemin sera définis selon la destination du joueur
 
             /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
             {f
@@ -100,6 +100,12 @@ public class EnemyCharacter : Character
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
         }
 
+        SetPath(fullPath);
+        
+    }
+
+    private void SetPath(List<Cell> fullPath)
+    {
         foreach (Cell cell in fullPath)
         {
             if (path.Count > _moveSpeed + 1)
@@ -108,10 +114,11 @@ public class EnemyCharacter : Character
             }
             path.Add(cell);
         }
-        _target = path[path.Count-1];
+        _target = path[path.Count - 1];
 
         _target.SetState(CellState.isSelected);
         ShowPath();
+
     }
 
     private void LoopPatrol()
@@ -247,6 +254,11 @@ public class EnemyCharacter : Character
     {
         if (!_isSentinel || guardState == GuardState.Chasing)
         {
+            if (guardState == GuardState.Chasing)
+            {
+                List<Cell> fullPath = MapManager.instance.FindPath(_currentCell, player.GetTargetCell(), true);
+                SetPath(fullPath);
+            }
             base.Acte();
         }
         else SentinelRotate();
@@ -257,6 +269,5 @@ public class EnemyCharacter : Character
         LaunchChase(target);
     }
 
-    
 
 }
