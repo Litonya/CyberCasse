@@ -33,8 +33,7 @@ public class EnemyCharacter : Character
     private GuardState guardState;
     private bool _goBackOnPath = false;
 
-    
-
+    private Cell _lastPlayerViewCell = null;
 
     private void Awake()
     {
@@ -91,6 +90,11 @@ public class EnemyCharacter : Character
             }*/
         }
         else if (_isSentinel) return;
+        else if (guardState == GuardState.Looking)
+        {
+            fullPath = MapManager.instance.FindPath(_currentCell, _lastPlayerViewCell, true);
+            UpdateLooking();
+        }
         else
         {
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
@@ -190,6 +194,28 @@ public class EnemyCharacter : Character
         }
     }
 
+    public void LaunchPatrol()
+    {
+
+    }
+
+    public void LaunchLooking()
+    {
+        guardState = GuardState.Looking;
+        _target = _lastPlayerViewCell;
+    }
+
+    private void UpdateLooking()
+    {
+        if (_currentCell == _target) EndLooking();
+    }
+
+    public void EndLooking()
+    {
+        _lastPlayerViewCell = null;
+        LaunchPatrol();
+    }
+
     public void LaunchChase(PlayerCharacter newTarget)
     {
         Debug.Log(newTarget.gameObject.name + " is detected by " + this.gameObject.name);
@@ -212,8 +238,9 @@ public class EnemyCharacter : Character
 
     public void EndChase()
     {
-        guardState = GuardState.Patrol;
+        _lastPlayerViewCell = player.GetCurrentCell();
         player = null;
+        LaunchLooking();
     }
 
     public override void Acte()
