@@ -127,10 +127,10 @@ MonoBehaviour:
   path: []
   isMoving: 0
   currentAct: 0
-  movePoints: 4
+  movePoints: 8
   _lockPinckingStat: 1
   _hacking: 1
-  _strenght: 1
+  _strenght: 2
 --- !u!1 &7980348133882845882
 GameObject:
   m_ObjectHideFlags: 0
