@@ -107,6 +107,13 @@ public class PlayerCharacter : Character
     public void Caught()
     {
         GameManager.instance.PlayerCaught(this);
+        Desactivate();
+        
+    }
+
+    public void Desactivate()
+    {
+        _currentCell.occupant = null;
         gameObject.SetActive(false);
     }
 }

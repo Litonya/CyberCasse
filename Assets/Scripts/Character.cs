@@ -155,7 +155,7 @@ public class Character : MonoBehaviour
         
         if (GetComponentInChildren<SpriteController>() != null)
         {
-            Debug.Log(isWalking);
+            //Debug.Log(isWalking);
             if (isWalking)
             {
                 GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
