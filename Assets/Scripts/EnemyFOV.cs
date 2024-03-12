@@ -10,11 +10,11 @@ public class EnemyFOV : MonoBehaviour
 
     private List<Cell> _sightOfView = new List<Cell>();
 
-    private EnemyCharacter _enemyCharacter;
+    private Enemy _enemy;
 
     private void Awake()
     {
-        _enemyCharacter = GetComponent<EnemyCharacter>();
+        _enemy = GetComponent<Enemy>();
     }
 
     public void UpdateSightOfView(Direction direction, Cell currentCell)
@@ -39,7 +39,7 @@ public class EnemyFOV : MonoBehaviour
 
     public void PlayerDetected(PlayerCharacter character)
     {
-        _enemyCharacter.LaunchChase(character);
+        _enemy.PlayerDetected(character);
     }
 
     public virtual PlayerCharacter GetClosestVisiblePlayer()

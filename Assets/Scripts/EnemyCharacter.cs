@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 using static Cell;
 using static MapManager;
 
-public class EnemyCharacter : Character
+public class EnemyCharacter : Character, Enemy
 {
     [SerializeField]
     private Direction _direction;
@@ -279,7 +279,7 @@ public class EnemyCharacter : Character
         else SentinelRotate();
     }
 
-    protected virtual void PlayerDetected(PlayerCharacter target)
+    public virtual void PlayerDetected(PlayerCharacter target)
     {
         LaunchChase(target);
     }
