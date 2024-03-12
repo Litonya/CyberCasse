@@ -154,7 +154,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 80
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -188,7 +188,7 @@ MonoBehaviour:
   _instance: {fileID: 0}
   moveSpeed: 5
   rotationSpeed: 3
-  zoomSpeed: 5
+  zoomSpeed: 10
   yRotationSpeed: 0.5
   smoothTime: 0.5
 --- !u!1 &1838421755277054536

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0aa575fd993cf843891d480712e75c8
+guid: a19d8f658b4ec0d408fb0b7e0cb3d89b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HackerFinal_0
+      name: HackerFinal 1_0
       rect:
         serializedVersion: 2
         x: 17
@@ -137,17 +137,101 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 988b05d3a7648d04ea77990dd8659421
-      internalID: -1403030780
+      spriteID: 301dd3f5a76ff4843aa0e2eeb4885d4f
+      internalID: 1544388377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_1
+      name: HackerFinal 1_1
       rect:
         serializedVersion: 2
         x: 81
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1565d5fa7fe24a439675ea0597d3589
+      internalID: -922666575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HackerFinal 1_2
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 0
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8d5c5da91e6fb4188b102adf4e57fd
+      internalID: -1859805906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HackerFinal 1_3
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 0
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645ac221b907ee94a878ea6418f48224
+      internalID: -907673506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HackerFinal 1_4
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831d2ece5b229504a8f10c6d00ad4e82
+      internalID: -1681192409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HackerFinal 1_5
+      rect:
+        serializedVersion: 2
+        x: 337
         y: 0
         width: 30
         height: 64
@@ -158,17 +242,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73ab7ca8d2b5b9445ba453e1611d9c02
-      internalID: 267149641
+      spriteID: d8e960fdca5902f48aa4419463a650a8
+      internalID: 760432355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_2
+      name: HackerFinal 1_6
       rect:
         serializedVersion: 2
-        x: 144
+        x: 400
         y: 0
         width: 32
         height: 64
@@ -179,17 +263,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4172eee176bf1424e82dd2b121f5d1f6
-      internalID: -1802334489
+      spriteID: 1bb02d8bb9c09974aaf86a9ec890b6d0
+      internalID: 1574586808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_3
+      name: HackerFinal 1_7
       rect:
         serializedVersion: 2
-        x: 209
+        x: 465
         y: 0
         width: 29
         height: 63
@@ -200,17 +284,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56a618c3e75ac44459eb1de3d0369bee
-      internalID: -330819197
+      spriteID: aa9f6538560c20e4a84c2699422c8086
+      internalID: -1250509703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_4
+      name: HackerFinal 1_8
       rect:
         serializedVersion: 2
-        x: 274
+        x: 530
         y: 0
         width: 27
         height: 64
@@ -221,17 +305,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c23f79bcf9eb87d49b9862daaa7c8a25
-      internalID: 1051574476
+      spriteID: 36f1b43c396a54847afedc508dd78161
+      internalID: -1764913377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_5
+      name: HackerFinal 1_9
       rect:
         serializedVersion: 2
-        x: 339
+        x: 595
         y: 0
         width: 35
         height: 64
@@ -242,17 +326,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41ee3276e1bc6c246ba988ab6434e6de
-      internalID: -1651464494
+      spriteID: 6253d93c8db9a2046b9d9659c4dd61cc
+      internalID: -1578810588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackerFinal_6
+      name: HackerFinal 1_10
       rect:
         serializedVersion: 2
-        x: 401
+        x: 657
         y: 0
         width: 32
         height: 63
@@ -263,8 +347,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ac4d962ced596b4bbf4c8ce12f7939e
-      internalID: -1549020122
+      spriteID: c57cc6f2e069d014e87a37870d9a81e8
+      internalID: 939206132
       vertices: []
       indices: 
       edges: []
@@ -272,7 +356,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d753f87c27a36ad48b4148ad485293d0
+    spriteID: e5748922a7e58814bb2ec9f0a9673690
     internalID: 0
     vertices: []
     indices: 
@@ -280,13 +364,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HackerFinal_0: -1403030780
-      HackerFinal_1: 267149641
-      HackerFinal_2: -1802334489
-      HackerFinal_3: -330819197
-      HackerFinal_4: 1051574476
-      HackerFinal_5: -1651464494
-      HackerFinal_6: -1549020122
+      HackerFinal 1_0: 1544388377
+      HackerFinal 1_1: -922666575
+      HackerFinal 1_10: 939206132
+      HackerFinal 1_2: -1859805906
+      HackerFinal 1_3: -907673506
+      HackerFinal 1_4: -1681192409
+      HackerFinal 1_5: 760432355
+      HackerFinal 1_6: 1574586808
+      HackerFinal 1_7: -1250509703
+      HackerFinal 1_8: -1764913377
+      HackerFinal 1_9: -1578810588
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -27,8 +27,11 @@ public class FreeLookCameraController : MonoBehaviour
 
     private void HandleMovementInput()
     {
+        
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+
+        if (horizontalInput != 0 || verticalInput != 0) SetTarget(null);
 
         Vector3 forwardDirection = virtualCamera.transform.forward.normalized;
         forwardDirection.y = 0;
@@ -53,7 +56,7 @@ public class FreeLookCameraController : MonoBehaviour
     {
         float zoomInput = -Input.GetAxis("Mouse ScrollWheel");
         virtualCamera.m_Lens.FieldOfView += zoomInput * zoomSpeed;
-        virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(virtualCamera.m_Lens.FieldOfView, 10f, 60f);
+        virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(virtualCamera.m_Lens.FieldOfView, 10f, 80f);
     }
 
     private void HandleSelectionInput()

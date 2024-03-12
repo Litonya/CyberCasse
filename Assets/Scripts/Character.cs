@@ -108,6 +108,7 @@ public class Character : MonoBehaviour
             path.Remove(_nextCell);
             SetCurrentCell(_nextCell);
             _nextCell = path[0];
+            PlayAnim();
         }
     }
 
