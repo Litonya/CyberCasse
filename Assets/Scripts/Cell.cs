@@ -99,6 +99,16 @@ public class Cell : MonoBehaviour
         }
     }
 
+    public PlayerCharacter DemandingCheckForPlayer()
+    {
+        if (occupant != null)
+        {
+            Debug.Log("Joueur trouvé!");
+            return occupant.GetComponent<PlayerCharacter>();
+        }
+        return null;
+    }
+
     public void Reset()
     {
         isVisited = false;

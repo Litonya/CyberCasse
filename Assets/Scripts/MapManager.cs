@@ -351,6 +351,7 @@ public class MapManager : MonoBehaviour
         Dictionary<Cell, float> fScore = new Dictionary<Cell, float>();
 
         openSet.Add(startCell);
+        //gScore.Add(startCell, 0);
         gScore[startCell] = 0;
         fScore[startCell] = HeuristicCostEstimate(startCell, targetCell);
         while (openSet.Count > 0)

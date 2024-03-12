@@ -50,6 +50,8 @@ public class Character : MonoBehaviour
         turnAround();  
     }
 
+
+    public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
         _target = null;
