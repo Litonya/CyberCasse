@@ -20,9 +20,17 @@ public class Character : MonoBehaviour
     public bool currentAct = false;
 
     public int movePoints = 4;
+    private bool isWalking;
 
     protected WinCondition attachedWinCondition;
 
+    private float previousXPosition;
+
+    void Start()
+    {
+        // Initialiser la position précédente à la position actuelle
+        previousXPosition = transform.position.x;
+    }
 
     protected void Update()
     {
@@ -30,6 +38,8 @@ public class Character : MonoBehaviour
         {
             if (isMoving)
             {
+                isWalking = true;
+                PlayAnim();
                 MoveToNextCell();
             }
             else if (currentAct)
@@ -37,6 +47,7 @@ public class Character : MonoBehaviour
                 Action();
             }
         }
+        turnAround();  
     }
 
     public virtual void Reset()
@@ -82,15 +93,14 @@ public class Character : MonoBehaviour
             //Rendre le mouvement smooth
 
             transform.position = Vector3.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
-
-
-
         }
         else if(_nextCell == _target)
         {
             isMoving = false;
             SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
+            isWalking = false;
+            PlayAnim();
         }
         else
         {
@@ -98,6 +108,7 @@ public class Character : MonoBehaviour
             path.Remove(_nextCell);
             SetCurrentCell(_nextCell);
             _nextCell = path[0];
+            PlayAnim();
         }
     }
 
@@ -134,5 +145,47 @@ public class Character : MonoBehaviour
             cell.MarkPath();
         }
 
+    }
+
+    protected void PlayAnim()
+    {
+        // Jouer l'animation de marche
+        
+        if (GetComponentInChildren<SpriteController>() != null)
+        {
+            Debug.Log(isWalking);
+            if (isWalking)
+            {
+                GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+            }
+            else
+            {
+                GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
+            }
+        }
+    }
+
+    void FlipX(bool flip)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (flip ? -1 : 1);
+        transform.localScale = scale;
+    }
+
+    void turnAround()
+    {
+        if (transform.position.x < previousXPosition)
+        {
+            // Si la position X décroît, appliquer un flip horizontal
+            FlipX(true);
+        }
+        else if (transform.position.x > previousXPosition)
+        {
+            // Si la position X augmente, annuler le flip horizontal
+            FlipX(false);
+        }
+
+        // Mettre à jour la position précédente
+        previousXPosition = transform.position.x;
     }
 }
