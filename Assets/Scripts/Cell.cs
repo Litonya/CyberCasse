@@ -21,6 +21,10 @@ public class Cell : MonoBehaviour
 
     private List<EnemyFOV> viewBy = new List<EnemyFOV>();
 
+    private Item _placeItem = null;
+
+    [SerializeField] private float itemOffset = 0f;
+
     public enum CellState { Idle, isSelectable, isSelected }
     [HideInInspector]
     public CellState currentState = CellState.Idle;
@@ -34,10 +38,14 @@ public class Cell : MonoBehaviour
     public List<Actions> possibleActions = new List<Actions>();
 
     [SerializeField] private int _diffuculty = 0;
-    //[HideInInspector]
     public int remainDifficulty;
 
     private List<CellAction> _cellActions = new List<CellAction>();
+    private GrabItem _grabItemAction = null;
+
+    public KeyColor neededKey;
+
+    public List<Cell> linkCell = new List<Cell>();
 
     public void MarkPath()
     {
@@ -97,6 +105,16 @@ public class Cell : MonoBehaviour
                 }
             }
         }
+    }
+
+    public PlayerCharacter DemandingCheckForPlayer()
+    {
+        if (occupant != null)
+        {
+            Debug.Log("Joueur trouvé!");
+            return occupant.GetComponent<PlayerCharacter>();
+        }
+        return null;
     }
 
     public void Reset()
@@ -162,6 +180,11 @@ public class Cell : MonoBehaviour
             LockPick lockPick = gameObject.AddComponent<LockPick>();
             _cellActions.Add(lockPick);
         }
+        if (possibleActions.Contains(Actions.UNLOCK))
+        {
+            UnlockDoor unlockDoor = gameObject.AddComponent<UnlockDoor>();
+            _cellActions.Add(unlockDoor);
+        }
     }
 
     public void SetWalkable()
@@ -174,17 +197,59 @@ public class Cell : MonoBehaviour
         walkable = false;
     }
 
-    public bool Acte(Actions action, int characterStat)
+    public bool Acte(Actions action, int characterStat, PlayerCharacter character)
     {
         foreach (CellAction cellAction in _cellActions)
         {
             if (cellAction.action == action)
             {
-                return cellAction.Acte(characterStat);
+                return cellAction.Acte(characterStat, character);
             }
         }
 
         Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
         return true;
+    }
+
+    public void PlaceItem(Item item)
+    {
+        if (_placeItem != null)
+        {
+            Debug.LogError("This cell already have an item");
+        }
+        _placeItem = item;
+        item.gameObject.SetActive(true);
+        item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+        if (_grabItemAction == null)
+        {
+            GrabItemActionInit();
+        }
+
+    }
+
+    private void GrabItemActionInit()
+    {
+        _grabItemAction = gameObject.AddComponent<GrabItem>();
+        _cellActions.Add(_grabItemAction);
+        possibleActions.Add(Actions.GETITEM);
+    }
+
+    public void RemoveItem()
+    {
+        _placeItem.gameObject.SetActive(false);
+        _placeItem = null;
+        RemoveGrabItemAction();
+    }
+
+    private void RemoveGrabItemAction()
+    {
+        _cellActions.Remove(_grabItemAction);
+        possibleActions.Remove(Actions.GETITEM);
+        Destroy(_grabItemAction);
+    }
+
+    public Item GetItem()
+    {
+        return _placeItem;
     }
 }

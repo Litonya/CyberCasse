@@ -50,6 +50,8 @@ public class Character : MonoBehaviour
         turnAround();  
     }
 
+
+    public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
         _target = null;
@@ -153,7 +155,7 @@ public class Character : MonoBehaviour
         
         if (GetComponentInChildren<SpriteController>() != null)
         {
-            Debug.Log(isWalking);
+            //Debug.Log(isWalking);
             if (isWalking)
             {
                 GetComponentInChildren<SpriteController>().SetAnimationState("Walk");

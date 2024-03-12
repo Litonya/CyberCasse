@@ -10,15 +10,26 @@ public class LockPick : CellAction
         action = Actions.LOCKPICK;
     }
 
-    public override bool Acte(int characterStat)
+    public override bool Acte(int characterStat, PlayerCharacter character)
     {
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
         {
-            _cell.SetWalkable();
-            _cell.possibleActions.Remove(Actions.LOCKPICK);
+            Unlock(_cell);
+
+            foreach(Cell cell in _cell.linkCell)
+            {
+                Unlock(cell);
+            }
+
             return true;
         }
         return false;
+    }
+
+    private void Unlock(Cell cell)
+    {
+        _cell.SetWalkable();
+        _cell.possibleActions.Remove(Actions.LOCKPICK);
     }
 }

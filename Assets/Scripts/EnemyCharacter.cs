@@ -7,12 +7,14 @@ using UnityEngine.UIElements;
 using static Cell;
 using static MapManager;
 
-public class EnemyCharacter : Character
+public class EnemyCharacter : Character, Enemy
 {
     [SerializeField]
     private Direction _direction;
     private Direction _currentDirection = Direction.North;
     [SerializeField] private int _guardLevel = 2;
+    public int patrolMovePoints = 3;
+    public int chaseMovePoints = 6;
 
     [Header("Patrol settings")]
     //Sentinel
@@ -22,6 +24,8 @@ public class EnemyCharacter : Character
     public bool loopingPatrol;
     [SerializeField] private List<Cell> _patrolTargets;
 
+
+    
 
     EnemyFOV fieldOfView;
     PlayerCharacter player;
@@ -33,17 +37,16 @@ public class EnemyCharacter : Character
     private GuardState guardState;
     private bool _goBackOnPath = false;
 
-    
-
+    private Cell _lastPlayerViewCell = null;
 
     private void Awake()
     {
         fieldOfView = GetComponent<EnemyFOV>();
+        movePoints = patrolMovePoints;
     }
 
     private void Start()
     {
-        //cellDirection = _currentCell;
         _currentDirection = _direction;
         if (_sentinelDirection.Count == 0) _sentinelDirection.Add(_direction);
         if (_patrolTargets.Count == 0) _patrolTargets.Add(_currentCell);
@@ -61,7 +64,8 @@ public class EnemyCharacter : Character
     public enum GuardState
     {
         Patrol,
-        Chasing
+        Chasing,
+        Looking
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +85,8 @@ public class EnemyCharacter : Character
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
 
-            fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+            return; //Le le joueur chasse, le chemin sera définis selon la destination du joueur
+
             /*foreach (Cell cell in player.GetCurrentCell().adjencyList)
             {f
                 List<Cell> potentielPath = new List<Cell>();
@@ -90,23 +95,35 @@ public class EnemyCharacter : Character
             }*/
         }
         else if (_isSentinel) return;
+        else if (guardState == GuardState.Looking)
+        {
+            fullPath = MapManager.instance.FindPath(_currentCell, _lastPlayerViewCell, true);
+            UpdateLooking();
+        }
         else
         {
             fullPath = MapManager.instance.FindPath(_currentCell, _patrolTargets[_currentPatrolIndex], true);
         }
 
+        SetPath(fullPath);
+        
+    }
+
+    private void SetPath(List<Cell> fullPath)
+    {
         foreach (Cell cell in fullPath)
         {
-            if (path.Count > _moveSpeed + 1)
+            if (path.Count > movePoints + 1 || (cell.occupant != null && cell.occupant.GetComponent<EnemyCharacter>() != null)) 
             {
                 break;
             }
             path.Add(cell);
         }
-        _target = path[path.Count-1];
+        _target = path[path.Count - 1];
 
         _target.SetState(CellState.isSelected);
         ShowPath();
+
     }
 
     private void LoopPatrol()
@@ -189,23 +206,97 @@ public class EnemyCharacter : Character
         }
     }
 
+    public void LaunchPatrol()
+    {
+        guardState = GuardState.Patrol;
+        movePoints = patrolMovePoints;
+    }
+
+    public void LaunchLooking()
+    {
+        guardState = GuardState.Looking;
+        _target = _lastPlayerViewCell;
+    }
+
+    private void UpdateLooking()
+    {
+        if (_currentCell == _target) EndLooking();
+    }
+
+    public void EndLooking()
+    {
+        _lastPlayerViewCell = null;
+        LaunchPatrol();
+    }
+
     public void LaunchChase(PlayerCharacter newTarget)
     {
         Debug.Log(newTarget.gameObject.name + " is detected by " + this.gameObject.name);
         guardState = GuardState.Chasing;
+        movePoints = chaseMovePoints;
         player = newTarget;
+    }
+
+    private bool UpdateChase()
+    {
+        PlayerCharacter closestVisibleCharacter = fieldOfView.GetClosestVisiblePlayer();
+        if (closestVisibleCharacter == null)
+        {
+            EndChase();
+            return false;
+        }
+        player = closestVisibleCharacter;
+        return true;
+        
+    }
+
+    public void EndChase()
+    {
+        _lastPlayerViewCell = player.GetCurrentCell();
+        player = null;
+        LaunchLooking();
     }
 
     public override void Acte()
     {
         if (!_isSentinel || guardState == GuardState.Chasing)
         {
+            if (guardState == GuardState.Chasing)
+            {
+                List<Cell> fullPath;
+                if (player.GetTargetCell() == null)
+                {
+                    fullPath = MapManager.instance.FindPath(_currentCell, player.GetCurrentCell(), true);
+                }
+                else
+                {
+                    fullPath = MapManager.instance.FindPath(_currentCell, player.GetTargetCell(), true);
+                }
+                SetPath(fullPath);
+            }
             base.Acte();
         }
         else SentinelRotate();
     }
 
+    public virtual void PlayerDetected(PlayerCharacter target)
+    {
+        LaunchChase(target);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+        if (player != null)
+        {
+            player.Caught();
+            player = fieldOfView.GetClosestVisiblePlayer();
+            Debug.Log(player);
+            if (player == null)
+            {
+                guardState = GuardState.Patrol;
+            }
 
-
+        }
+    }
 }

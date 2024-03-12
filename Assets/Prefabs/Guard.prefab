@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7128495088795336153}
   - component: {fileID: 8406581677778715408}
   - component: {fileID: 2047914941698884458}
+  - component: {fileID: -4363223237693377744}
   m_Layer: 7
   m_Name: Guard
   m_TagString: NPC
@@ -102,7 +103,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -131,6 +132,8 @@ MonoBehaviour:
   movePoints: 2
   _direction: 0
   _guardLevel: 2
+  patrolMovePoints: 3
+  chaseMovePoints: 6
   _isSentinel: 0
   _sentinelDirection: 
   loopingPatrol: 1
@@ -147,7 +150,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f220e3967d1c845a530338f018f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 7
+  _range: 5
+--- !u!54 &-4363223237693377744
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2562765368539036645}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8004860358382479337
 GameObject:
   m_ObjectHideFlags: 0

@@ -127,8 +127,8 @@ MonoBehaviour:
   path: []
   isMoving: 0
   currentAct: 0
-  movePoints: 4
-  _lockPinckingStat: 1
+  movePoints: 8
+  _lockPinckingStat: 2
   _hacking: 1
   _strenght: 1
 --- !u!1 &7980348133882845882
