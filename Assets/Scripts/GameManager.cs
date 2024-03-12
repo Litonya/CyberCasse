@@ -447,4 +447,13 @@ public class GameManager : MonoBehaviour
         return actions;
     }
 
+    public void PlayerCaught(PlayerCharacter character)
+    {
+        _characterList.Remove(character);
+        if (GetAllCharacters().Count == 0) 
+        {
+            Debug.Log("TAPERDULOLOLOLOLOLOLOL");
+        }
+    }
+
 }

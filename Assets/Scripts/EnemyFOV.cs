@@ -41,4 +41,29 @@ public class EnemyFOV : MonoBehaviour
     {
         _enemyCharacter.LaunchChase(character);
     }
+
+    public virtual PlayerCharacter GetClosestVisiblePlayer()
+    {
+        PlayerCharacter closestPlayer = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Cell cell in _sightOfView)
+        {
+            PlayerCharacter detectedPlayer = cell.DemandingCheckForPlayer();
+            if (detectedPlayer != null)
+            {
+                float distance = Vector3.Distance(transform.position, detectedPlayer.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPlayer = detectedPlayer;
+                }
+            }
+        }
+
+        Debug.Log(closestPlayer);
+
+        return closestPlayer;
+    }
 }
+

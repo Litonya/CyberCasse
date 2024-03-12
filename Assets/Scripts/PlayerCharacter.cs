@@ -103,5 +103,11 @@ public class PlayerCharacter : Character
             return false;
         }
     }
+
+    public void Caught()
+    {
+        GameManager.instance.PlayerCaught(this);
+        gameObject.SetActive(false);
+    }
 }
 
