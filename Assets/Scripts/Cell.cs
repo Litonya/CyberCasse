@@ -41,6 +41,7 @@ public class Cell : MonoBehaviour
     public int remainDifficulty;
 
     private List<CellAction> _cellActions = new List<CellAction>();
+    private GrabItem _grabItemAction = null;
 
     public void MarkPath()
     {
@@ -210,12 +211,32 @@ public class Cell : MonoBehaviour
         _placeItem = item;
         item.gameObject.SetActive(true);
         item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+        if (_grabItemAction == null)
+        {
+            GrabItemActionInit();
+        }
+
+    }
+
+    private void GrabItemActionInit()
+    {
+        _grabItemAction = gameObject.AddComponent<GrabItem>();
+        _cellActions.Add(_grabItemAction);
+        possibleActions.Add(Actions.GETITEM);
     }
 
     public void RemoveItem()
     {
         _placeItem.gameObject.SetActive(false);
         _placeItem = null;
+        RemoveGrabItemAction();
+    }
+
+    private void RemoveGrabItemAction()
+    {
+        _cellActions.Remove(_grabItemAction);
+        possibleActions.Remove(Actions.GETITEM);
+        Destroy(_grabItemAction);
     }
 
     public Item GetItem()
