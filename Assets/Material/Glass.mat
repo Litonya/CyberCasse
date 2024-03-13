@@ -9,11 +9,11 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Glass
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 7a828fff79a27f841b1cecab802b3fae, type: 2}
-  m_ModifiedSerializedProperties: 18
+  m_Parent: {fileID: 2100000, guid: 9fa735d0fa028c2449722e06e5988a72, type: 2}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
-  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  - _EMISSION
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,15 +27,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _DstBlend: 10
-    - _GlossMapScale: 1
-    - _Glossiness: 1
-    - _Metallic: 0
-    - _Mode: 3
-    - _SmoothnessTextureChannel: 1
-    - _SrcBlend: 1
-    - _ZWrite: 0
-    m_Colors:
-    - _Color: {r: 0.37334993, g: 0.8595433, b: 0.87169814, a: 1}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []
