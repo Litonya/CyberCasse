@@ -12,7 +12,8 @@ public enum Actions
     PLACEITEM,
     KNOCKOUT,
     LOOK,
-    UNLOCK
+    UNLOCK,
+    BREAKGLASS
 }
 
 public class PlayerCharacter : Character
@@ -56,6 +57,10 @@ public class PlayerCharacter : Character
         if (_preparedAction == Actions.UNLOCK)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
+        }
+        if(_preparedAction == Actions.BREAKGLASS)
+        {
+            _targetActionCell.Acte(_preparedAction, _strenght, this);
         }
     }
 

@@ -149,6 +149,8 @@ public class UIManager : MonoBehaviour
         ShowGrabItemAction(actions.Contains(Actions.GETITEM));
 
         ShowUnlockAction(actions.Contains(Actions.UNLOCK));
+
+        ShowBreakGlassAction(actions.Contains(Actions.BREAKGLASS));
     }
 
 
@@ -187,6 +189,11 @@ public class UIManager : MonoBehaviour
     {
         // Activer l'action "Observer"
         _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowBreakGlassAction(bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/BreakGlassAction").gameObject.SetActive(showIt);
     }
 
     // Méthode appelée lorsqu'une action est sélectionnée dans le menu
