@@ -185,6 +185,11 @@ public class Cell : MonoBehaviour
             UnlockDoor unlockDoor = gameObject.AddComponent<UnlockDoor>();
             _cellActions.Add(unlockDoor);
         }
+        if (possibleActions.Contains(Actions.BREAKGLASS))
+        {
+            BreakGlass breakGlass = gameObject.AddComponent<BreakGlass>();
+            _cellActions.Add(breakGlass);
+        }
     }
 
     public void SetWalkable()
