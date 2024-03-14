@@ -11,7 +11,21 @@ public class Hack : CellAction
     }
     public override bool Acte(int characterStat, PlayerCharacter character)
     {
-        Debug.Log("Hacked");
-        return true;
+        _cell.remainDifficulty -= characterStat;
+        if (_cell.remainDifficulty <= 0)
+        {
+            HackAllCams();
+
+            return true;
+        }
+        return false;
+    }
+
+    private void HackAllCams()
+    {
+        foreach(SecurityCamera cameras in GameManager.instance.securityCameraList)
+        {
+            cameras.Hack();
+        }
     }
 }

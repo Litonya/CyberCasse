@@ -10,11 +10,15 @@ public class SecurityCamera : Character, Enemy
 
     private EnemyFOV _fov;
 
+    public bool isHack = false;
+
     private int _curentIndex = 0;
+    private int _fovSize;
 
     private void Awake()
     {
         _fov = GetComponent<EnemyFOV>();
+        _fovSize = _fov.GetRange();
     }
 
     private void Start()
@@ -44,5 +48,17 @@ public class SecurityCamera : Character, Enemy
         _currentDirection = pNewDirection;
         Debug.Log("Update cam");
         _fov.UpdateSightOfView(_currentDirection, _currentCell);
+    }
+
+    public void Hack()
+    {
+        _fov.SetRange(0);
+        isHack = true;
+    }
+
+    public void UnHack()
+    {
+        _fov.SetRange(_fovSize);
+        isHack = false;
     }
 }

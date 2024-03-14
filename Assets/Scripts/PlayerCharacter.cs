@@ -13,7 +13,7 @@ public enum Actions
     KNOCKOUT,
     LOOK,
     UNLOCK,
-    BREAKGLASS
+    BREAKGLASS,
 }
 
 public class PlayerCharacter : Character
@@ -25,6 +25,7 @@ public class PlayerCharacter : Character
 
     private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
+    private Actions _previousAction = Actions.NONE;
     private Cell _previousActionCell;
 
     private Item _carriedItem;
@@ -33,6 +34,7 @@ public class PlayerCharacter : Character
     protected override void Action()
     {
         _previousActionCell = _targetActionCell;
+        _previousAction = _preparedAction;
         if (_preparedAction != Actions.NONE) LaunchAction();
         base.Action();
     }
@@ -50,17 +52,22 @@ public class PlayerCharacter : Character
                 ClearPreparedAction();
             }
         }
-        if (_preparedAction == Actions.GETITEM)
+        else if (_preparedAction == Actions.GETITEM)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
         }
-        if (_preparedAction == Actions.UNLOCK)
+        else if (_preparedAction == Actions.UNLOCK)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
         }
-        if(_preparedAction == Actions.BREAKGLASS)
+        else if(_preparedAction == Actions.BREAKGLASS)
         {
             _targetActionCell.Acte(_preparedAction, _strenght, this);
+        }
+        else if(_preparedAction == Actions.HACK)
+        {
+            _targetActionCell.Acte(_preparedAction, _hacking, this);
+            SetPreparedAction(_preparedAction, _targetActionCell);
         }
     }
 
@@ -69,6 +76,13 @@ public class PlayerCharacter : Character
         if (_previousActionCell != null && _previousActionCell != _targetActionCell)
         {
             _previousActionCell.ResetDifficulty();
+            if (_previousAction == Actions.HACK)
+            {
+                foreach(SecurityCamera cameras in GameManager.instance.securityCameraList)
+                {
+                    cameras.UnHack();
+                }
+            }
         }
 
         base.Acte();
