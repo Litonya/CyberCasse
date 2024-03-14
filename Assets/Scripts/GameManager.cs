@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     public List<SecurityCamera> securityCameraList;
 
+    private List<EnemyCharacter> _guardList;
+
+    private List<PlayerCharacter> _playerCharacterList;
+
     public int moneyScore = 0;
 
     [SerializeField] private int _moneyMalus = -300;
@@ -47,6 +51,15 @@ public class GameManager : MonoBehaviour
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
     [SerializeField] private List<SecondPhasePatrols> _secondePhasePatrols = new List<SecondPhasePatrols>();
+
+    private int _alertLevel = 0;
+
+    public int maxAlertLevel = 2;
+
+    [SerializeField] private int _guardPatrolMovePointsIncrease = 2;
+    [SerializeField] private int _guardChassingMovePointsIncrease = 2;
+    [SerializeField] private int _guardFOVRangeIncrease = 1;
+    [SerializeField] private float _timeReducePlanificationTime = 5f;
 
     private struct AvailibleActionsOnAdjacentCells
     {
@@ -89,6 +102,8 @@ public class GameManager : MonoBehaviour
     {
         _characterList = GetAllCharacters();
         securityCameraList = GetAllSecurityCameras();
+        _guardList = GetAllEnemyCharacter();
+        _playerCharacterList = GetAllPlayerCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
@@ -288,6 +303,34 @@ public class GameManager : MonoBehaviour
             }
         }
         return securityCams;
+    }
+
+    private List<EnemyCharacter> GetAllEnemyCharacter() 
+    {
+        List<EnemyCharacter> enemyCharacters = new List<EnemyCharacter>();
+        foreach(Character character in _characterList)
+        {
+            EnemyCharacter enemyCharacterScript = character.GetComponent<EnemyCharacter>();
+            if (enemyCharacterScript != null)
+            {
+                enemyCharacters.Add(enemyCharacterScript);
+            }
+        }
+        return enemyCharacters;
+    }
+
+    private List<PlayerCharacter> GetAllPlayerCharacter()
+    {
+        List<PlayerCharacter> playerCharacters = new List<PlayerCharacter>();
+        foreach (Character character in _characterList)
+        {
+            PlayerCharacter playerCharacterScript = character.GetComponent<PlayerCharacter>();
+            if (playerCharacterScript != null)
+            {
+                playerCharacters.Add(playerCharacterScript);
+            }
+        }
+        return playerCharacters;
     }
 
     private void LaunchActionPhase()
@@ -507,5 +550,46 @@ public class GameManager : MonoBehaviour
             newPatrol.enemy.SetPatrolTarget(newPatrol.patrolCells);
             newPatrol.enemy.loopingPatrol = newPatrol.looping;
         }
+    }
+
+    public void IncreaseAlertLevel()
+    {
+        if (_alertLevel == maxAlertLevel) return;
+        _alertLevel++;
+        foreach (EnemyCharacter enemyCharacter in _guardList)
+        {
+            enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
+            enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease);
+            _timePlanification -= _timeReducePlanificationTime;
+        }
+        if (_alertLevel == maxAlertLevel)
+        {
+            foreach(EnemyCharacter enemyCharacter2 in _guardList)
+            {
+                enemyCharacter2.LaunchGeneralAlert();
+            }
+            foreach(SecurityCamera camera in securityCameraList)
+            {
+                camera.LaunchGeneralAlert();
+            }
+        }
+    }
+
+    public PlayerCharacter GetClosestPlayer(Character character)
+    {
+        int minDistance = int.MaxValue;
+        PlayerCharacter closestPlayer = null;
+
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList)
+        {
+            List<Cell> path = MapManager.instance.FindPath(character.GetCurrentCell(), playerCharacter.GetCurrentCell(), true);
+            if (path.Count < minDistance)
+            {
+                minDistance = path.Count;
+                closestPlayer = playerCharacter;
+            }
+        }
+
+        return closestPlayer;
     }
 }

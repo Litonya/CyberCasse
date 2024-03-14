@@ -37,6 +37,8 @@ public class EnemyCharacter : Character, Enemy
     private GuardState guardState;
     private bool _goBackOnPath = false;
 
+    private bool _generalAlert = false;
+
     private Cell _lastPlayerViewCell = null;
 
     private void Awake()
@@ -80,7 +82,11 @@ public class EnemyCharacter : Character, Enemy
 
         List<Cell> fullPath = new List<Cell>();
 
-
+        if (_generalAlert)
+        {
+            player = GameManager.instance.GetClosestPlayer(this);
+            guardState = GuardState.Chasing;
+        }
 
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
@@ -281,6 +287,7 @@ public class EnemyCharacter : Character, Enemy
 
     public virtual void PlayerDetected(PlayerCharacter target)
     {
+        if (guardState == GuardState.Patrol) GameManager.instance.IncreaseAlertLevel();
         LaunchChase(target);
     }
 
@@ -308,5 +315,24 @@ public class EnemyCharacter : Character, Enemy
     public void SetPatrolTarget(List<Cell> targets)
     {
         _patrolTargets = targets;
+    }
+
+    public void IncreaseMovePatrolAndChase(int patrolPoints, int chassPoints)
+    {
+        patrolMovePoints += patrolPoints;
+        chaseMovePoints += chassPoints;
+        if (guardState == GuardState.Chasing || guardState == GuardState.Looking) movePoints = chaseMovePoints;
+        else movePoints = patrolMovePoints;
+    }
+
+    public void IncreaseVisionRange(int range)
+    {
+        fieldOfView.IncreaseRange(range);
+    }
+
+    public void LaunchGeneralAlert()
+    {
+        _generalAlert = true;
+        fieldOfView.SetRange(0);
     }
 }
