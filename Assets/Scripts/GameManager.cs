@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public List<SecurityCamera> securityCameraList;
 
+    public int moneyScore = 0;
+
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
 
