@@ -190,6 +190,11 @@ public class Cell : MonoBehaviour
             BreakGlass breakGlass = gameObject.AddComponent<BreakGlass>();
             _cellActions.Add(breakGlass);
         }
+        if (possibleActions.Contains(Actions.HACK))
+        {
+            Hack hack = gameObject.AddComponent<Hack>();
+            _cellActions.Add(hack);
+        }
     }
 
     public void SetWalkable()

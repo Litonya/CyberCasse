@@ -64,5 +64,15 @@ public class EnemyFOV : MonoBehaviour
 
         return closestPlayer;
     }
+
+    public int GetRange()
+    {
+        return _range;
+    }
+
+    public void SetRange(int range)
+    {
+        _range = range;
+    }
 }
 

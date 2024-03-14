@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private List<Character> _characterList;
 
+    public List<SecurityCamera> securityCameraList;
+
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
 
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _characterList = GetAllCharacters();
-
+        securityCameraList = GetAllSecurityCameras();
         UIManager.instance.SetMaximumTime(_timePlanification);
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
@@ -253,6 +255,20 @@ public class GameManager : MonoBehaviour
             }
         }
         return list;
+    }
+
+    private List<SecurityCamera> GetAllSecurityCameras()
+    {
+        List<SecurityCamera> securityCams = new List<SecurityCamera>();
+        foreach(Character character in _characterList)
+        {
+            SecurityCamera securityCameraScript = character.GetComponent<SecurityCamera>();
+            if (securityCameraScript != null)
+            {
+                securityCams.Add(securityCameraScript);
+            }
+        }
+        return securityCams;
     }
 
     private void LaunchActionPhase()
