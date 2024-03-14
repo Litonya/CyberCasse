@@ -80,4 +80,9 @@ public class SecurityCamera : Character, Enemy
         _fov.SetRange(_fovSize);
         isHack = false;
     }
+
+    public void LaunchGeneralAlert()
+    {
+        _fov.SetRange(0);
+    }
 }

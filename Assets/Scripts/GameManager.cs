@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     private List<EnemyCharacter> _guardList;
 
+    private List<PlayerCharacter> _playerCharacterList;
+
     public int moneyScore = 0;
 
     [SerializeField] private int _moneyMalus = -300;
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
         _characterList = GetAllCharacters();
         securityCameraList = GetAllSecurityCameras();
         _guardList = GetAllEnemyCharacter();
+        _playerCharacterList = GetAllPlayerCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
@@ -314,6 +317,20 @@ public class GameManager : MonoBehaviour
             }
         }
         return enemyCharacters;
+    }
+
+    private List<PlayerCharacter> GetAllPlayerCharacter()
+    {
+        List<PlayerCharacter> playerCharacters = new List<PlayerCharacter>();
+        foreach (Character character in _characterList)
+        {
+            PlayerCharacter playerCharacterScript = character.GetComponent<PlayerCharacter>();
+            if (playerCharacterScript != null)
+            {
+                playerCharacters.Add(playerCharacterScript);
+            }
+        }
+        return playerCharacters;
     }
 
     private void LaunchActionPhase()
@@ -545,5 +562,34 @@ public class GameManager : MonoBehaviour
             enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease);
             _timePlanification -= _timeReducePlanificationTime;
         }
+        if (_alertLevel == maxAlertLevel)
+        {
+            foreach(EnemyCharacter enemyCharacter2 in _guardList)
+            {
+                enemyCharacter2.LaunchGeneralAlert();
+            }
+            foreach(SecurityCamera camera in securityCameraList)
+            {
+                camera.LaunchGeneralAlert();
+            }
+        }
+    }
+
+    public PlayerCharacter GetClosestPlayer(Character character)
+    {
+        int minDistance = int.MaxValue;
+        PlayerCharacter closestPlayer = null;
+
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList)
+        {
+            List<Cell> path = MapManager.instance.FindPath(character.GetCurrentCell(), playerCharacter.GetCurrentCell(), true);
+            if (path.Count < minDistance)
+            {
+                minDistance = path.Count;
+                closestPlayer = playerCharacter;
+            }
+        }
+
+        return closestPlayer;
     }
 }
