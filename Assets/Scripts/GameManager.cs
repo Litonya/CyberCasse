@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public int moneyScore = 0;
 
-    [SerializeField] private int _moneyMalus = 300;
+    [SerializeField] private int _moneyMalus = -300;
 
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
@@ -470,11 +470,17 @@ public class GameManager : MonoBehaviour
     public void PlayerCaught(PlayerCharacter character)
     {
         _characterList.Remove(character);
-        moneyScore -= _moneyMalus;
+        UpdateMoneyScore(_moneyMalus);
         if (GetAllCharacters().Count == 0) 
         {
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
+    }
+
+    public void UpdateMoneyScore(int moneyGain)
+    {
+        moneyScore += moneyGain;
+        //Add update UI score
     }
 
 }
