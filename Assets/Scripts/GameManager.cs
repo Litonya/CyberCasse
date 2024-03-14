@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public List<SecurityCamera> securityCameraList;
 
+    private List<EnemyCharacter> _guardList;
+
     public int moneyScore = 0;
 
     [SerializeField] private int _moneyMalus = -300;
@@ -47,6 +49,15 @@ public class GameManager : MonoBehaviour
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
     [SerializeField] private List<SecondPhasePatrols> _secondePhasePatrols = new List<SecondPhasePatrols>();
+
+    private int _alertLevel = 0;
+
+    public int maxAlertLevel = 2;
+
+    [SerializeField] private int _guardPatrolMovePointsIncrease = 2;
+    [SerializeField] private int _guardChassingMovePointsIncrease = 2;
+    [SerializeField] private int _guardFOVRangeIncrease = 1;
+    [SerializeField] private float _timeReducePlanificationTime = 5f;
 
     private struct AvailibleActionsOnAdjacentCells
     {
@@ -89,6 +100,7 @@ public class GameManager : MonoBehaviour
     {
         _characterList = GetAllCharacters();
         securityCameraList = GetAllSecurityCameras();
+        _guardList = GetAllEnemyCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
@@ -288,6 +300,20 @@ public class GameManager : MonoBehaviour
             }
         }
         return securityCams;
+    }
+
+    private List<EnemyCharacter> GetAllEnemyCharacter() 
+    {
+        List<EnemyCharacter> enemyCharacters = new List<EnemyCharacter>();
+        foreach(Character character in _characterList)
+        {
+            EnemyCharacter enemyCharacterScript = character.GetComponent<EnemyCharacter>();
+            if (enemyCharacterScript != null)
+            {
+                enemyCharacters.Add(enemyCharacterScript);
+            }
+        }
+        return enemyCharacters;
     }
 
     private void LaunchActionPhase()
@@ -506,6 +532,18 @@ public class GameManager : MonoBehaviour
             newPatrol.enemy.SetSentinel(newPatrol.isSentinel);
             newPatrol.enemy.SetPatrolTarget(newPatrol.patrolCells);
             newPatrol.enemy.loopingPatrol = newPatrol.looping;
+        }
+    }
+
+    public void IncreaseAlertLevel()
+    {
+        if (_alertLevel == maxAlertLevel) return;
+        _alertLevel++;
+        foreach (EnemyCharacter enemyCharacter in _guardList)
+        {
+            enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
+            enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease);
+            _timePlanification -= _timeReducePlanificationTime;
         }
     }
 }
