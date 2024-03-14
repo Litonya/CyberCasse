@@ -11,10 +11,7 @@ GameObject:
   - component: {fileID: 8828538300953807398}
   - component: {fileID: 6673963108389322633}
   - component: {fileID: 8027920911637252408}
-  - component: {fileID: 2762528265898114214}
   - component: {fileID: 4147304010309276685}
-  - component: {fileID: 7685902778210898942}
-  - component: {fileID: 9004867096477996510}
   m_Layer: 6
   m_Name: winCondition
   m_TagString: Item
@@ -88,27 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2762528265898114214
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506545103625993392}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4147304010309276685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,46 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movePointsMalus: 2
   value: 1000
---- !u!114 &7685902778210898942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506545103625993392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f318993b8266f364bb7d4b08af65a938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachedCharacter: {fileID: 0}
---- !u!54 &9004867096477996510
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506545103625993392}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &2389812750475553239
 PrefabInstance:
   m_ObjectHideFlags: 0

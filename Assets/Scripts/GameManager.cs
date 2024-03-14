@@ -413,7 +413,7 @@ public class GameManager : MonoBehaviour
         bool atLeastOnePlayerHasWinCondition = false;
         foreach (PlayerCharacter player in players)
         {
-            if (player.HasWinConditionAttached())
+            if (player.GetCarriedItem() != null && player.GetCarriedItem().GetComponent<Objective>())
             {
                 Debug.Log("Un joueur a bien la winCond");
                 atLeastOnePlayerHasWinCondition = true;
