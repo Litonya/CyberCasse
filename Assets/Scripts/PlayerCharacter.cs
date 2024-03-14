@@ -30,6 +30,12 @@ public class PlayerCharacter : Character
 
     private Item _carriedItem;
 
+    private int _movePointsBackup;
+
+    protected void Awake()
+    {
+        _movePointsBackup = movePoints;
+    }
 
     protected override void Action()
     {
@@ -152,6 +158,11 @@ public class PlayerCharacter : Character
     {
         _carriedItem = item;
         _carriedItem.gameObject.SetActive(false);
+        int moveMalus = -item.movePointsMalus + _strenght;
+        if (moveMalus < 0)
+        {
+            movePoints += moveMalus;
+        }
     }
 
     public Item GetCarriedItem()
@@ -163,6 +174,7 @@ public class PlayerCharacter : Character
     {
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
+        movePoints = _movePointsBackup;
     }
 
     public void PlaceCarriedItem()
@@ -171,6 +183,7 @@ public class PlayerCharacter : Character
         _currentCell.PlaceItem(_carriedItem);
         GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
         _carriedItem = null;
+        movePoints = _movePointsBackup;
     }
 }
 
