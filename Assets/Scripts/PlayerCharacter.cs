@@ -163,6 +163,10 @@ public class PlayerCharacter : Character
         {
             movePoints += moveMalus;
         }
+        if (item.GetComponent<Objective>())
+        {
+            GameManager.instance.LaunchPartTwo();
+        }
     }
 
     public Item GetCarriedItem()
