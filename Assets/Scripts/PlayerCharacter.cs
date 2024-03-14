@@ -136,6 +136,7 @@ public class PlayerCharacter : Character
 
     public void Caught()
     {
+        PlaceCarriedItem();
         GameManager.instance.PlayerCaught(this);
         Desactivate();
         
@@ -162,6 +163,14 @@ public class PlayerCharacter : Character
     {
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
+    }
+
+    public void PlaceCarriedItem()
+    {
+        if (_carriedItem == null) return;
+        _currentCell.PlaceItem(_carriedItem);
+        GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
+        _carriedItem = null;
     }
 }
 
