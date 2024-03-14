@@ -299,4 +299,14 @@ public class EnemyCharacter : Character, Enemy
 
         }
     }
+
+    public void SetSentinel(bool sentinel)
+    {
+        _isSentinel = sentinel;
+    }
+
+    public void SetPatrolTarget(List<Cell> targets)
+    {
+        _patrolTargets = targets;
+    }
 }

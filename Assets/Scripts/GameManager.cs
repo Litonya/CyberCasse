@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -45,11 +46,25 @@ public class GameManager : MonoBehaviour
 
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
+    [SerializeField] private List<SecondPhasePatrols> _secondePhasePatrols = new List<SecondPhasePatrols>();
+
     private struct AvailibleActionsOnAdjacentCells
     {
         public Cell cell;
 
         public List<Actions> availibleActions;
+    }
+
+    [Serializable]
+    public struct SecondPhasePatrols
+    {
+        public EnemyCharacter enemy;
+
+        public bool isSentinel;
+
+        public List<Cell> patrolCells;
+
+        public bool looping;
     }
 
     enum SelectionState
@@ -483,4 +498,14 @@ public class GameManager : MonoBehaviour
         //Add update UI score
     }
 
+
+    public void LaunchPartTwo()
+    {
+        foreach (SecondPhasePatrols newPatrol in _secondePhasePatrols)
+        {
+            newPatrol.enemy.SetSentinel(newPatrol.isSentinel);
+            newPatrol.enemy.SetPatrolTarget(newPatrol.patrolCells);
+            newPatrol.enemy.loopingPatrol = newPatrol.looping;
+        }
+    }
 }
