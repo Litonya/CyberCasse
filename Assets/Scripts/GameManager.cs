@@ -369,7 +369,7 @@ public class GameManager : MonoBehaviour
 
     private void AddToPath(Character character, Cell cell)
     {
-        if (character.path.Count == 0)
+        /*if (character.path.Count == 0)
         {
             character.path.Add(cell);
             cell.MarkPath();
@@ -380,17 +380,18 @@ public class GameManager : MonoBehaviour
             cell.MarkPath();
         }
         if (character.path.Count>character.movePoints + 1)
+        {*/
+        if (cell.currentState != Cell.CellState.isSelectable) return;
+        foreach (Cell markCell in character.path)
         {
-            foreach(Cell markCell in character.path)
-            {
-                markCell.UnmarkPath();
-            }
-            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false) ;
-            foreach (Cell toMarkCell in character.path)
-            {
-                toMarkCell.MarkPath();
-            }
+            markCell.UnmarkPath();
         }
+        character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
+        foreach (Cell toMarkCell in character.path)
+        {
+            toMarkCell.MarkPath();
+        }
+        //}
     }
 
     private Cell GetTargetCell()
@@ -589,7 +590,6 @@ public class GameManager : MonoBehaviour
                 closestPlayer = playerCharacter;
             }
         }
-
         return closestPlayer;
     }
 }
