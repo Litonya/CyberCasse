@@ -201,6 +201,17 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void UnmarkAllCells()
+    {
+        foreach (Cell cell in _logicalMap)
+        {
+            if (cell != null )
+            {
+                cell.UnmarkPath();
+            }
+        }
+    }
+
     public void SetCellsSelectable(Cell origin, int distance)
     {
         selectableCells = GetCellsReacheable(origin, distance);

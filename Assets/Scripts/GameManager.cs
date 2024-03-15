@@ -199,8 +199,15 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetUIActionMenuON();
             MapManager.instance.ResetSelectableCells();
             _currentSelectionState = SelectionState.SELECT_ACTION;
+            Debug.Log("Je suis la petite mouche qui pète!");
+            foreach (Cell cellPath in characterSelected.path)
+            {
+                Debug.Log("Prout!");
+                cellPath.UnmarkPath();
+            }
 
-        }else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
+        }
+        else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
             TargetActionSelected(cell);
         }
@@ -210,6 +217,7 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
+        
         Unselect();
     }
 
@@ -364,12 +372,12 @@ public class GameManager : MonoBehaviour
 
     private void EndPlanificationPhase()
     {
-
+        MapManager.instance.UnmarkAllCells();
     }
 
     private void AddToPath(Character character, Cell cell)
     {
-        if (character.path.Count == 0)
+        /*if (character.path.Count == 0)
         {
             character.path.Add(cell);
             cell.MarkPath();
@@ -380,17 +388,18 @@ public class GameManager : MonoBehaviour
             cell.MarkPath();
         }
         if (character.path.Count>character.movePoints + 1)
+        {*/
+        if (cell.currentState != Cell.CellState.isSelectable) return;
+        foreach (Cell markCell in character.path)
         {
-            foreach(Cell markCell in character.path)
-            {
-                markCell.UnmarkPath();
-            }
-            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false) ;
-            foreach (Cell toMarkCell in character.path)
-            {
-                toMarkCell.MarkPath();
-            }
+            markCell.UnmarkPath();
         }
+        character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
+        foreach (Cell toMarkCell in character.path)
+        {
+            toMarkCell.MarkPath();
+        }
+        //}
     }
 
     private Cell GetTargetCell()
@@ -589,7 +598,6 @@ public class GameManager : MonoBehaviour
                 closestPlayer = playerCharacter;
             }
         }
-
         return closestPlayer;
     }
 }
