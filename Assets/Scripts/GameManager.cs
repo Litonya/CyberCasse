@@ -199,8 +199,15 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetUIActionMenuON();
             MapManager.instance.ResetSelectableCells();
             _currentSelectionState = SelectionState.SELECT_ACTION;
+            Debug.Log("Je suis la petite mouche qui pète!");
+            foreach (Cell cellPath in characterSelected.path)
+            {
+                Debug.Log("Prout!");
+                cellPath.UnmarkPath();
+            }
 
-        }else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
+        }
+        else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
             TargetActionSelected(cell);
         }
@@ -210,6 +217,7 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
+        
         Unselect();
     }
 
@@ -364,7 +372,7 @@ public class GameManager : MonoBehaviour
 
     private void EndPlanificationPhase()
     {
-
+        MapManager.instance.UnmarkAllCells();
     }
 
     private void AddToPath(Character character, Cell cell)
