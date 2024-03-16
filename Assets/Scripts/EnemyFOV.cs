@@ -41,6 +41,20 @@ public class EnemyFOV : MonoBehaviour
         _enemy.PlayerDetected(character);
     }
 
+    public List<PlayerCharacter> GetAllSeePlayer()
+    {
+        List<PlayerCharacter> playerSee = new List<PlayerCharacter>();
+        foreach(Cell cell in _sightOfView)
+        {
+            PlayerCharacter character = cell.DemandingCheckForPlayer();
+            if (character != null)
+            {
+                playerSee.Add(character);
+            }
+        }
+        return playerSee;
+    }
+
     public virtual PlayerCharacter GetClosestVisiblePlayer()
     {
         PlayerCharacter closestPlayer = null;
@@ -63,6 +77,21 @@ public class EnemyFOV : MonoBehaviour
         Debug.Log(closestPlayer);
 
         return closestPlayer;
+    }
+
+    public int GetRange()
+    {
+        return _range;
+    }
+
+    public void SetRange(int range)
+    {
+        _range = range;
+    }
+
+    public void IncreaseRange(int range)
+    {
+        _range += range;
     }
 }
 

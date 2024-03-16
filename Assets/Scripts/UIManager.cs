@@ -151,6 +151,8 @@ public class UIManager : MonoBehaviour
         ShowUnlockAction(actions.Contains(Actions.UNLOCK));
 
         ShowBreakGlassAction(actions.Contains(Actions.BREAKGLASS));
+
+        ShowHackAction(actions.Contains(Actions.HACK));
     }
 
 
@@ -194,6 +196,11 @@ public class UIManager : MonoBehaviour
     private void ShowBreakGlassAction(bool showIt)
     {
         _actionMenu.transform.Find("Container/Image/Container/BreakGlassAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowHackAction (bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/HackAction").gameObject.SetActive(showIt);
     }
 
     // Méthode appelée lorsqu'une action est sélectionnée dans le menu

@@ -13,7 +13,7 @@ public enum Actions
     KNOCKOUT,
     LOOK,
     UNLOCK,
-    BREAKGLASS
+    BREAKGLASS,
 }
 
 public class PlayerCharacter : Character
@@ -25,14 +25,22 @@ public class PlayerCharacter : Character
 
     private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
+    private Actions _previousAction = Actions.NONE;
     private Cell _previousActionCell;
 
     private Item _carriedItem;
 
+    private int _movePointsBackup;
+
+    protected void Awake()
+    {
+        _movePointsBackup = movePoints;
+    }
 
     protected override void Action()
     {
         _previousActionCell = _targetActionCell;
+        _previousAction = _preparedAction;
         if (_preparedAction != Actions.NONE) LaunchAction();
         base.Action();
     }
@@ -50,17 +58,22 @@ public class PlayerCharacter : Character
                 ClearPreparedAction();
             }
         }
-        if (_preparedAction == Actions.GETITEM)
+        else if (_preparedAction == Actions.GETITEM)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
         }
-        if (_preparedAction == Actions.UNLOCK)
+        else if (_preparedAction == Actions.UNLOCK)
         {
             _targetActionCell.Acte(_preparedAction, 0, this);
         }
-        if(_preparedAction == Actions.BREAKGLASS)
+        else if(_preparedAction == Actions.BREAKGLASS)
         {
             _targetActionCell.Acte(_preparedAction, _strenght, this);
+        }
+        else if(_preparedAction == Actions.HACK)
+        {
+            _targetActionCell.Acte(_preparedAction, _hacking, this);
+            SetPreparedAction(_preparedAction, _targetActionCell);
         }
     }
 
@@ -69,6 +82,13 @@ public class PlayerCharacter : Character
         if (_previousActionCell != null && _previousActionCell != _targetActionCell)
         {
             _previousActionCell.ResetDifficulty();
+            if (_previousAction == Actions.HACK)
+            {
+                foreach(SecurityCamera cameras in GameManager.instance.securityCameraList)
+                {
+                    cameras.UnHack();
+                }
+            }
         }
 
         base.Acte();
@@ -122,6 +142,7 @@ public class PlayerCharacter : Character
 
     public void Caught()
     {
+        PlaceCarriedItem();
         GameManager.instance.PlayerCaught(this);
         Desactivate();
         
@@ -137,6 +158,15 @@ public class PlayerCharacter : Character
     {
         _carriedItem = item;
         _carriedItem.gameObject.SetActive(false);
+        int moveMalus = -item.movePointsMalus + _strenght;
+        if (moveMalus < 0)
+        {
+            movePoints += moveMalus;
+        }
+        if (item.GetComponent<Objective>())
+        {
+            GameManager.instance.LaunchPartTwo();
+        }
     }
 
     public Item GetCarriedItem()
@@ -148,6 +178,16 @@ public class PlayerCharacter : Character
     {
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
+        movePoints = _movePointsBackup;
+    }
+
+    public void PlaceCarriedItem()
+    {
+        if (_carriedItem == null) return;
+        _currentCell.PlaceItem(_carriedItem);
+        GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
+        _carriedItem = null;
+        movePoints = _movePointsBackup;
     }
 }
 
