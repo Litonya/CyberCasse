@@ -15,7 +15,17 @@ public enum SFX_Name
     STRONGBOX_LOOT,
     NEONS,
     STEP_GUARD,
-    STEP_PLAYER
+    STEP_PLAYER,
+    CAMERA_CONNEXION,
+    CAMERA_OFF,
+    CAMERAS_ROOM,
+    CITY_AMBIENCE,
+    GLASS,
+    TIMER1,
+    TIMER2,
+    ACTION,
+    PLAYER_DEAD,
+    SELECTION
 }
 
 [Serializable]
