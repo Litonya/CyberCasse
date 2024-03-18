@@ -30,7 +30,20 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
-    public List<Item> debugItemList = new List<Item>();
+    [Header("Players Character Colors")]
+    public Color chrochteuseSelectedColor = Color.magenta;
+    public Color chochteuseActionTargetColor = Color.magenta;
+    public Color hackSelectedColor = Color.green;
+    public Color hackActionTargetColor = Color.green;
+    public Color muscleSelectedColor = Color.yellow;
+    public Color muscleActionTargetColor = Color.yellow;
+    public Color scoutSelectedColor = Color.red;
+    public Color scoutActionTargetColor = Color.red;
+
+    [Header("Guards Colors")]
+    public Color guardSelectedColor = Color.black;
+
+
 
     enum Side
     {
@@ -129,7 +142,6 @@ public class MapManager : MonoBehaviour
             Item itemScript = item.GetComponent<Item>();
             if (item != null)
             {
-                debugItemList.Add(itemScript);
                 Cell cell = GetCell((int)item.transform.position.x, (int)item.transform.position.z);
                 cell.PlaceItem(itemScript);
             }

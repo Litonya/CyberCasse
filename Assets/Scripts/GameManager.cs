@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
     }
@@ -199,10 +200,8 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetUIActionMenuON();
             MapManager.instance.ResetSelectableCells();
             _currentSelectionState = SelectionState.SELECT_ACTION;
-            Debug.Log("Je suis la petite mouche qui pète!");
             foreach (Cell cellPath in characterSelected.path)
             {
-                Debug.Log("Prout!");
                 cellPath.UnmarkPath();
             }
 
@@ -217,7 +216,6 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        
         Unselect();
     }
 
@@ -240,6 +238,12 @@ public class GameManager : MonoBehaviour
             {
                 selectableCell.Add(actionCell.cell);
             }
+        }
+
+        if (selectableCell.Count == 1)
+        {
+            TargetActionSelected(selectableCell[0]);
+            return;
         }
         MapManager.instance.SetPreciseSelectableCells(selectableCell);
         _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
@@ -600,4 +604,6 @@ public class GameManager : MonoBehaviour
         }
         return closestPlayer;
     }
+
+    public int GetAlertLevel() { return _alertLevel; }
 }

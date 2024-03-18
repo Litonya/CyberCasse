@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
       propertyPath: seeThrough
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1221643931408570396, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
       propertyPath: m_Name

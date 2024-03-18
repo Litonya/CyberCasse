@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum CharacterTypes
+{
+    GUARD,
+    CROCHETEUSE,
+    HACKEURSE,
+    GROSBRAS,
+    ECLAIREUR
+}
 public class Character : MonoBehaviour
 {
     [SerializeField]
@@ -26,9 +35,11 @@ public class Character : MonoBehaviour
 
     private float previousXPosition;
 
+    public CharacterTypes characterType;
+
     void Start()
     {
-        // Initialiser la position précédente à la position actuelle
+        // Initialiser la position prï¿½cï¿½dente ï¿½ la position actuelle
         previousXPosition = transform.position.x;
     }
 
@@ -152,18 +163,14 @@ public class Character : MonoBehaviour
     protected void PlayAnim()
     {
         // Jouer l'animation de marche
-        
-        if (GetComponentInChildren<SpriteController>() != null)
-        {
             //Debug.Log(isWalking);
-            if (isWalking)
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
-            }
-            else
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
-            }
+        if (isWalking)
+        {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+        }
+        else
+        {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
         }
     }
 
@@ -178,7 +185,7 @@ public class Character : MonoBehaviour
     {
         if (transform.position.x < previousXPosition)
         {
-            // Si la position X décroît, appliquer un flip horizontal
+            // Si la position X dï¿½croï¿½t, appliquer un flip horizontal
             FlipX(true);
         }
         else if (transform.position.x > previousXPosition)
@@ -187,7 +194,7 @@ public class Character : MonoBehaviour
             FlipX(false);
         }
 
-        // Mettre à jour la position précédente
+        // Mettre ï¿½ jour la position prï¿½cï¿½dente
         previousXPosition = transform.position.x;
     }
 }

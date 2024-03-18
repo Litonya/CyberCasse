@@ -25,7 +25,7 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private float itemOffset = 0f;
 
-    public enum CellState { Idle, isSelectable, isSelected }
+    public enum CellState { Idle, isSelectable, isSelected, actionTarget }
     [HideInInspector]
     public CellState currentState = CellState.Idle;
 
@@ -47,6 +47,10 @@ public class Cell : MonoBehaviour
 
     public List<Cell> linkCell = new List<Cell>();
 
+    private Character _characterTarget = null;
+
+    private Renderer _renderer;
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -61,6 +65,7 @@ public class Cell : MonoBehaviour
     {
         InitializeActions();
         remainDifficulty = _diffuculty;
+        _renderer = GetComponent<Renderer>();
     }
 
     private void Start()
@@ -122,6 +127,7 @@ public class Cell : MonoBehaviour
         isVisited = false;
         UnmarkPath();
         SetState(CellState.Idle);
+        _characterTarget = null;
     }
 
     public void ResetDifficulty()
@@ -146,25 +152,52 @@ public class Cell : MonoBehaviour
 
     public void RefreshStateVisual()
     {
-        Renderer cellMat = this.GetComponent<Renderer>();
-
         if (currentState == CellState.Idle && viewBy.Count == 0)
         {
-            cellMat.material.color = Color.white;
+            SetIdleVisual();
         }
         else if (currentState == CellState.isSelectable)
         {
-            cellMat.material.color = Color.magenta;
+            SetIsVisibleVisual();
         }
         else if (currentState == CellState.isSelected)
         {
-            cellMat.material.color = Color.blue;
+            SetIsSelectedVisual();
+        }
+        else if (currentState == CellState.actionTarget)
+        {
+            SetActionTargetVisual();
         }
         else if (viewBy.Count != 0)
         {
-            cellMat.material.color = Color.red;
+            SetVisibleVisual();
         }
     }
+
+    private void SetIdleVisual()
+    {
+        _renderer.material.color = Color.white;
+    }
+
+    private void SetIsVisibleVisual()
+    {
+        _renderer.material.color = Color.magenta;
+    }
+
+    private void SetIsSelectedVisual()
+    {
+        _renderer.material.color = Color.blue;
+    }
+    private void SetVisibleVisual()
+    {
+        _renderer.material.color = Color.red;
+    }
+
+    private void SetActionTargetVisual()
+    {
+        _renderer.material.color = Color.grey;
+    }
+
 
     public void SetState(CellState state)
     {
