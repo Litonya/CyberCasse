@@ -53,16 +53,20 @@ public class UIManager : MonoBehaviour
     {
         _phaseLabel.text = "ACTION";
         _phaseLabel.color = _actionPhaseColor;
+        _dialSlider.StopTimer();
     }
 
     public void SetUIPlanificationPhase()
     {
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
+        _dialSlider.StartTimer();
+
     }
 
     public void SetMaximumTime(float maxTime)
     {
+        
         _timerProgressBar.maxValue = maxTime;
         // _dialSlider.DisplayFormattedTime(maxTime);
         _dialSlider.SetTimerTimeStart(maxTime);
