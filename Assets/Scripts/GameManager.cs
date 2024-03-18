@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
     }
@@ -600,4 +601,6 @@ public class GameManager : MonoBehaviour
         }
         return closestPlayer;
     }
+
+    public int GetAlertLevel() { return _alertLevel; }
 }
