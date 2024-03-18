@@ -177,11 +177,13 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
                 {
-                    Debug.Log("A PlayerCharacter is clicked");
+                    //Debug.Log("A PlayerCharacter is clicked");
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
                 } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
                 }
