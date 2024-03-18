@@ -15,6 +15,7 @@ public class BreakGlass : CellAction
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.GLASS);
             Break(_cell);
 
             foreach (Cell cell in _cell.linkCell)
