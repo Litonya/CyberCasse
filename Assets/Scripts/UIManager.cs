@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Slider _timerProgressBar;
+    public Timer _dialSlider;
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
 
@@ -63,11 +64,15 @@ public class UIManager : MonoBehaviour
     public void SetMaximumTime(float maxTime)
     {
         _timerProgressBar.maxValue = maxTime;
+        // _dialSlider.DisplayFormattedTime(maxTime);
+        _dialSlider.SetTimerTimeStart(maxTime);
     }
 
     public void UpdateTimeBar(float timeRemain)
     {
         _timerProgressBar.value = timeRemain;
+        // _dialSlider.DisplayFormattedTime(timeRemain);
+        _dialSlider.timeRemaining = timeRemain;
     }
 
     public void ShowVictory()
