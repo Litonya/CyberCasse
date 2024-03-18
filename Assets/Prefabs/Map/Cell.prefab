@@ -126,7 +126,7 @@ MonoBehaviour:
   walkable: 1
   seeThrough: 1
   isVisited: 0
-  itemOffset: 0
+  itemOffset: 0.5
   currentState: 0
   adjencyList: []
   isDoor: 0

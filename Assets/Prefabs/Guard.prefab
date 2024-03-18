@@ -130,9 +130,10 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 2
+  characterType: 0
   _direction: 0
   _guardLevel: 2
-  patrolMovePoints: 3
+  patrolMovePoints: 4
   chaseMovePoints: 6
   _isSentinel: 0
   _sentinelDirection: 
@@ -150,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f220e3967d1c845a530338f018f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 5
+  _range: 6
 --- !u!54 &-4363223237693377744
 Rigidbody:
   m_ObjectHideFlags: 0
