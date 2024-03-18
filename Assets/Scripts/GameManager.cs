@@ -350,6 +350,7 @@ public class GameManager : MonoBehaviour
     private void LaunchActionPhase()
     {
         EndPlanificationPhase();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();

@@ -130,7 +130,7 @@ MonoBehaviour:
   currentState: 0
   adjencyList: []
   isDoor: 0
-  possibleActions: 03000000
+  possibleActions: 
   _diffuculty: 0
   remainDifficulty: 0
   neededKey: 2

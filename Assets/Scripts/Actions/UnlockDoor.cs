@@ -38,6 +38,7 @@ public class UnlockDoor : CellAction
     private void Unlock(Cell cell)
     {
         _cell.SetWalkable();
-        _cell.possibleActions.Remove(Actions.UNLOCK);  
+        _cell.possibleActions.Remove(Actions.UNLOCK);
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
     }
 }

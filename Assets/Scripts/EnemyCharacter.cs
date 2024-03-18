@@ -41,8 +41,9 @@ public class EnemyCharacter : Character, Enemy
 
     private Cell _lastPlayerViewCell = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         fieldOfView = GetComponent<EnemyFOV>();
         movePoints = patrolMovePoints;
     }
