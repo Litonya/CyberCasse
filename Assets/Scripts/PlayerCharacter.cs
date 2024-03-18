@@ -32,8 +32,9 @@ public class PlayerCharacter : Character
 
     private int _movePointsBackup;
 
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _movePointsBackup = movePoints;
     }
 
@@ -87,6 +88,7 @@ public class PlayerCharacter : Character
         else if(_preparedAction == Actions.HACK)
         {
             _targetActionCell.Acte(_preparedAction, _hacking, this);
+            _characterAudio.PlayActionSound(SFX_Name.CAMERA_CONNEXION);
             SetPreparedAction(_preparedAction, _targetActionCell);
         }
     }
@@ -159,6 +161,7 @@ public class PlayerCharacter : Character
     {
         PlaceCarriedItem();
         GameManager.instance.PlayerCaught(this);
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.PLAYER_DEAD);
         Desactivate();
         
     }

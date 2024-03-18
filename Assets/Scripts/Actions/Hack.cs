@@ -23,8 +23,10 @@ public class Hack : CellAction
 
     private void HackAllCams()
     {
+        
         foreach(SecurityCamera cameras in GameManager.instance.securityCameraList)
         {
+            if (!cameras.isHack) EventsManager.instance.RaiseSFXEvent(SFX_Name.CAMERA_OFF);
             cameras.Hack();
         }
     }

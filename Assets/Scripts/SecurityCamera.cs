@@ -65,7 +65,7 @@ public class SecurityCamera : Character, Enemy
     void ChangeDirection(Direction pNewDirection)
     {
         _currentDirection = pNewDirection;
-        Debug.Log("Update cam");
+        //Debug.Log("Update cam");
         _fov.UpdateSightOfView(_currentDirection, _currentCell);
     }
 

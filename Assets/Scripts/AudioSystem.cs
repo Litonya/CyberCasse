@@ -43,10 +43,16 @@ public class AudioSystem : MonoBehaviour
     AudioSource _audioSource;
     EventsManager _eventsManager;
 
+    public static AudioSystem instance { get { return _instance; } }
+    static AudioSystem _instance;
+
     public List<SFX> _sfxList = new List<SFX>();
 
     private void Awake()
     {
+        if (_instance != null) Destroy(_instance);
+        _instance = this;
+
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -62,7 +68,7 @@ public class AudioSystem : MonoBehaviour
         _audioSource.Play();
     }
     
-    AudioClip GetSFX(SFX_Name pSFXname)
+    public AudioClip GetSFX(SFX_Name pSFXname)
     {
         for (int i = 0; i < _sfxList.Count; i++)
         {

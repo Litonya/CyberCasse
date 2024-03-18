@@ -37,6 +37,13 @@ public class Character : MonoBehaviour
 
     public CharacterTypes characterType;
 
+    protected CharacterAudioHandler _characterAudio;
+
+    protected virtual void Awake()
+    {
+        _characterAudio = GetComponent<CharacterAudioHandler>();
+    }
+
     void Start()
     {
         // Initialiser la position pr�c�dente � la position actuelle
@@ -49,7 +56,6 @@ public class Character : MonoBehaviour
         {
             if (isMoving)
             {
-                isWalking = true;
                 PlayAnim();
                 MoveToNextCell();
             }
@@ -110,9 +116,9 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
+            _characterAudio.StopWalkSound();
             SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
-            isWalking = false;
             PlayAnim();
         }
         else
@@ -128,7 +134,8 @@ public class Character : MonoBehaviour
     public void Move()
     {
          isMoving = true;
-         _nextCell = path[0];
+        _characterAudio.PlayWalkSound();
+        _nextCell = path[0];
     }
 
     public virtual void SetCurrentCell(Cell cell)
@@ -164,13 +171,15 @@ public class Character : MonoBehaviour
     {
         // Jouer l'animation de marche
             //Debug.Log(isWalking);
-        if (isWalking)
+        if (isMoving)
         {
             GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+            
         }
         else
         {
             GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
+            _characterAudio.StopWalkSound();
         }
     }
 
