@@ -37,6 +37,12 @@ public class PlayerCharacter : Character
         _movePointsBackup = movePoints;
     }
 
+    public override void Reset()
+    {
+        if (_targetActionCell == null) return;
+        _targetActionCell.SetState(Cell.CellState.actionTarget);
+    }
+
     protected override void Action()
     {
         _previousActionCell = _targetActionCell;
@@ -68,7 +74,14 @@ public class PlayerCharacter : Character
         }
         else if(_preparedAction == Actions.BREAKGLASS)
         {
-            _targetActionCell.Acte(_preparedAction, _strenght, this);
+            if (!_targetActionCell.Acte(_preparedAction, _strenght, this))
+            {
+                SetPreparedAction(_preparedAction, _targetActionCell);
+            }
+            else
+            {
+                ClearPreparedAction();
+            }
             GetComponentInChildren<SpriteController>().SetAnimationState("Punch");
         }
         else if(_preparedAction == Actions.HACK)
@@ -99,6 +112,7 @@ public class PlayerCharacter : Character
     {
         _preparedAction = action;
         _targetActionCell = target;
+        target.SetState(Cell.CellState.actionTarget);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
 
@@ -113,7 +127,7 @@ public class PlayerCharacter : Character
         // Attachement de la win condition au joueur
         attachedWinCondition = winCondition;
 
-        // Déterminer la position à laquelle attacher la win condition par rapport au joueur
+        // Dï¿½terminer la position ï¿½ laquelle attacher la win condition par rapport au joueur
         Vector3 offset = new Vector3(0f, _yOffset, 0f);
         winCondition.transform.position = transform.position + offset;
         winCondition.transform.parent = transform; // Attacher la win condition au joueur pour qu'elle suive ses mouvements
@@ -128,7 +142,7 @@ public class PlayerCharacter : Character
 
     public bool IsInVictoryZone()
     {
-        // Recherche la VictoryArea dans la scène
+        // Recherche la VictoryArea dans la scï¿½ne
         VictoryArea victoryArea = FindObjectOfType<VictoryArea>();
         if (victoryArea != null)
         {
@@ -136,7 +150,7 @@ public class PlayerCharacter : Character
         }//
         else
         {
-            Debug.LogWarning("VictoryArea introuvable dans la scène.");
+            Debug.LogWarning("VictoryArea introuvable dans la scï¿½ne.");
             return false;
         }
     }
