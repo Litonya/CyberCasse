@@ -38,7 +38,10 @@ public class UIManager : MonoBehaviour
 
     private Cell selectedCell;
 
-    
+    public GameObject pauseMenu;
+
+
+
 
     private void Awake()
     {
@@ -266,6 +269,11 @@ public class UIManager : MonoBehaviour
 
         // Faire disparaître le menu
         SetUIActionMenuOFF();
+    }
+
+    public void PauseMenu()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 }
 
