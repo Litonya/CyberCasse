@@ -13,11 +13,13 @@ public class UIManager : MonoBehaviour
     public static UIManager instance { get { return _instance; } }
     static UIManager _instance;
 
+    [Header("User Interface")]
     [SerializeField]
     private TextMeshProUGUI _phaseLabel;
     [SerializeField]
     private Image _imagePhase;
-
+    [SerializeField] 
+    private Image _imageAlertLvl;
     [SerializeField]
     private Color _actionPhaseColor = Color.red;
     [SerializeField]
@@ -28,7 +30,8 @@ public class UIManager : MonoBehaviour
     public Timer _dialSlider;
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
-    [SerializeField] private TextMeshProUGUI _alertLevelLabel;
+
+    public GameObject pauseMenu;
 
     [Header("Context Menu")]
     [SerializeField]
@@ -37,14 +40,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Canvas parentCanvas;
 
-    private Camera cam;
-
     private Cell selectedCell;
-
-    public GameObject pauseMenu;
-
-    
-
 
 
     private void Awake()
@@ -78,28 +74,23 @@ public class UIManager : MonoBehaviour
 
     public void SetUIAlertLevel()
     {
-        _alertLevelLabel.text = GameManager.instance.GetAlertLevel().ToString();
+        Sprite alerteLvl0 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level0.png");
+        Sprite alerteLvl1 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level1.png");
+        Sprite alerteLvl2 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level2.png");
+        Sprite alerteLvl3 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level3.png");
         switch (GameManager.instance.GetAlertLevel())
         {
             case 0:
-                _alertLevelLabel.color = Color.blue; // Traitement pour le niveau d'alerte 0
+                _imageAlertLvl.sprite = alerteLvl0; // Traitement pour le niveau d'alerte 0
                 break;
             case 1:
-                _alertLevelLabel.color = Color.green; // Traitement pour le niveau d'alerte 1
+                _imageAlertLvl.sprite = alerteLvl1; // Traitement pour le niveau d'alerte 1
                 break;
             case 2:
-                _alertLevelLabel.color = Color.yellow; // Traitement pour le niveau d'alerte 2
+                _imageAlertLvl.sprite = alerteLvl2; // Traitement pour le niveau d'alerte 2
                 break;
             case 3:
-                _alertLevelLabel.color = new Color(1f, 0.5f, 0f); // Orange foncé
-                break;
-            case 4:
-                _alertLevelLabel.color = new Color(1f, 0.25f, 0f); // Orange vif
-                                                                   // Traitement pour le niveau d'alerte 4
-                break;
-            case 5:
-                _alertLevelLabel.color = new Color(1f, 0f, 0f); // Rouge foncé
-                                                                // Traitement pour le niveau d'alerte 5
+                _imageAlertLvl.sprite = alerteLvl3; // Traitement pour le niveau d'alerte 3
                 break;
             default:
                 // Traitement pour toutes les autres valeurs (si nécessaire)
@@ -283,5 +274,7 @@ public class UIManager : MonoBehaviour
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
+
+
 }
 
