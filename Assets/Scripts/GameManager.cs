@@ -241,6 +241,12 @@ public class GameManager : MonoBehaviour
                 selectableCell.Add(actionCell.cell);
             }
         }
+
+        if (selectableCell.Count == 1)
+        {
+            TargetActionSelected(selectableCell[0]);
+            return;
+        }
         MapManager.instance.SetPreciseSelectableCells(selectableCell);
         _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
