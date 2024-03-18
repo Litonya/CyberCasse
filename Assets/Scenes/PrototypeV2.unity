@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20616,6 +20616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 741471837}
     m_Modifications:
+    - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
+      propertyPath: _direction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2312897209676452945, guid: b69c5bbcc643a8f46aec27fc3a930598, type: 3}
       propertyPath: m_Name
       value: DecorBank (73)
@@ -20662,10 +20666,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3855649309811846092, guid: b69c5bbcc643a8f46aec27fc3a930598, type: 3}
       propertyPath: seeThrough
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
-      propertyPath: _direction
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -38666,6 +38666,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2507550698822891926, guid: 346ddd6e9f713ba47b4af5c226e7fafc, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 3f4a0f2109f51784f87331447bb72977, type: 3}
+    - target: {fileID: 3570343178742806166, guid: 346ddd6e9f713ba47b4af5c226e7fafc, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: f4c66cacb8bdc9f4aa11b250f96584bf, type: 3}
     - target: {fileID: 4249450804434702383, guid: 346ddd6e9f713ba47b4af5c226e7fafc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -38810,6 +38818,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8374636406237257159, guid: 346ddd6e9f713ba47b4af5c226e7fafc, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 73370b5c01588ab449d06634e9ad6e24, type: 3}
+    - target: {fileID: 9143607242749961313, guid: 346ddd6e9f713ba47b4af5c226e7fafc, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: b8f8413efcee3c14e8e4b081b368b881, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
