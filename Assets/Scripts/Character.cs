@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum CharacterTypes
+{
+    GUARD,
+    CROCHETEUSE,
+    HACKEURSE,
+    GROSBRAS,
+    ECLAIREUR
+}
 public class Character : MonoBehaviour
 {
     [SerializeField]
@@ -25,6 +34,8 @@ public class Character : MonoBehaviour
     protected WinCondition attachedWinCondition;
 
     private float previousXPosition;
+
+    public CharacterTypes characterType;
 
     void Start()
     {

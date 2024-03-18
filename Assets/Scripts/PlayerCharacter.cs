@@ -37,6 +37,12 @@ public class PlayerCharacter : Character
         _movePointsBackup = movePoints;
     }
 
+    public override void Reset()
+    {
+        if (_targetActionCell == null) return;
+        _targetActionCell.SetState(Cell.CellState.actionTarget);
+    }
+
     protected override void Action()
     {
         _previousActionCell = _targetActionCell;
@@ -68,7 +74,14 @@ public class PlayerCharacter : Character
         }
         else if(_preparedAction == Actions.BREAKGLASS)
         {
-            _targetActionCell.Acte(_preparedAction, _strenght, this);
+            if (!_targetActionCell.Acte(_preparedAction, _strenght, this))
+            {
+                SetPreparedAction(_preparedAction, _targetActionCell);
+            }
+            else
+            {
+                ClearPreparedAction();
+            }
         }
         else if(_preparedAction == Actions.HACK)
         {
@@ -98,6 +111,7 @@ public class PlayerCharacter : Character
     {
         _preparedAction = action;
         _targetActionCell = target;
+        target.SetState(Cell.CellState.actionTarget);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
 

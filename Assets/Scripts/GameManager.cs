@@ -199,10 +199,8 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetUIActionMenuON();
             MapManager.instance.ResetSelectableCells();
             _currentSelectionState = SelectionState.SELECT_ACTION;
-            Debug.Log("Je suis la petite mouche qui pète!");
             foreach (Cell cellPath in characterSelected.path)
             {
-                Debug.Log("Prout!");
                 cellPath.UnmarkPath();
             }
 
@@ -217,7 +215,6 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        
         Unselect();
     }
 
