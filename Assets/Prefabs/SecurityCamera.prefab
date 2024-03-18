@@ -54,7 +54,9 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 4
+  characterType: 0
   _directions: 0000000002000000
+  isHack: 0
 --- !u!114 &8583404571167644837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f220e3967d1c845a530338f018f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 5
+  _range: 9
 --- !u!1001 &2222315026531389895
 PrefabInstance:
   m_ObjectHideFlags: 0
