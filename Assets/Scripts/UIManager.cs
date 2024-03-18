@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI _phaseLabel;
+    [SerializeField]
+    private Image _imagePhase;
 
     [SerializeField]
     private Color _actionPhaseColor = Color.red;
@@ -40,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject pauseMenu;
 
+    
 
 
 
@@ -55,15 +59,19 @@ public class UIManager : MonoBehaviour
 
     public void SetUIActionPhase()
     {
+        Sprite spriteMenuAction = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Action.png");
         _phaseLabel.text = "ACTION";
         _phaseLabel.color = _actionPhaseColor;
+        _imagePhase.sprite = spriteMenuAction;
         _dialSlider.StopTimer();
     }
 
     public void SetUIPlanificationPhase()
     {
+        Sprite spriteMenuPreparation = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Preparations.png");
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
+        _imagePhase.sprite = spriteMenuPreparation;
         _dialSlider.StartTimer();
 
     }
