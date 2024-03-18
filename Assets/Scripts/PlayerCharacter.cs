@@ -69,6 +69,7 @@ public class PlayerCharacter : Character
         else if(_preparedAction == Actions.BREAKGLASS)
         {
             _targetActionCell.Acte(_preparedAction, _strenght, this);
+            GetComponentInChildren<SpriteController>().SetAnimationState("Punch");
         }
         else if(_preparedAction == Actions.HACK)
         {

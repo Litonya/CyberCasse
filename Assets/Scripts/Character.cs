@@ -26,6 +26,13 @@ public class Character : MonoBehaviour
 
     private float previousXPosition;
 
+    protected SpriteController _spriteController;
+
+
+    private void Awake()
+    {
+        _spriteController = GetComponentInChildren<SpriteController>();
+    }
     void Start()
     {
         // Initialiser la position précédente à la position actuelle
@@ -152,18 +159,14 @@ public class Character : MonoBehaviour
     protected void PlayAnim()
     {
         // Jouer l'animation de marche
-        
-        if (GetComponentInChildren<SpriteController>() != null)
-        {
             //Debug.Log(isWalking);
-            if (isWalking)
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
-            }
-            else
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
-            }
+        if (isWalking)
+        {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+        }
+        else
+        {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
         }
     }
 
