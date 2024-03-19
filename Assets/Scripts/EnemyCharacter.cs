@@ -128,7 +128,7 @@ public class EnemyCharacter : Character, Enemy
         }
         _target = path[path.Count - 1];
 
-        _target.SetState(CellState.isSelected);
+        _target.SetState(CellState.isSelected, this);
         ShowPath();
 
     }

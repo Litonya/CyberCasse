@@ -88,14 +88,14 @@ public class Character : MonoBehaviour
         if (_target != null)
         {
             Move();
-            _target.SetState(Cell.CellState.Idle);
+            _target.SetState(Cell.CellState.Idle, null);
         }
     }
 
     public void TargetCell(Cell cell)
     {
         _target = cell;
-        cell.SetState(Cell.CellState.isSelected);
+        cell.SetState(Cell.CellState.isSelected, this);
     }
 
     protected virtual void MoveToNextCell()

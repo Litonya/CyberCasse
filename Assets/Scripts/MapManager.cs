@@ -30,9 +30,10 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
+    public float alphaCell=.5f;
     [Header("Players Character Colors")]
-    public Color chrochteuseSelectedColor = Color.magenta;
-    public Color chochteuseActionTargetColor = Color.magenta;
+    public Color crocheteuseSelectedColor = Color.magenta;
+    public Color crocheteuseActionTargetColor = Color.magenta;
     public Color hackSelectedColor = Color.green;
     public Color hackActionTargetColor = Color.green;
     public Color muscleSelectedColor = Color.yellow;
@@ -42,6 +43,11 @@ public class MapManager : MonoBehaviour
 
     [Header("Guards Colors")]
     public Color guardSelectedColor = Color.black;
+    public Color visibleByEnnemiesColor = Color.red;
+
+    [Header("GeneralStatesColors")]
+    public Color idleColor = Color.clear;
+    public Color selectableColor = Color.blue;
 
 
 
@@ -67,6 +73,7 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        InitColors();
         
     }
 
@@ -74,6 +81,23 @@ public class MapManager : MonoBehaviour
     {
         InitCharacterPos();
         InitItemPos();
+    }
+
+
+    private void InitColors()
+    {
+        crocheteuseSelectedColor.a = alphaCell;
+        crocheteuseActionTargetColor.a = alphaCell;
+        hackSelectedColor.a = alphaCell;
+        hackActionTargetColor.a = alphaCell;
+        muscleSelectedColor.a = alphaCell;
+        muscleActionTargetColor.a = alphaCell;
+        scoutSelectedColor.a = alphaCell;
+        scoutActionTargetColor.a = alphaCell;
+        guardSelectedColor.a = alphaCell;
+
+        visibleByEnnemiesColor.a = alphaCell;
+        selectableColor.a = alphaCell;
     }
 
     private void InitMap()
@@ -110,6 +134,43 @@ public class MapManager : MonoBehaviour
                     }
                 }
             }*/
+        }
+    }
+
+
+    public Color GetCharacterSelectedColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.GUARD:
+                return guardSelectedColor;
+            case CharacterTypes.CROCHETEUSE:
+                return crocheteuseSelectedColor;
+            case CharacterTypes.HACKEURSE:
+                return hackSelectedColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleSelectedColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutSelectedColor;
+            default:
+                return Color.clear;
+        }
+    }
+
+    public Color GetCharacterActionColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.CROCHETEUSE:
+                return crocheteuseActionTargetColor;
+            case CharacterTypes.HACKEURSE:
+                return hackActionTargetColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleActionTargetColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutActionTargetColor;
+            default:
+                return Color.clear;
         }
     }
 
@@ -230,7 +291,7 @@ public class MapManager : MonoBehaviour
 
         foreach(Cell cell in selectableCells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, origin.occupant);
         }
     }
 
@@ -240,7 +301,7 @@ public class MapManager : MonoBehaviour
         {
             if (cell != null && cell.currentState != Cell.CellState.isSelected)
             {
-                cell.SetState(Cell.CellState.Idle);
+                cell.SetState(Cell.CellState.Idle, null);
             }
         }
         selectableCells.Clear();
@@ -250,7 +311,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (Cell cell in cells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, null);
             selectableCells.Add(cell);
         }
     }

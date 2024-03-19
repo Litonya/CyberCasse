@@ -41,7 +41,7 @@ public class PlayerCharacter : Character
     public override void Reset()
     {
         if (_targetActionCell == null) return;
-        _targetActionCell.SetState(Cell.CellState.actionTarget);
+        _targetActionCell.SetState(Cell.CellState.actionTarget, this);
     }
 
     protected override void Action()
@@ -114,7 +114,7 @@ public class PlayerCharacter : Character
     {
         _preparedAction = action;
         _targetActionCell = target;
-        target.SetState(Cell.CellState.actionTarget);
+        target.SetState(Cell.CellState.actionTarget, this);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
 
