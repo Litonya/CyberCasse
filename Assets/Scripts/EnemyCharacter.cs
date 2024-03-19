@@ -15,7 +15,7 @@ public class EnemyCharacter : Character, Enemy
     [SerializeField] private int _guardLevel = 2;
     public int patrolMovePoints = 3;
     public int chaseMovePoints = 6;
-    Icon _dectectedIcon;
+    private Icon _dectectedIcon;
 
     [Header("Patrol settings")]
     //Sentinel

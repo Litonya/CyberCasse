@@ -29,6 +29,7 @@ public class PlayerCharacter : Character
     private Cell _previousActionCell;
 
     private Item _carriedItem;
+    private Icon _hackingIcon;
 
     private int _movePointsBackup;
 
@@ -36,6 +37,7 @@ public class PlayerCharacter : Character
     {
         base.Awake();
         _movePointsBackup = movePoints;
+        _hackingIcon = GetComponentInChildren<Icon>();
     }
 
     public override void Reset()
@@ -87,6 +89,7 @@ public class PlayerCharacter : Character
         }
         else if(_preparedAction == Actions.HACK)
         {
+            _hackingIcon.SetActiveIcon(true);
             _targetActionCell.Acte(_preparedAction, _hacking, this);
             _characterAudio.PlayActionSound(SFX_Name.CAMERA_CONNEXION);
             SetPreparedAction(_preparedAction, _targetActionCell);
@@ -120,6 +123,7 @@ public class PlayerCharacter : Character
 
     public void ClearPreparedAction()
     {
+        _hackingIcon.SetActiveIcon(false);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
     }
