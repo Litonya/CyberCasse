@@ -32,8 +32,8 @@ public class MapManager : MonoBehaviour
 
     public float alphaCell=.5f;
     [Header("Players Character Colors")]
-    public Color chrochteuseSelectedColor = Color.magenta;
-    public Color chochteuseActionTargetColor = Color.magenta;
+    public Color crocheteuseSelectedColor = Color.magenta;
+    public Color crocheteuseActionTargetColor = Color.magenta;
     public Color hackSelectedColor = Color.green;
     public Color hackActionTargetColor = Color.green;
     public Color muscleSelectedColor = Color.yellow;
@@ -43,6 +43,11 @@ public class MapManager : MonoBehaviour
 
     [Header("Guards Colors")]
     public Color guardSelectedColor = Color.black;
+    public Color visibleByEnnemies = Color.red;
+
+    [Header("GeneralStatesColors")]
+    public Color idleColor = Color.clear;
+    public Color selectableColor = Color.blue;
 
 
 
@@ -81,8 +86,8 @@ public class MapManager : MonoBehaviour
 
     private void InitColors()
     {
-        chrochteuseSelectedColor.a = alphaCell;
-        chochteuseActionTargetColor.a = alphaCell;
+        crocheteuseSelectedColor.a = alphaCell;
+        crocheteuseActionTargetColor.a = alphaCell;
         hackSelectedColor.a = alphaCell;
         hackActionTargetColor.a = alphaCell;
         muscleSelectedColor.a = alphaCell;
@@ -130,14 +135,14 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public Color getCharacterSelectedColor(CharacterTypes type)
+    public Color GetCharacterSelectedColor(CharacterTypes type)
     {
         switch (type)
         {
             case CharacterTypes.GUARD:
                 return guardSelectedColor;
             case CharacterTypes.CROCHETEUSE:
-                return chrochteuseSelectedColor;
+                return crocheteuseSelectedColor;
             case CharacterTypes.HACKEURSE:
                 return hackSelectedColor;
             case CharacterTypes.GROSBRAS:
@@ -149,12 +154,12 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public Color getCharacterActionColor(CharacterTypes type)
+    public Color GetCharacterActionColor(CharacterTypes type)
     {
         switch (type)
         {
             case CharacterTypes.CROCHETEUSE:
-                return chochteuseActionTargetColor;
+                return crocheteuseActionTargetColor;
             case CharacterTypes.HACKEURSE:
                 return hackActionTargetColor;
             case CharacterTypes.GROSBRAS:
@@ -283,7 +288,7 @@ public class MapManager : MonoBehaviour
 
         foreach(Cell cell in selectableCells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, origin.occupant);
         }
     }
 
@@ -293,7 +298,7 @@ public class MapManager : MonoBehaviour
         {
             if (cell != null && cell.currentState != Cell.CellState.isSelected)
             {
-                cell.SetState(Cell.CellState.Idle);
+                cell.SetState(Cell.CellState.Idle, null);
             }
         }
         selectableCells.Clear();
@@ -303,7 +308,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (Cell cell in cells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, null);
             selectableCells.Add(cell);
         }
     }

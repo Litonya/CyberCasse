@@ -131,7 +131,7 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 7
-  characterType: 0
+  characterType: 2
   _lockPinckingStat: 1
   _hacking: 2
   _strenght: 1
