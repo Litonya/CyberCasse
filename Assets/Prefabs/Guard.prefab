@@ -518,8 +518,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6319338806660368654}
   - component: {fileID: 6081486973106823949}
+  - component: {fileID: 2760516495638499592}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Icone_Chase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -534,8 +535,8 @@ Transform:
   m_GameObject: {fileID: 8367218649074092191}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0.024, y: 0.238, z: 0.675}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: 0.024, y: 0.282, z: 0.727}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3213924566999982850}
@@ -592,3 +593,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2760516495638499592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367218649074092191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa504405ef8817a4caee498ca9f355ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

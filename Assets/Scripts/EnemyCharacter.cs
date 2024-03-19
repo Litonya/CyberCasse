@@ -15,6 +15,7 @@ public class EnemyCharacter : Character, Enemy
     [SerializeField] private int _guardLevel = 2;
     public int patrolMovePoints = 3;
     public int chaseMovePoints = 6;
+    Icon _dectectedIcon;
 
     [Header("Patrol settings")]
     //Sentinel
@@ -46,6 +47,7 @@ public class EnemyCharacter : Character, Enemy
         base.Awake();
         fieldOfView = GetComponent<EnemyFOV>();
         movePoints = patrolMovePoints;
+        _dectectedIcon = GetComponentInChildren<Icon>();
     }
 
     private void Start()
@@ -242,6 +244,8 @@ public class EnemyCharacter : Character, Enemy
         guardState = GuardState.Chasing;
         movePoints = chaseMovePoints;
         player = newTarget;
+        _dectectedIcon.SetActiveIcon(true);
+        Debug.Log("Les carottes sont cuites");
     }
 
     private bool UpdateChase()
