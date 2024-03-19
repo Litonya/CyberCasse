@@ -191,7 +191,7 @@ public class Cell : MonoBehaviour
     private void SetIsVisibleVisual()
     {
         Color newColor = MapManager.instance.selectableColor;
-        if (viewBy.Count > 0) newColor = Color.Lerp(newColor, MapManager.instance.visibleByEnnemies, .5f);
+        if (viewBy.Count > 0) newColor = Color.Lerp(newColor, MapManager.instance.visibleByEnnemiesColor, .5f);
         ChangeFeedbackVisual(newColor);
     }
 
@@ -201,7 +201,7 @@ public class Cell : MonoBehaviour
     }
     private void SetVisibleVisual()
     {
-        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemies);
+        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemiesColor);
     }
 
     private void SetActionTargetVisual()
