@@ -30,6 +30,7 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
+    public float alphaCell=.5f;
     [Header("Players Character Colors")]
     public Color chrochteuseSelectedColor = Color.magenta;
     public Color chochteuseActionTargetColor = Color.magenta;
@@ -67,6 +68,7 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        InitColors();
         
     }
 
@@ -74,6 +76,20 @@ public class MapManager : MonoBehaviour
     {
         InitCharacterPos();
         InitItemPos();
+    }
+
+
+    private void InitColors()
+    {
+        chrochteuseSelectedColor.a = alphaCell;
+        chochteuseActionTargetColor.a = alphaCell;
+        hackSelectedColor.a = alphaCell;
+        hackActionTargetColor.a = alphaCell;
+        muscleSelectedColor.a = alphaCell;
+        muscleActionTargetColor.a = alphaCell;
+        scoutSelectedColor.a = alphaCell;
+        scoutActionTargetColor.a = alphaCell;
+        guardSelectedColor.a = alphaCell;
     }
 
     private void InitMap()
@@ -110,6 +126,43 @@ public class MapManager : MonoBehaviour
                     }
                 }
             }*/
+        }
+    }
+
+
+    public Color getCharacterSelectedColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.GUARD:
+                return guardSelectedColor;
+            case CharacterTypes.CROCHETEUSE:
+                return chrochteuseSelectedColor;
+            case CharacterTypes.HACKEURSE:
+                return hackSelectedColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleSelectedColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutSelectedColor;
+            default:
+                return Color.clear;
+        }
+    }
+
+    public Color getCharacterActionColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.CROCHETEUSE:
+                return chochteuseActionTargetColor;
+            case CharacterTypes.HACKEURSE:
+                return hackActionTargetColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleActionTargetColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutActionTargetColor;
+            default:
+                return Color.clear;
         }
     }
 
