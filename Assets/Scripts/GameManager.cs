@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
                 {
-                    Unselect();
+                    Unselect(true);
                 }
             }
         }
@@ -245,7 +245,7 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        Unselect();
+        Unselect(false);
     }
 
     public void ActionSelect(Actions action)
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
         {
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
-            Unselect();
+            Unselect(false);
             return;
         }
 
@@ -282,24 +282,20 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected == character)
         {
-            Unselect();
+            Unselect(false);
             _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
-            Unselect();
+            Unselect(true);
             Select(character);
             _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
 
-    private void Unselect()
+    private void Unselect(bool removePath)
     {
-        if (characterSelected != null)
-        {
-            // Debug.Log(characterSelected.name + " unselected");
-        }
         characterSelected = null;
         cellSelected = null;
         _actionSelected = Actions.NONE;
@@ -380,7 +376,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
-        Unselect();
+        Unselect(true);
         foreach (Character character in _characterList) 
         {
             character.Acte();
