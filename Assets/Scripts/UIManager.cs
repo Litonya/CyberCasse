@@ -29,6 +29,17 @@ public class UIManager : MonoBehaviour
     private Slider _timerProgressBar;
     public Timer _dialSlider;
 
+    [SerializeField]
+    private Image _panelLockpick;
+    [SerializeField]
+    private Image _panelHacker;
+    [SerializeField]
+    private Image _panelScout;
+    [SerializeField]
+    private Image _panelFlorent;
+
+    
+
     [SerializeField] private TextMeshProUGUI _victoryLabel;
 
     public GameObject pauseMenu;
@@ -42,6 +53,10 @@ public class UIManager : MonoBehaviour
 
     private Cell selectedCell;
 
+    private void Start()
+    {
+        InitUICharacterColor();
+    }
 
     private void Awake()
     {
@@ -275,6 +290,19 @@ public class UIManager : MonoBehaviour
         pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 
+    public void InitUICharacterColor()
+    {
+        Color _LockpickUIColor = MapManager.instance.chochteuseActionTargetColor;
+        Color _HackerUIColor = MapManager.instance.hackActionTargetColor;
+        Color _ScoutUIColor = MapManager.instance.scoutActionTargetColor;
+        Color _FlorentUIColor = MapManager.instance.muscleActionTargetColor;
+
+        _panelLockpick.color = _LockpickUIColor;
+        _panelHacker.color = _HackerUIColor;
+        _panelScout.color = _ScoutUIColor;
+        _panelFlorent.color = _FlorentUIColor;
+
+    }
 
 }
 
