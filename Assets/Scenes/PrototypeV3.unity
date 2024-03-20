@@ -9109,6 +9109,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 5211614257638855873, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      propertyPath: possibleActions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211614257638855873, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
+      propertyPath: possibleActions.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8382708259473750226, guid: dec1ff5bbc3b3054388a982fcc1b7de0, type: 3}
       propertyPath: possibleActions.Array.size
       value: 0

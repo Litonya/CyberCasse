@@ -29,7 +29,11 @@ public class PlayerCharacter : Character
     private Cell _previousActionCell;
 
     private Item _carriedItem;
+
+    [SerializeField]
     private Icon _hackingIcon;
+    [SerializeField]
+    private Icon _breakingIcon;
 
     private int _movePointsBackup;
 
@@ -37,7 +41,7 @@ public class PlayerCharacter : Character
     {
         base.Awake();
         _movePointsBackup = movePoints;
-        _hackingIcon = GetComponentInChildren<Icon>();
+        //_hackingIcon = GetComponentInChildren<Icon>();
     }
 
     public override void Reset()
@@ -79,10 +83,12 @@ public class PlayerCharacter : Character
         {
             if (!_targetActionCell.Acte(_preparedAction, _strenght, this))
             {
+                _breakingIcon.SetActiveIcon(true);
                 SetPreparedAction(_preparedAction, _targetActionCell);
             }
             else
             {
+                _breakingIcon.SetActiveIcon(true);
                 ClearPreparedAction();
             }
             GetComponentInChildren<SpriteController>().SetAnimationState("Punch");
