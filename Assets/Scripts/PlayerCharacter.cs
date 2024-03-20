@@ -54,7 +54,14 @@ public class PlayerCharacter : Character
     {
         _previousActionCell = _targetActionCell;
         _previousAction = _preparedAction;
-        if (_preparedAction != Actions.NONE) LaunchAction();
+        if (_preparedAction != Actions.NONE)
+        {
+            LaunchAction();
+        } else
+        {
+            _hackingIcon.SetActiveIcon(false);
+            _breakingIcon.SetActiveIcon(false);
+        }
         base.Action();
     }
 
