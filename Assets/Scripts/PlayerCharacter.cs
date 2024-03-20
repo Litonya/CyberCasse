@@ -112,6 +112,7 @@ public class PlayerCharacter : Character
 
     public void SetPreparedAction(Actions action, Cell target)
     {
+        if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = action;
         _targetActionCell = target;
         target.SetState(Cell.CellState.actionTarget, this);
@@ -120,6 +121,7 @@ public class PlayerCharacter : Character
 
     public void ClearPreparedAction()
     {
+        if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
     }

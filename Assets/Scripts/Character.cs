@@ -94,6 +94,7 @@ public class Character : MonoBehaviour
 
     public void TargetCell(Cell cell)
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = cell;
         cell.SetState(Cell.CellState.isSelected, this);
     }
