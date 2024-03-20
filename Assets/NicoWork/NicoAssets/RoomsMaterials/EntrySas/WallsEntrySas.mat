@@ -65,7 +65,7 @@ Material:
     - _SmoothnessTextureChannel: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.59474015, g: 0.7781869, b: 0.9339623, a: 1}
+    - _Color: {r: 0.9622642, g: 0.027233727, b: 0.13252693, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6871989488211170980

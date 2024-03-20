@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 08b121ee319bae74aabaf34ef330470d, type: 3}
+        m_Texture: {fileID: 2800000, guid: ea2b572f1a24eff40a739f2f42b33814, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CoatMaskMap:
@@ -107,7 +107,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: d19645bd627ebc04eb1588f4d37aaad8, type: 3}
+        m_Texture: {fileID: 2800000, guid: b21c740f9e86a534d87109fd94b67dd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -123,7 +123,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 4c369d7d7b2451d4db92fe97c8a60551, type: 3}
+        m_Texture: {fileID: 2800000, guid: 288c3a2ad9ade974393d8a82769afa6e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
