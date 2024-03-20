@@ -40,6 +40,7 @@ public class PlayerCharacter : Character
 
     public override void Reset()
     {
+        base.Reset();
         if (_targetActionCell == null) return;
         _targetActionCell.SetState(Cell.CellState.actionTarget, this);
     }

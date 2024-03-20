@@ -132,8 +132,13 @@ public class GameManager : MonoBehaviour
             {
                 GetClickObject();
             }
-            //Input echap -> Fin de la phase
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            //Input clic droit -> Annulation action
+            if (Input.GetMouseButtonDown(1))
+            {
+                GetRightClickObject();
+            }
+            //Input espace -> Fin de la phase
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
                 LaunchActionPhase();
             }
@@ -162,6 +167,28 @@ public class GameManager : MonoBehaviour
             if (allActionComplete)
             {
                 LaunchPlanificationPhase();
+            }
+        }
+    }
+
+    private void GetRightClickObject()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers))
+        {
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
+                {
+                    PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
+                    characterScript.ClearPreparedAction();
+                    characterScript.Reset();
+                }
+                else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
+                {
+                    Unselect();
+                }
             }
         }
     }

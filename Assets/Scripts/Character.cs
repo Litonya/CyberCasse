@@ -71,6 +71,7 @@ public class Character : MonoBehaviour
     public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = null;
         path.Clear();
         path.Add(_currentCell);
