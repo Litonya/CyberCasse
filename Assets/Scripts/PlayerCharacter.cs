@@ -95,6 +95,7 @@ public class PlayerCharacter : Character
         }
         else if(_preparedAction == Actions.HACK)
         {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Hack");
             _hackingIcon.SetActiveIcon(true);
             _targetActionCell.Acte(_preparedAction, _hacking, this);
             _characterAudio.PlayActionSound(SFX_Name.CAMERA_CONNEXION);
