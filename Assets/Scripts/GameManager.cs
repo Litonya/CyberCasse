@@ -296,6 +296,17 @@ public class GameManager : MonoBehaviour
 
     private void Unselect(bool removePath)
     {
+        if (removePath && characterSelected != null)
+        {
+            if (characterSelected.path != null)
+            {
+                foreach (Cell cell in characterSelected.path)
+                {
+                    cell.UnmarkPath();
+                }
+            }
+            characterSelected.path.Clear();
+        }
         characterSelected = null;
         cellSelected = null;
         _actionSelected = Actions.NONE;
