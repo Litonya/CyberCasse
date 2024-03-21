@@ -38,7 +38,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _panelFlorent;
 
-    
+    [SerializeField]
+    private RawImage _SFLockpick;
+    [SerializeField]
+    private RawImage _SFHacker;
+    [SerializeField]
+    private RawImage _SFScout;
+    [SerializeField]
+    private RawImage _SFFlorent;
+
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
 
@@ -288,6 +296,44 @@ public class UIManager : MonoBehaviour
     public void PauseMenu()
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
+        // Désactiver tous les enfants du parent de _panelLockpick sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelLockpick.transform.parent)
+        {
+            if (child.gameObject != _panelLockpick && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelFlorent sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelFlorent.transform.parent)
+        {
+            if (child.gameObject != _panelFlorent && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelScout sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelScout.transform.parent)
+        {
+            if (child.gameObject != _panelScout && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelHacker sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelHacker.transform.parent)
+        {
+            if (child.gameObject != _panelHacker && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+
+
     }
 
     public void InitUICharacterColor()
@@ -302,7 +348,13 @@ public class UIManager : MonoBehaviour
         _panelScout.color = _ScoutUIColor;
         _panelFlorent.color = _FlorentUIColor;
 
+        _SFLockpick.color = _LockpickUIColor;
+        _SFHacker.color = _HackerUIColor;
+        _SFScout.color = _ScoutUIColor;
+        _SFFlorent.color = _FlorentUIColor;
     }
+
+    
 
 }
 

@@ -228,7 +228,7 @@ public class Timer : MonoBehaviour
         float timeRangeClamped = Mathf.InverseLerp(ReturnTotalSeconds(), 0, (float)timeRemaining);
         //Debug.Log(timeRangeClamped);
         //Debug.Log(timeRemaining);
-        Debug.Log(ReturnTotalSeconds());
+        //Debug.Log(ReturnTotalSeconds());
         dialSlider.fillAmount = Mathf.Lerp(1, 0, timeRangeClamped);
     }
     private void DialSliderUp()
