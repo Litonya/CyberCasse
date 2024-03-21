@@ -51,6 +51,11 @@ public class Cell : MonoBehaviour
 
     private Renderer _renderer;
 
+    [SerializeField]
+    public Icon Lock_Open;
+    [SerializeField]
+    public Icon Lock_Close;
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -66,6 +71,10 @@ public class Cell : MonoBehaviour
         InitializeActions();
         remainDifficulty = _diffuculty;
         _renderer = GetComponent<Renderer>();
+        if (Lock_Close != null)
+        {
+            Lock_Close.SetActiveIcon(true);
+        }
     }
 
     private void Start()

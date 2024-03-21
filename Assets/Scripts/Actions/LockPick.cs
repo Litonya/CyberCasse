@@ -31,5 +31,8 @@ public class LockPick : CellAction
     {
         _cell.SetWalkable();
         _cell.possibleActions.Remove(Actions.LOCKPICK);
+        _cell.Lock_Close.SetActiveIcon(false);
+        _cell.Lock_Open.SetActiveIcon(true);
+
     }
 }

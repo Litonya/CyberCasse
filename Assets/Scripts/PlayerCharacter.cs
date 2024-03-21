@@ -138,6 +138,7 @@ public class PlayerCharacter : Character
     public void ClearPreparedAction()
     {
         _hackingIcon.SetActiveIcon(false);
+        _breakingIcon.SetActiveIcon(false);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
     }

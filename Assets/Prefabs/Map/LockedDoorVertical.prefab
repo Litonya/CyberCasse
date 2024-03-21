@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7342615522828183797}
   - component: {fileID: 6933303715374355590}
+  - component: {fileID: 2584456842885451675}
   m_Layer: 0
   m_Name: Icon_unlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7342615522828183797
 Transform:
   m_ObjectHideFlags: 0
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2584456842885451675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589976673330301071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa504405ef8817a4caee498ca9f355ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &30136360919582647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +109,14 @@ PrefabInstance:
       propertyPath: isDoor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+      propertyPath: Lock_Open
+      value: 
+      objectReference: {fileID: 2584456842885451675}
+    - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+      propertyPath: Lock_Close
+      value: 
+      objectReference: {fileID: 558778166337922890}
     - target: {fileID: 391582211428575105, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
       propertyPath: _diffuculty
       value: 4
@@ -226,8 +247,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2237247269560629033, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
       insertIndex: 1
       addedObject: {fileID: 7342615522828183797}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2060933496054446990, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 558778166337922890}
   m_SourcePrefab: {fileID: 100100000, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+--- !u!1 &2086003098750827577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2060933496054446990, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
+  m_PrefabInstance: {fileID: 30136360919582647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &558778166337922890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086003098750827577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa504405ef8817a4caee498ca9f355ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2262878860195459230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2237247269560629033, guid: d3f4b276bb9153d4494500c223894e3b, type: 3}
