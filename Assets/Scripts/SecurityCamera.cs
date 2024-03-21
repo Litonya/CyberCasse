@@ -72,12 +72,14 @@ public class SecurityCamera : Character, Enemy
     public void Hack()
     {
         _fov.SetRange(0);
+        _fov.UpdateSightOfView(_currentDirection, _currentCell);
         isHack = true;
     }
 
     public void UnHack()
     {
         _fov.SetRange(_fovSize);
+        _fov.UpdateSightOfView(_currentDirection, _currentCell);
         isHack = false;
     }
 
