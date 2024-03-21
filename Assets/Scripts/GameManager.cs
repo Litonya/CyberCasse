@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum GameStates { Planification, Action }
@@ -60,6 +61,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _guardChassingMovePointsIncrease = 2;
     [SerializeField] private int _guardFOVRangeIncrease = 1;
     [SerializeField] private float _timeReducePlanificationTime = 5f;
+
+    private bool isPaused = false;
 
     private struct AvailibleActionsOnAdjacentCells
     {
@@ -132,8 +135,13 @@ public class GameManager : MonoBehaviour
             {
                 GetClickObject();
             }
-            //Input echap -> Fin de la phase
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            //Input clic droit -> Annulation action
+            if (Input.GetMouseButtonDown(1))
+            {
+                GetRightClickObject();
+            }
+            //Input espace -> Fin de la phase
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
                 LaunchActionPhase();
             }
@@ -145,6 +153,12 @@ public class GameManager : MonoBehaviour
                 {
                     AddToPath(characterSelected, cell);
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                // Inverser l'état de pause
+                TogglePause();
             }
         }
 
@@ -162,6 +176,28 @@ public class GameManager : MonoBehaviour
             if (allActionComplete)
             {
                 LaunchPlanificationPhase();
+            }
+        }
+    }
+
+    private void GetRightClickObject()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers))
+        {
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
+                {
+                    PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
+                    characterScript.ClearPreparedAction();
+                    characterScript.Reset();
+                }
+                else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
+                {
+                    Unselect(true);
+                }
             }
         }
     }
@@ -218,7 +254,7 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        Unselect();
+        Unselect(false);
     }
 
     public void ActionSelect(Actions action)
@@ -227,7 +263,7 @@ public class GameManager : MonoBehaviour
         {
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
-            Unselect();
+            Unselect(false);
             return;
         }
 
@@ -255,23 +291,30 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected == character)
         {
-            Unselect();
+            Unselect(false);
             _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
-            Unselect();
+            Unselect(true);
             Select(character);
             _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
 
-    private void Unselect()
+    private void Unselect(bool removePath)
     {
-        if (characterSelected != null)
+        if (removePath && characterSelected != null)
         {
-            // Debug.Log(characterSelected.name + " unselected");
+            if (characterSelected.path != null)
+            {
+                foreach (Cell cell in characterSelected.path)
+                {
+                    cell.UnmarkPath();
+                }
+            }
+            characterSelected.path.Clear();
         }
         characterSelected = null;
         cellSelected = null;
@@ -353,7 +396,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
-        Unselect();
+        Unselect(true);
         foreach (Character character in _characterList) 
         {
             character.Acte();
@@ -544,8 +587,9 @@ public class GameManager : MonoBehaviour
     public void PlayerCaught(PlayerCharacter character)
     {
         _characterList.Remove(character);
+        _playerCharacterList.Remove(character);
         UpdateMoneyScore(_moneyMalus);
-        if (GetAllCharacters().Count == 0) 
+        if (_playerCharacterList.Count == 0) 
         {
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
@@ -572,6 +616,7 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
             enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
@@ -599,7 +644,7 @@ public class GameManager : MonoBehaviour
         foreach (PlayerCharacter playerCharacter in _playerCharacterList)
         {
             List<Cell> path = MapManager.instance.FindPath(character.GetCurrentCell(), playerCharacter.GetCurrentCell(), true);
-            if (path.Count < minDistance)
+            if (path.Count < minDistance && !playerCharacter.IsCaught())
             {
                 minDistance = path.Count;
                 closestPlayer = playerCharacter;
@@ -609,4 +654,39 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetAlertLevel() { return _alertLevel; }
+
+    public void TogglePause()
+    {
+        // Inverser l'état de pause
+        isPaused = !isPaused;
+
+        // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
+        if (isPaused)
+        {
+            Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
+        }
+        else
+        {
+            Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
+        }
+        UIManager.instance.PauseMenu();
+    }
+
+    public void ResetScene()
+    {
+        if (isPaused) TogglePause();
+        // Récupérer le numéro de la scène actuelle
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Recharger la scène actuelle
+        SceneManager.LoadScene(currentSceneIndex);
+        
+    }
+
+    public void ReturnToTitleScreen()
+    {
+        if(isPaused) TogglePause();
+        // Charger la scène de l'écran titre 
+        SceneManager.LoadScene("TitleScreen"); 
+    }
 }

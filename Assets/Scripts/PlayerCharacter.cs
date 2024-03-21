@@ -37,6 +37,8 @@ public class PlayerCharacter : Character
 
     private int _movePointsBackup;
 
+    private bool _isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -46,8 +48,9 @@ public class PlayerCharacter : Character
 
     public override void Reset()
     {
+        base.Reset();
         if (_targetActionCell == null) return;
-        _targetActionCell.SetState(Cell.CellState.actionTarget);
+        _targetActionCell.SetState(Cell.CellState.actionTarget, this);
     }
 
     protected override void Action()
@@ -129,9 +132,10 @@ public class PlayerCharacter : Character
 
     public void SetPreparedAction(Actions action, Cell target)
     {
+        if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = action;
         _targetActionCell = target;
-        target.SetState(Cell.CellState.actionTarget);
+        target.SetState(Cell.CellState.actionTarget, this);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
 
@@ -139,6 +143,7 @@ public class PlayerCharacter : Character
     {
         _hackingIcon.SetActiveIcon(false);
         _breakingIcon.SetActiveIcon(false);
+        if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
     }
@@ -187,6 +192,7 @@ public class PlayerCharacter : Character
 
     public void Desactivate()
     {
+        _isDead = true;
         _currentCell.occupant = null;
         gameObject.SetActive(false);
     }
@@ -225,6 +231,11 @@ public class PlayerCharacter : Character
         GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
         _carriedItem = null;
         movePoints = _movePointsBackup;
+    }
+
+    public bool IsCaught()
+    {
+        return _isDead;
     }
 }
 

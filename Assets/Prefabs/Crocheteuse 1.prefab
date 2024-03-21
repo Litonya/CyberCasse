@@ -230,7 +230,7 @@ MonoBehaviour:
   isMoving: 0
   currentAct: 0
   movePoints: 7
-  characterType: 0
+  characterType: 1
   _lockPinckingStat: 2
   _hacking: 1
   _strenght: 1

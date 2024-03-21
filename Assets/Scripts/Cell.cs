@@ -57,6 +57,8 @@ public class Cell : MonoBehaviour
     public Icon Lock_Close;
     [SerializeField]
     public Icon Icon_Break;
+    private GameObject _feedBackObject;
+    private Renderer _feedBackRenderer;
 
     public void MarkPath()
     {
@@ -81,6 +83,8 @@ public class Cell : MonoBehaviour
         {
             Icon_Break.SetActiveIcon(true);
         }
+        _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
+        _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
     }
 
     private void Start()
@@ -94,7 +98,7 @@ public class Cell : MonoBehaviour
 
         if (uiManager == null)
         {
-            Debug.LogError("UI Manager non trouvé dans la scène !");
+            Debug.LogError("UI Manager non trouvï¿½ dans la scï¿½ne !");
         }
 
         Vector3 cellPosition = new Vector3(gridCoordX, 0.5f, gridCoordZ);
@@ -131,7 +135,7 @@ public class Cell : MonoBehaviour
     {
         if (occupant != null)
         {
-            Debug.Log("Joueur trouvé!");
+            Debug.Log("Joueur trouvï¿½!");
             return occupant.GetComponent<PlayerCharacter>();
         }
         return null;
@@ -141,8 +145,7 @@ public class Cell : MonoBehaviour
     {
         isVisited = false;
         UnmarkPath();
-        SetState(CellState.Idle);
-        _characterTarget = null;
+        SetState(CellState.Idle, null);
     }
 
     public void ResetDifficulty()
@@ -189,35 +192,42 @@ public class Cell : MonoBehaviour
         }
     }
 
+    private void ChangeFeedbackVisual(Color color)
+    {
+        _feedBackRenderer.material.color = color;
+    }
+
     private void SetIdleVisual()
     {
-        _renderer.material.color = Color.white;
+        ChangeFeedbackVisual(MapManager.instance.idleColor);
     }
 
     private void SetIsVisibleVisual()
     {
-        _renderer.material.color = Color.magenta;
+        Color newColor = MapManager.instance.selectableColor;
+        if (viewBy.Count > 0) newColor = Color.Lerp(newColor, MapManager.instance.visibleByEnnemiesColor, .5f);
+        ChangeFeedbackVisual(newColor);
     }
 
     private void SetIsSelectedVisual()
     {
-        _renderer.material.color = Color.blue;
+        ChangeFeedbackVisual(MapManager.instance.GetCharacterSelectedColor(_characterTarget.characterType));
     }
     private void SetVisibleVisual()
     {
-        _renderer.material.color = Color.red;
+        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemiesColor);
     }
 
     private void SetActionTargetVisual()
     {
-        _renderer.material.color = Color.grey;
+        ChangeFeedbackVisual(MapManager.instance.GetCharacterActionColor(_characterTarget.characterType));
     }
 
 
-    public void SetState(CellState state)
+    public void SetState(CellState state, Character character)
     {
         currentState = state;
-
+        _characterTarget = character;
         RefreshStateVisual();
     }
 

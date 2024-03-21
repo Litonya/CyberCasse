@@ -71,6 +71,7 @@ public class Character : MonoBehaviour
     public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = null;
         path.Clear();
         path.Add(_currentCell);
@@ -88,14 +89,15 @@ public class Character : MonoBehaviour
         if (_target != null)
         {
             Move();
-            _target.SetState(Cell.CellState.Idle);
+            _target.SetState(Cell.CellState.Idle, null);
         }
     }
 
     public void TargetCell(Cell cell)
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = cell;
-        cell.SetState(Cell.CellState.isSelected);
+        cell.SetState(Cell.CellState.isSelected, this);
     }
 
     protected virtual void MoveToNextCell()
@@ -171,7 +173,7 @@ public class Character : MonoBehaviour
     {
         // Jouer l'animation de marche
             //Debug.Log(isWalking);
-        if (isMoving)
+        if (isMoving && _currentCell != _target)
         {
             GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
             
