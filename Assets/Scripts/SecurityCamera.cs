@@ -32,6 +32,7 @@ public class SecurityCamera : Character, Enemy
 
     public override void Acte()
     {
+        if (isHack) return;
         _alreadyDectectThisTurn = false;
         _curentIndex++;
         if (_curentIndex>= _directions.Count)
