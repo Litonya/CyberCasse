@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 using static Cell;
 using static MapManager;
 
-public class EnemyCharacter : Character
+public class EnemyCharacter : Character, Enemy
 {
     [SerializeField]
     private Direction _direction;
@@ -37,10 +37,13 @@ public class EnemyCharacter : Character
     private GuardState guardState;
     private bool _goBackOnPath = false;
 
+    private bool _generalAlert = false;
+
     private Cell _lastPlayerViewCell = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         fieldOfView = GetComponent<EnemyFOV>();
         movePoints = patrolMovePoints;
     }
@@ -80,7 +83,11 @@ public class EnemyCharacter : Character
 
         List<Cell> fullPath = new List<Cell>();
 
-
+        if (_generalAlert)
+        {
+            player = GameManager.instance.GetClosestPlayer(this);
+            guardState = GuardState.Chasing;
+        }
 
         if (guardState == GuardState.Chasing) // Joueur detecté
         {
@@ -113,7 +120,7 @@ public class EnemyCharacter : Character
     {
         foreach (Cell cell in fullPath)
         {
-            if (path.Count > movePoints + 1)
+            if (path.Count > movePoints + 1 || (cell.occupant != null && cell.occupant.GetComponent<EnemyCharacter>() != null)) 
             {
                 break;
             }
@@ -121,7 +128,7 @@ public class EnemyCharacter : Character
         }
         _target = path[path.Count - 1];
 
-        _target.SetState(CellState.isSelected);
+        _target.SetState(CellState.isSelected, this);
         ShowPath();
 
     }
@@ -279,18 +286,54 @@ public class EnemyCharacter : Character
         else SentinelRotate();
     }
 
-    protected virtual void PlayerDetected(PlayerCharacter target)
+    public virtual void PlayerDetected(PlayerCharacter target)
     {
+        if (guardState == GuardState.Patrol) GameManager.instance.IncreaseAlertLevel();
         LaunchChase(target);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TRIGGGER");
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
         if (player != null)
         {
             player.Caught();
+            player = fieldOfView.GetClosestVisiblePlayer();
+            Debug.Log(player);
+            if (player == null)
+            {
+                guardState = GuardState.Patrol;
+            }
+
         }
+    }
+
+    public void SetSentinel(bool sentinel)
+    {
+        _isSentinel = sentinel;
+    }
+
+    public void SetPatrolTarget(List<Cell> targets)
+    {
+        _patrolTargets = targets;
+    }
+
+    public void IncreaseMovePatrolAndChase(int patrolPoints, int chassPoints)
+    {
+        patrolMovePoints += patrolPoints;
+        chaseMovePoints += chassPoints;
+        if (guardState == GuardState.Chasing || guardState == GuardState.Looking) movePoints = chaseMovePoints;
+        else movePoints = patrolMovePoints;
+    }
+
+    public void IncreaseVisionRange(int range)
+    {
+        fieldOfView.IncreaseRange(range);
+    }
+
+    public void LaunchGeneralAlert()
+    {
+        _generalAlert = true;
+        fieldOfView.SetRange(0);
     }
 }

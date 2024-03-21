@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,6 +18,16 @@ public class GameManager : MonoBehaviour
     private Actions _actionSelected;
 
     private List<Character> _characterList;
+
+    public List<SecurityCamera> securityCameraList;
+
+    private List<EnemyCharacter> _guardList;
+
+    private List<PlayerCharacter> _playerCharacterList;
+
+    public int moneyScore = 0;
+
+    [SerializeField] private int _moneyMalus = -300;
 
     public static GameManager instance { get { return _instance; } }
     static GameManager _instance;
@@ -39,11 +50,34 @@ public class GameManager : MonoBehaviour
 
     private int playersInVictoryZone = 0; // Nombre de joueurs dans la zone de victoire
 
+    [SerializeField] private List<SecondPhasePatrols> _secondePhasePatrols = new List<SecondPhasePatrols>();
+
+    private int _alertLevel = 0;
+
+    public int maxAlertLevel = 2;
+
+    [SerializeField] private int _guardPatrolMovePointsIncrease = 2;
+    [SerializeField] private int _guardChassingMovePointsIncrease = 2;
+    [SerializeField] private int _guardFOVRangeIncrease = 1;
+    [SerializeField] private float _timeReducePlanificationTime = 5f;
+
     private struct AvailibleActionsOnAdjacentCells
     {
         public Cell cell;
 
         public List<Actions> availibleActions;
+    }
+
+    [Serializable]
+    public struct SecondPhasePatrols
+    {
+        public EnemyCharacter enemy;
+
+        public bool isSentinel;
+
+        public List<Cell> patrolCells;
+
+        public bool looping;
     }
 
     enum SelectionState
@@ -67,8 +101,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _characterList = GetAllCharacters();
-
+        securityCameraList = GetAllSecurityCameras();
+        _guardList = GetAllEnemyCharacter();
+        _playerCharacterList = GetAllPlayerCharacter();
         UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
         LaunchPlanificationPhase();
     }
@@ -95,8 +132,13 @@ public class GameManager : MonoBehaviour
             {
                 GetClickObject();
             }
-            //Input echap -> Fin de la phase
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            //Input clic droit -> Annulation action
+            if (Input.GetMouseButtonDown(1))
+            {
+                GetRightClickObject();
+            }
+            //Input espace -> Fin de la phase
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
                 LaunchActionPhase();
             }
@@ -129,6 +171,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GetRightClickObject()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers))
+        {
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
+                {
+                    PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
+                    characterScript.ClearPreparedAction();
+                    characterScript.Reset();
+                }
+                else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
+                {
+                    Unselect(true);
+                }
+            }
+        }
+    }
+
 
     private void GetClickObject()
     {
@@ -140,11 +204,13 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
                 {
-                    Debug.Log("A PlayerCharacter is clicked");
+                    //Debug.Log("A PlayerCharacter is clicked");
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
                 } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
                 }
@@ -163,8 +229,13 @@ public class GameManager : MonoBehaviour
             UIManager.instance.SetUIActionMenuON();
             MapManager.instance.ResetSelectableCells();
             _currentSelectionState = SelectionState.SELECT_ACTION;
+            foreach (Cell cellPath in characterSelected.path)
+            {
+                cellPath.UnmarkPath();
+            }
 
-        }else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
+        }
+        else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
             TargetActionSelected(cell);
         }
@@ -174,7 +245,7 @@ public class GameManager : MonoBehaviour
     {
         characterSelected.TargetCell(cellSelected);
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        Unselect();
+        Unselect(false);
     }
 
     public void ActionSelect(Actions action)
@@ -183,7 +254,7 @@ public class GameManager : MonoBehaviour
         {
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
-            Unselect();
+            Unselect(false);
             return;
         }
 
@@ -197,6 +268,12 @@ public class GameManager : MonoBehaviour
                 selectableCell.Add(actionCell.cell);
             }
         }
+
+        if (selectableCell.Count == 1)
+        {
+            TargetActionSelected(selectableCell[0]);
+            return;
+        }
         MapManager.instance.SetPreciseSelectableCells(selectableCell);
         _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
@@ -205,23 +282,30 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected == character)
         {
-            Unselect();
+            Unselect(false);
             _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
-            Unselect();
+            Unselect(true);
             Select(character);
             _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
 
-    private void Unselect()
+    private void Unselect(bool removePath)
     {
-        if (characterSelected != null)
+        if (removePath && characterSelected != null)
         {
-            // Debug.Log(characterSelected.name + " unselected");
+            if (characterSelected.path != null)
+            {
+                foreach (Cell cell in characterSelected.path)
+                {
+                    cell.UnmarkPath();
+                }
+            }
+            characterSelected.path.Clear();
         }
         characterSelected = null;
         cellSelected = null;
@@ -255,12 +339,55 @@ public class GameManager : MonoBehaviour
         return list;
     }
 
+    private List<SecurityCamera> GetAllSecurityCameras()
+    {
+        List<SecurityCamera> securityCams = new List<SecurityCamera>();
+        foreach(Character character in _characterList)
+        {
+            SecurityCamera securityCameraScript = character.GetComponent<SecurityCamera>();
+            if (securityCameraScript != null)
+            {
+                securityCams.Add(securityCameraScript);
+            }
+        }
+        return securityCams;
+    }
+
+    private List<EnemyCharacter> GetAllEnemyCharacter() 
+    {
+        List<EnemyCharacter> enemyCharacters = new List<EnemyCharacter>();
+        foreach(Character character in _characterList)
+        {
+            EnemyCharacter enemyCharacterScript = character.GetComponent<EnemyCharacter>();
+            if (enemyCharacterScript != null)
+            {
+                enemyCharacters.Add(enemyCharacterScript);
+            }
+        }
+        return enemyCharacters;
+    }
+
+    private List<PlayerCharacter> GetAllPlayerCharacter()
+    {
+        List<PlayerCharacter> playerCharacters = new List<PlayerCharacter>();
+        foreach (Character character in _characterList)
+        {
+            PlayerCharacter playerCharacterScript = character.GetComponent<PlayerCharacter>();
+            if (playerCharacterScript != null)
+            {
+                playerCharacters.Add(playerCharacterScript);
+            }
+        }
+        return playerCharacters;
+    }
+
     private void LaunchActionPhase()
     {
         EndPlanificationPhase();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
-        Unselect();
+        Unselect(true);
         foreach (Character character in _characterList) 
         {
             character.Acte();
@@ -286,12 +413,12 @@ public class GameManager : MonoBehaviour
 
     private void EndPlanificationPhase()
     {
-
+        MapManager.instance.UnmarkAllCells();
     }
 
     private void AddToPath(Character character, Cell cell)
     {
-        if (character.path.Count == 0)
+        /*if (character.path.Count == 0)
         {
             character.path.Add(cell);
             cell.MarkPath();
@@ -302,17 +429,18 @@ public class GameManager : MonoBehaviour
             cell.MarkPath();
         }
         if (character.path.Count>character.movePoints + 1)
+        {*/
+        if (cell.currentState != Cell.CellState.isSelectable) return;
+        foreach (Cell markCell in character.path)
         {
-            foreach(Cell markCell in character.path)
-            {
-                markCell.UnmarkPath();
-            }
-            character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false) ;
-            foreach (Cell toMarkCell in character.path)
-            {
-                toMarkCell.MarkPath();
-            }
+            markCell.UnmarkPath();
         }
+        character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
+        foreach (Cell toMarkCell in character.path)
+        {
+            toMarkCell.MarkPath();
+        }
+        //}
     }
 
     private Cell GetTargetCell()
@@ -393,7 +521,7 @@ public class GameManager : MonoBehaviour
         bool atLeastOnePlayerHasWinCondition = false;
         foreach (PlayerCharacter player in players)
         {
-            if (player.HasWinConditionAttached())
+            if (player.GetCarriedItem() != null && player.GetCarriedItem().GetComponent<Objective>())
             {
                 Debug.Log("Un joueur a bien la winCond");
                 atLeastOnePlayerHasWinCondition = true;
@@ -450,10 +578,70 @@ public class GameManager : MonoBehaviour
     public void PlayerCaught(PlayerCharacter character)
     {
         _characterList.Remove(character);
-        if (GetAllCharacters().Count == 0) 
+        _playerCharacterList.Remove(character);
+        UpdateMoneyScore(_moneyMalus);
+        if (_playerCharacterList.Count == 0) 
         {
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
     }
 
+    public void UpdateMoneyScore(int moneyGain)
+    {
+        moneyScore += moneyGain;
+        //Add update UI score
+    }
+
+
+    public void LaunchPartTwo()
+    {
+        foreach (SecondPhasePatrols newPatrol in _secondePhasePatrols)
+        {
+            newPatrol.enemy.SetSentinel(newPatrol.isSentinel);
+            newPatrol.enemy.SetPatrolTarget(newPatrol.patrolCells);
+            newPatrol.enemy.loopingPatrol = newPatrol.looping;
+        }
+    }
+
+    public void IncreaseAlertLevel()
+    {
+        if (_alertLevel == maxAlertLevel) return;
+        _alertLevel++;
+        foreach (EnemyCharacter enemyCharacter in _guardList)
+        {
+            enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
+            enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease);
+            _timePlanification -= _timeReducePlanificationTime;
+        }
+        if (_alertLevel == maxAlertLevel)
+        {
+            foreach(EnemyCharacter enemyCharacter2 in _guardList)
+            {
+                enemyCharacter2.LaunchGeneralAlert();
+            }
+            foreach(SecurityCamera camera in securityCameraList)
+            {
+                camera.LaunchGeneralAlert();
+            }
+        }
+    }
+
+    public PlayerCharacter GetClosestPlayer(Character character)
+    {
+        int minDistance = int.MaxValue;
+        PlayerCharacter closestPlayer = null;
+
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList)
+        {
+            List<Cell> path = MapManager.instance.FindPath(character.GetCurrentCell(), playerCharacter.GetCurrentCell(), true);
+            if (path.Count < minDistance && !playerCharacter.IsCaught())
+            {
+                minDistance = path.Count;
+                closestPlayer = playerCharacter;
+            }
+        }
+        return closestPlayer;
+    }
+
+    public int GetAlertLevel() { return _alertLevel; }
 }

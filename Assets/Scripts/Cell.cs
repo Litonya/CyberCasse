@@ -21,7 +21,11 @@ public class Cell : MonoBehaviour
 
     private List<EnemyFOV> viewBy = new List<EnemyFOV>();
 
-    public enum CellState { Idle, isSelectable, isSelected }
+    private Item _placeItem = null;
+
+    [SerializeField] private float itemOffset = 0f;
+
+    public enum CellState { Idle, isSelectable, isSelected, actionTarget }
     [HideInInspector]
     public CellState currentState = CellState.Idle;
 
@@ -34,10 +38,21 @@ public class Cell : MonoBehaviour
     public List<Actions> possibleActions = new List<Actions>();
 
     [SerializeField] private int _diffuculty = 0;
-    //[HideInInspector]
     public int remainDifficulty;
 
     private List<CellAction> _cellActions = new List<CellAction>();
+    private GrabItem _grabItemAction = null;
+
+    public KeyColor neededKey;
+
+    public List<Cell> linkCell = new List<Cell>();
+
+    private Character _characterTarget = null;
+
+    private Renderer _renderer;
+
+    private GameObject _feedBackObject;
+    private Renderer _feedBackRenderer;
 
     public void MarkPath()
     {
@@ -53,6 +68,9 @@ public class Cell : MonoBehaviour
     {
         InitializeActions();
         remainDifficulty = _diffuculty;
+        _renderer = GetComponent<Renderer>();
+        _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
+        _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
     }
 
     private void Start()
@@ -113,7 +131,7 @@ public class Cell : MonoBehaviour
     {
         isVisited = false;
         UnmarkPath();
-        SetState(CellState.Idle);
+        SetState(CellState.Idle, null);
     }
 
     public void ResetDifficulty()
@@ -138,30 +156,64 @@ public class Cell : MonoBehaviour
 
     public void RefreshStateVisual()
     {
-        Renderer cellMat = this.GetComponent<Renderer>();
-
         if (currentState == CellState.Idle && viewBy.Count == 0)
         {
-            cellMat.material.color = Color.white;
+            SetIdleVisual();
         }
         else if (currentState == CellState.isSelectable)
         {
-            cellMat.material.color = Color.magenta;
+            SetIsVisibleVisual();
         }
         else if (currentState == CellState.isSelected)
         {
-            cellMat.material.color = Color.blue;
+            SetIsSelectedVisual();
+        }
+        else if (currentState == CellState.actionTarget)
+        {
+            SetActionTargetVisual();
         }
         else if (viewBy.Count != 0)
         {
-            cellMat.material.color = Color.red;
+            SetVisibleVisual();
         }
     }
 
-    public void SetState(CellState state)
+    private void ChangeFeedbackVisual(Color color)
+    {
+        _feedBackRenderer.material.color = color;
+    }
+
+    private void SetIdleVisual()
+    {
+        ChangeFeedbackVisual(MapManager.instance.idleColor);
+    }
+
+    private void SetIsVisibleVisual()
+    {
+        Color newColor = MapManager.instance.selectableColor;
+        if (viewBy.Count > 0) newColor = Color.Lerp(newColor, MapManager.instance.visibleByEnnemiesColor, .5f);
+        ChangeFeedbackVisual(newColor);
+    }
+
+    private void SetIsSelectedVisual()
+    {
+        ChangeFeedbackVisual(MapManager.instance.GetCharacterSelectedColor(_characterTarget.characterType));
+    }
+    private void SetVisibleVisual()
+    {
+        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemiesColor);
+    }
+
+    private void SetActionTargetVisual()
+    {
+        ChangeFeedbackVisual(MapManager.instance.GetCharacterActionColor(_characterTarget.characterType));
+    }
+
+
+    public void SetState(CellState state, Character character)
     {
         currentState = state;
-
+        _characterTarget = character;
         RefreshStateVisual();
     }
 
@@ -171,6 +223,21 @@ public class Cell : MonoBehaviour
         {
             LockPick lockPick = gameObject.AddComponent<LockPick>();
             _cellActions.Add(lockPick);
+        }
+        if (possibleActions.Contains(Actions.UNLOCK))
+        {
+            UnlockDoor unlockDoor = gameObject.AddComponent<UnlockDoor>();
+            _cellActions.Add(unlockDoor);
+        }
+        if (possibleActions.Contains(Actions.BREAKGLASS))
+        {
+            BreakGlass breakGlass = gameObject.AddComponent<BreakGlass>();
+            _cellActions.Add(breakGlass);
+        }
+        if (possibleActions.Contains(Actions.HACK))
+        {
+            Hack hack = gameObject.AddComponent<Hack>();
+            _cellActions.Add(hack);
         }
     }
 
@@ -184,17 +251,59 @@ public class Cell : MonoBehaviour
         walkable = false;
     }
 
-    public bool Acte(Actions action, int characterStat)
+    public bool Acte(Actions action, int characterStat, PlayerCharacter character)
     {
         foreach (CellAction cellAction in _cellActions)
         {
             if (cellAction.action == action)
             {
-                return cellAction.Acte(characterStat);
+                return cellAction.Acte(characterStat, character);
             }
         }
 
         Debug.LogError("No action \""+action+"\" find for cell " + gameObject.name);
         return true;
+    }
+
+    public void PlaceItem(Item item)
+    {
+        if (_placeItem != null)
+        {
+            Debug.LogError("This cell already have an item");
+        }
+        _placeItem = item;
+        item.gameObject.SetActive(true);
+        item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+        if (_grabItemAction == null)
+        {
+            GrabItemActionInit();
+        }
+
+    }
+
+    private void GrabItemActionInit()
+    {
+        _grabItemAction = gameObject.AddComponent<GrabItem>();
+        _cellActions.Add(_grabItemAction);
+        possibleActions.Add(Actions.GETITEM);
+    }
+
+    public void RemoveItem()
+    {
+        _placeItem.gameObject.SetActive(false);
+        _placeItem = null;
+        RemoveGrabItemAction();
+    }
+
+    private void RemoveGrabItemAction()
+    {
+        _cellActions.Remove(_grabItemAction);
+        possibleActions.Remove(Actions.GETITEM);
+        Destroy(_grabItemAction);
+    }
+
+    public Item GetItem()
+    {
+        return _placeItem;
     }
 }

@@ -22,8 +22,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Slider _timerProgressBar;
+    public Timer _dialSlider;
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
+    [SerializeField] private TextMeshProUGUI _alertLevelLabel;
 
     [Header("Context Menu")]
     [SerializeField]
@@ -52,22 +54,61 @@ public class UIManager : MonoBehaviour
     {
         _phaseLabel.text = "ACTION";
         _phaseLabel.color = _actionPhaseColor;
+        _dialSlider.StopTimer();
     }
 
     public void SetUIPlanificationPhase()
     {
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
+        _dialSlider.StartTimer();
+
+    }
+
+    public void SetUIAlertLevel()
+    {
+        _alertLevelLabel.text = GameManager.instance.GetAlertLevel().ToString();
+        switch (GameManager.instance.GetAlertLevel())
+        {
+            case 0:
+                _alertLevelLabel.color = Color.blue; // Traitement pour le niveau d'alerte 0
+                break;
+            case 1:
+                _alertLevelLabel.color = Color.green; // Traitement pour le niveau d'alerte 1
+                break;
+            case 2:
+                _alertLevelLabel.color = Color.yellow; // Traitement pour le niveau d'alerte 2
+                break;
+            case 3:
+                _alertLevelLabel.color = new Color(1f, 0.5f, 0f); // Orange foncé
+                break;
+            case 4:
+                _alertLevelLabel.color = new Color(1f, 0.25f, 0f); // Orange vif
+                                                                   // Traitement pour le niveau d'alerte 4
+                break;
+            case 5:
+                _alertLevelLabel.color = new Color(1f, 0f, 0f); // Rouge foncé
+                                                                // Traitement pour le niveau d'alerte 5
+                break;
+            default:
+                // Traitement pour toutes les autres valeurs (si nécessaire)
+                break;
+        }
     }
 
     public void SetMaximumTime(float maxTime)
     {
+        
         _timerProgressBar.maxValue = maxTime;
+        // _dialSlider.DisplayFormattedTime(maxTime);
+        _dialSlider.SetTimerTimeStart(maxTime);
     }
 
     public void UpdateTimeBar(float timeRemain)
     {
         _timerProgressBar.value = timeRemain;
+        // _dialSlider.DisplayFormattedTime(timeRemain);
+        _dialSlider.timeRemaining = timeRemain;
     }
 
     public void ShowVictory()
@@ -140,11 +181,19 @@ public class UIManager : MonoBehaviour
         //En théorie le joueur peut toujours se déplacer sur la case sélectionné
         ShowMoveAction();
 
-        ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
+        //ShowKnockoutAction(actions.Contains(Actions.KNOCKOUT));
 
         ShowLockPickAction(actions.Contains(Actions.LOCKPICK));
 
         ShowLookAction(actions.Contains(Actions.LOOK));
+
+        ShowGrabItemAction(actions.Contains(Actions.GETITEM));
+
+        ShowUnlockAction(actions.Contains(Actions.UNLOCK));
+
+        ShowBreakGlassAction(actions.Contains(Actions.BREAKGLASS));
+
+        ShowHackAction(actions.Contains(Actions.HACK));
     }
 
 
@@ -155,12 +204,12 @@ public class UIManager : MonoBehaviour
         moveAction.SetInteractable(true);
     }
 
-    private void ShowKnockoutAction(bool showIt)
+    /*private void ShowKnockoutAction(bool showIt)
     {
         // Si un EnemyCharacter est trouvé dans l'une des cases adjacentes, activer l'action "Attack"
         ActionMenuItem attackAction = _actionMenu.transform.Find("Container/Image/Container/AttackAction").GetComponent<ActionMenuItem>();
         attackAction.gameObject.SetActive(showIt);
-    }
+    }*/
 
     private void ShowLockPickAction(bool showIt)
     {
@@ -168,10 +217,31 @@ public class UIManager : MonoBehaviour
         _actionMenu.transform.Find("Container/Image/Container/OpenDoorAction").gameObject.SetActive(showIt);
     }
 
+    private void ShowUnlockAction(bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/UnlockAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowGrabItemAction(bool showIt)
+    {
+        ActionMenuItem grabAction = _actionMenu.transform.Find("Container/Image/Container/GrabAction").GetComponent<ActionMenuItem>();
+        grabAction.gameObject.SetActive(showIt);
+    }
+
     private void ShowLookAction(bool showIt)
     {
         // Activer l'action "Observer"
         _actionMenu.transform.Find("Container/Image/Container/ObserveDoorAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowBreakGlassAction(bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/BreakGlassAction").gameObject.SetActive(showIt);
+    }
+
+    private void ShowHackAction (bool showIt)
+    {
+        _actionMenu.transform.Find("Container/Image/Container/HackAction").gameObject.SetActive(showIt);
     }
 
     // Méthode appelée lorsqu'une action est sélectionnée dans le menu

@@ -13,5 +13,5 @@ public abstract class CellAction : MonoBehaviour
         _cell = GetComponent<Cell>();
     }
 
-    public abstract bool Acte(int charcterStat);
+    public abstract bool Acte(int charcterStat, PlayerCharacter character);
 }

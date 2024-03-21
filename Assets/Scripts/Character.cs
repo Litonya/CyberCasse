@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum CharacterTypes
+{
+    GUARD,
+    CROCHETEUSE,
+    HACKEURSE,
+    GROSBRAS,
+    ECLAIREUR
+}
 public class Character : MonoBehaviour
 {
     [SerializeField]
@@ -26,9 +35,18 @@ public class Character : MonoBehaviour
 
     private float previousXPosition;
 
+    public CharacterTypes characterType;
+
+    protected CharacterAudioHandler _characterAudio;
+
+    protected virtual void Awake()
+    {
+        _characterAudio = GetComponent<CharacterAudioHandler>();
+    }
+
     void Start()
     {
-        // Initialiser la position précédente à la position actuelle
+        // Initialiser la position prï¿½cï¿½dente ï¿½ la position actuelle
         previousXPosition = transform.position.x;
     }
 
@@ -38,7 +56,6 @@ public class Character : MonoBehaviour
         {
             if (isMoving)
             {
-                isWalking = true;
                 PlayAnim();
                 MoveToNextCell();
             }
@@ -54,6 +71,7 @@ public class Character : MonoBehaviour
     public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = null;
         path.Clear();
         path.Add(_currentCell);
@@ -71,14 +89,15 @@ public class Character : MonoBehaviour
         if (_target != null)
         {
             Move();
-            _target.SetState(Cell.CellState.Idle);
+            _target.SetState(Cell.CellState.Idle, null);
         }
     }
 
     public void TargetCell(Cell cell)
     {
+        if (_target != null) _target.SetState(Cell.CellState.Idle, null);
         _target = cell;
-        cell.SetState(Cell.CellState.isSelected);
+        cell.SetState(Cell.CellState.isSelected, this);
     }
 
     protected virtual void MoveToNextCell()
@@ -99,9 +118,9 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
+            _characterAudio.StopWalkSound();
             SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
-            isWalking = false;
             PlayAnim();
         }
         else
@@ -117,7 +136,8 @@ public class Character : MonoBehaviour
     public void Move()
     {
          isMoving = true;
-         _nextCell = path[0];
+        _characterAudio.PlayWalkSound();
+        _nextCell = path[0];
     }
 
     public virtual void SetCurrentCell(Cell cell)
@@ -152,18 +172,16 @@ public class Character : MonoBehaviour
     protected void PlayAnim()
     {
         // Jouer l'animation de marche
-        
-        if (GetComponentInChildren<SpriteController>() != null)
+            //Debug.Log(isWalking);
+        if (isMoving)
         {
-            Debug.Log(isWalking);
-            if (isWalking)
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
-            }
-            else
-            {
-                GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
-            }
+            GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
+            
+        }
+        else
+        {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
+            _characterAudio.StopWalkSound();
         }
     }
 
@@ -178,7 +196,7 @@ public class Character : MonoBehaviour
     {
         if (transform.position.x < previousXPosition)
         {
-            // Si la position X décroît, appliquer un flip horizontal
+            // Si la position X dï¿½croï¿½t, appliquer un flip horizontal
             FlipX(true);
         }
         else if (transform.position.x > previousXPosition)
@@ -187,7 +205,7 @@ public class Character : MonoBehaviour
             FlipX(false);
         }
 
-        // Mettre à jour la position précédente
+        // Mettre ï¿½ jour la position prï¿½cï¿½dente
         previousXPosition = transform.position.x;
     }
 }

@@ -30,6 +30,27 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] cellArrayTemp;
 
+    public float alphaCell=.5f;
+    [Header("Players Character Colors")]
+    public Color crocheteuseSelectedColor = Color.magenta;
+    public Color crocheteuseActionTargetColor = Color.magenta;
+    public Color hackSelectedColor = Color.green;
+    public Color hackActionTargetColor = Color.green;
+    public Color muscleSelectedColor = Color.yellow;
+    public Color muscleActionTargetColor = Color.yellow;
+    public Color scoutSelectedColor = Color.red;
+    public Color scoutActionTargetColor = Color.red;
+
+    [Header("Guards Colors")]
+    public Color guardSelectedColor = Color.black;
+    public Color visibleByEnnemiesColor = Color.red;
+
+    [Header("GeneralStatesColors")]
+    public Color idleColor = Color.clear;
+    public Color selectableColor = Color.blue;
+
+
+
     enum Side
     {
         LEFT,
@@ -52,12 +73,31 @@ public class MapManager : MonoBehaviour
         _logicalMap = new Cell[_mapXSize,_mapZSize];
 
         InitMap();
+        InitColors();
         
     }
 
     private void Start()
     {
         InitCharacterPos();
+        InitItemPos();
+    }
+
+
+    private void InitColors()
+    {
+        crocheteuseSelectedColor.a = alphaCell;
+        crocheteuseActionTargetColor.a = alphaCell;
+        hackSelectedColor.a = alphaCell;
+        hackActionTargetColor.a = alphaCell;
+        muscleSelectedColor.a = alphaCell;
+        muscleActionTargetColor.a = alphaCell;
+        scoutSelectedColor.a = alphaCell;
+        scoutActionTargetColor.a = alphaCell;
+        guardSelectedColor.a = alphaCell;
+
+        visibleByEnnemiesColor.a = alphaCell;
+        selectableColor.a = alphaCell;
     }
 
     private void InitMap()
@@ -97,6 +137,43 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
+    public Color GetCharacterSelectedColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.GUARD:
+                return guardSelectedColor;
+            case CharacterTypes.CROCHETEUSE:
+                return crocheteuseSelectedColor;
+            case CharacterTypes.HACKEURSE:
+                return hackSelectedColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleSelectedColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutSelectedColor;
+            default:
+                return Color.clear;
+        }
+    }
+
+    public Color GetCharacterActionColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.CROCHETEUSE:
+                return crocheteuseActionTargetColor;
+            case CharacterTypes.HACKEURSE:
+                return hackActionTargetColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleActionTargetColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutActionTargetColor;
+            default:
+                return Color.clear;
+        }
+    }
+
     private void InitCharacterPos()
     {
         //Récupére tous les characters de la scène
@@ -116,6 +193,21 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
+    private void InitItemPos()
+    {
+        GameObject[] itemList = GameObject.FindGameObjectsWithTag("Item");
+
+        foreach(GameObject item in itemList)
+        {
+            Item itemScript = item.GetComponent<Item>();
+            if (item != null)
+            {
+                Cell cell = GetCell((int)item.transform.position.x, (int)item.transform.position.z);
+                cell.PlaceItem(itemScript);
+            }
+        }
+    }
 
     public Cell GetCell(int x, int z)
     {
@@ -182,13 +274,24 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void UnmarkAllCells()
+    {
+        foreach (Cell cell in _logicalMap)
+        {
+            if (cell != null )
+            {
+                cell.UnmarkPath();
+            }
+        }
+    }
+
     public void SetCellsSelectable(Cell origin, int distance)
     {
         selectableCells = GetCellsReacheable(origin, distance);
 
         foreach(Cell cell in selectableCells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, origin.occupant);
         }
     }
 
@@ -198,7 +301,7 @@ public class MapManager : MonoBehaviour
         {
             if (cell != null && cell.currentState != Cell.CellState.isSelected)
             {
-                cell.SetState(Cell.CellState.Idle);
+                cell.SetState(Cell.CellState.Idle, null);
             }
         }
         selectableCells.Clear();
@@ -208,7 +311,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (Cell cell in cells)
         {
-            cell.SetState(Cell.CellState.isSelectable);
+            cell.SetState(Cell.CellState.isSelectable, null);
             selectableCells.Add(cell);
         }
     }

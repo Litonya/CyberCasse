@@ -195,6 +195,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: walkable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: neededKey
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: seeThrough
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
@@ -203,7 +211,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: possibleActions.Array.size
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: possibleActions.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
