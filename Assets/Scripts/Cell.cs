@@ -55,6 +55,8 @@ public class Cell : MonoBehaviour
     public Icon Lock_Open;
     [SerializeField]
     public Icon Lock_Close;
+    [SerializeField]
+    public Icon Icon_Break;
 
     public void MarkPath()
     {
@@ -74,6 +76,10 @@ public class Cell : MonoBehaviour
         if (Lock_Close != null)
         {
             Lock_Close.SetActiveIcon(true);
+        }
+        if (Icon_Break != null)
+        {
+            Icon_Break.SetActiveIcon(true);
         }
     }
 

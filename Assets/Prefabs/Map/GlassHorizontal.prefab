@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4679999137385489652}
   - component: {fileID: 8264927843116394065}
+  - component: {fileID: 1682319072828132445}
   m_Layer: 0
   m_Name: Break
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 171301108266425281}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 1.8, z: -0.3}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1682319072828132445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171301108266425281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa504405ef8817a4caee498ca9f355ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583392259084499995
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +290,10 @@ PrefabInstance:
       propertyPath: walkable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
+      propertyPath: Icon_Break
+      value: 
+      objectReference: {fileID: 1682319072828132445}
     - target: {fileID: 6123531670252771002, guid: d86072c3be4cdf7449b75fd0c40ccfee, type: 3}
       propertyPath: _diffuculty
       value: 2
