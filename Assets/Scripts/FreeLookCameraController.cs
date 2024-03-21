@@ -16,12 +16,18 @@ public class FreeLookCameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero; // Vélocité pour le lissage du mouvement de la caméra
     private Transform target; // Cible de la caméra
 
+    private bool isMovingTowardsTarget = false;
+
     private void Update()
     {
         HandleMovementInput();
         // HandleRotationInput();
         HandleZoomInput();
         HandleSelectionInput();
+        if (isMovingTowardsTarget) // Appeler MoveCameraTowardsTarget() seulement si la caméra ne bouge pas manuellement
+        {
+            MoveCameraTowardsTarget();
+        }
         //MoveCameraTowardsTarget();
     }
 
@@ -31,7 +37,11 @@ public class FreeLookCameraController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        if (horizontalInput != 0 || verticalInput != 0) SetTarget(null);
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            SetTarget(null);
+            isMovingTowardsTarget = false;
+        }
 
         Vector3 forwardDirection = virtualCamera.transform.forward.normalized;
         forwardDirection.y = 0;
@@ -101,5 +111,11 @@ public class FreeLookCameraController : MonoBehaviour
                 target = null;
             }
         }
+    }
+
+    public void ButtonClicked(PlayerCharacter player)
+    {
+        SetTarget(player.transform);
+        isMovingTowardsTarget = true;
     }
 }

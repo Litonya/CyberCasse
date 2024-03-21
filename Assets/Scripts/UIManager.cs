@@ -6,15 +6,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get { return _instance; } }
     static UIManager _instance;
 
+    [Header("User Interface")]
     [SerializeField]
     private TextMeshProUGUI _phaseLabel;
-
+    [SerializeField]
+    private Image _imagePhase;
+    [SerializeField] 
+    private Image _imageAlertLvl;
     [SerializeField]
     private Color _actionPhaseColor = Color.red;
     [SerializeField]
@@ -24,8 +29,28 @@ public class UIManager : MonoBehaviour
     private Slider _timerProgressBar;
     public Timer _dialSlider;
 
+    [SerializeField]
+    private Image _panelLockpick;
+    [SerializeField]
+    private Image _panelHacker;
+    [SerializeField]
+    private Image _panelScout;
+    [SerializeField]
+    private Image _panelFlorent;
+
+    [SerializeField]
+    private RawImage _SFLockpick;
+    [SerializeField]
+    private RawImage _SFHacker;
+    [SerializeField]
+    private RawImage _SFScout;
+    [SerializeField]
+    private RawImage _SFFlorent;
+
+
     [SerializeField] private TextMeshProUGUI _victoryLabel;
-    [SerializeField] private TextMeshProUGUI _alertLevelLabel;
+
+    public GameObject pauseMenu;
 
     [Header("Context Menu")]
     [SerializeField]
@@ -34,11 +59,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Canvas parentCanvas;
 
-    private Camera cam;
-
     private Cell selectedCell;
 
-    
+    private void Start()
+    {
+        InitUICharacterColor();
+    }
 
     private void Awake()
     {
@@ -52,43 +78,42 @@ public class UIManager : MonoBehaviour
 
     public void SetUIActionPhase()
     {
+        Sprite spriteMenuAction = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Action.png");
         _phaseLabel.text = "ACTION";
         _phaseLabel.color = _actionPhaseColor;
+        _imagePhase.sprite = spriteMenuAction;
         _dialSlider.StopTimer();
     }
 
     public void SetUIPlanificationPhase()
     {
+        Sprite spriteMenuPreparation = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Preparations.png");
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
+        _imagePhase.sprite = spriteMenuPreparation;
         _dialSlider.StartTimer();
 
     }
 
     public void SetUIAlertLevel()
     {
-        _alertLevelLabel.text = GameManager.instance.GetAlertLevel().ToString();
+        Sprite alerteLvl0 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level0.png");
+        Sprite alerteLvl1 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level1.png");
+        Sprite alerteLvl2 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level2.png");
+        Sprite alerteLvl3 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level3.png");
         switch (GameManager.instance.GetAlertLevel())
         {
             case 0:
-                _alertLevelLabel.color = Color.blue; // Traitement pour le niveau d'alerte 0
+                _imageAlertLvl.sprite = alerteLvl0; // Traitement pour le niveau d'alerte 0
                 break;
             case 1:
-                _alertLevelLabel.color = Color.green; // Traitement pour le niveau d'alerte 1
+                _imageAlertLvl.sprite = alerteLvl1; // Traitement pour le niveau d'alerte 1
                 break;
             case 2:
-                _alertLevelLabel.color = Color.yellow; // Traitement pour le niveau d'alerte 2
+                _imageAlertLvl.sprite = alerteLvl2; // Traitement pour le niveau d'alerte 2
                 break;
             case 3:
-                _alertLevelLabel.color = new Color(1f, 0.5f, 0f); // Orange foncé
-                break;
-            case 4:
-                _alertLevelLabel.color = new Color(1f, 0.25f, 0f); // Orange vif
-                                                                   // Traitement pour le niveau d'alerte 4
-                break;
-            case 5:
-                _alertLevelLabel.color = new Color(1f, 0f, 0f); // Rouge foncé
-                                                                // Traitement pour le niveau d'alerte 5
+                _imageAlertLvl.sprite = alerteLvl3; // Traitement pour le niveau d'alerte 3
                 break;
             default:
                 // Traitement pour toutes les autres valeurs (si nécessaire)
@@ -267,5 +292,69 @@ public class UIManager : MonoBehaviour
         // Faire disparaître le menu
         SetUIActionMenuOFF();
     }
+
+    public void PauseMenu()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        // Désactiver tous les enfants du parent de _panelLockpick sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelLockpick.transform.parent)
+        {
+            if (child.gameObject != _panelLockpick && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelFlorent sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelFlorent.transform.parent)
+        {
+            if (child.gameObject != _panelFlorent && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelScout sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelScout.transform.parent)
+        {
+            if (child.gameObject != _panelScout && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+        // Désactiver tous les enfants du parent de _panelHacker sauf celui nommé "imagePerso"
+        foreach (Transform child in _panelHacker.transform.parent)
+        {
+            if (child.gameObject != _panelHacker && child.name != "imagePerso")
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        }
+
+
+
+    }
+
+    public void InitUICharacterColor()
+    {
+        Color _LockpickUIColor = MapManager.instance.chochteuseActionTargetColor;
+        Color _HackerUIColor = MapManager.instance.hackActionTargetColor;
+        Color _ScoutUIColor = MapManager.instance.scoutActionTargetColor;
+        Color _FlorentUIColor = MapManager.instance.muscleActionTargetColor;
+
+        _panelLockpick.color = _LockpickUIColor;
+        _panelHacker.color = _HackerUIColor;
+        _panelScout.color = _ScoutUIColor;
+        _panelFlorent.color = _FlorentUIColor;
+
+        _SFLockpick.color = _LockpickUIColor;
+        _SFHacker.color = _HackerUIColor;
+        _SFScout.color = _ScoutUIColor;
+        _SFFlorent.color = _FlorentUIColor;
+    }
+
+    
+
 }
 

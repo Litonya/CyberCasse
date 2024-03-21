@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum GameStates { Planification, Action }
@@ -60,6 +61,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _guardChassingMovePointsIncrease = 2;
     [SerializeField] private int _guardFOVRangeIncrease = 1;
     [SerializeField] private float _timeReducePlanificationTime = 5f;
+
+    private bool isPaused = false;
 
     private struct AvailibleActionsOnAdjacentCells
     {
@@ -150,6 +153,12 @@ public class GameManager : MonoBehaviour
                 {
                     AddToPath(characterSelected, cell);
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                // Inverser l'état de pause
+                TogglePause();
             }
         }
 
@@ -607,6 +616,7 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
             enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
@@ -644,4 +654,39 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetAlertLevel() { return _alertLevel; }
+
+    public void TogglePause()
+    {
+        // Inverser l'état de pause
+        isPaused = !isPaused;
+
+        // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
+        if (isPaused)
+        {
+            Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
+        }
+        else
+        {
+            Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
+        }
+        UIManager.instance.PauseMenu();
+    }
+
+    public void ResetScene()
+    {
+        if (isPaused) TogglePause();
+        // Récupérer le numéro de la scène actuelle
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Recharger la scène actuelle
+        SceneManager.LoadScene(currentSceneIndex);
+        
+    }
+
+    public void ReturnToTitleScreen()
+    {
+        if(isPaused) TogglePause();
+        // Charger la scène de l'écran titre 
+        SceneManager.LoadScene("TitleScreen"); 
+    }
 }
