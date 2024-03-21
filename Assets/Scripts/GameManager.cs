@@ -578,8 +578,9 @@ public class GameManager : MonoBehaviour
     public void PlayerCaught(PlayerCharacter character)
     {
         _characterList.Remove(character);
+        _playerCharacterList.Remove(character);
         UpdateMoneyScore(_moneyMalus);
-        if (GetAllCharacters().Count == 0) 
+        if (_playerCharacterList.Count == 0) 
         {
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
@@ -633,7 +634,7 @@ public class GameManager : MonoBehaviour
         foreach (PlayerCharacter playerCharacter in _playerCharacterList)
         {
             List<Cell> path = MapManager.instance.FindPath(character.GetCurrentCell(), playerCharacter.GetCurrentCell(), true);
-            if (path.Count < minDistance)
+            if (path.Count < minDistance && !playerCharacter.IsCaught())
             {
                 minDistance = path.Count;
                 closestPlayer = playerCharacter;

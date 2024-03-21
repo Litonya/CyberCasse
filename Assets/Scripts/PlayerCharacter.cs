@@ -32,6 +32,8 @@ public class PlayerCharacter : Character
 
     private int _movePointsBackup;
 
+    private bool _isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -171,6 +173,7 @@ public class PlayerCharacter : Character
 
     public void Desactivate()
     {
+        _isDead = true;
         _currentCell.occupant = null;
         gameObject.SetActive(false);
     }
@@ -209,6 +212,11 @@ public class PlayerCharacter : Character
         GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
         _carriedItem = null;
         movePoints = _movePointsBackup;
+    }
+
+    public bool IsCaught()
+    {
+        return _isDead;
     }
 }
 
