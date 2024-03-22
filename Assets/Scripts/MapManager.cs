@@ -31,15 +31,20 @@ public class MapManager : MonoBehaviour
     public GameObject[] cellArrayTemp;
 
     public float alphaCell=.5f;
+    public float selectableAlpha = .25f;
     [Header("Players Character Colors")]
+    public Color crocheteuseSelectableColor = Color.magenta;
     public Color crocheteuseSelectedColor = Color.magenta;
     public Color crocheteuseActionTargetColor = Color.magenta;
+    public Color hackeurSelectableColor = Color.green;
     public Color hackSelectedColor = Color.green;
     public Color hackActionTargetColor = Color.green;
+    public Color muscleSelectableColor = Color.yellow;
     public Color muscleSelectedColor = Color.yellow;
     public Color muscleActionTargetColor = Color.yellow;
-    public Color scoutSelectedColor = Color.red;
-    public Color scoutActionTargetColor = Color.red;
+    public Color scoutSelectableColor = Color.blue;
+    public Color scoutSelectedColor = Color.blue;
+    public Color scoutActionTargetColor = Color.blue;
 
     [Header("Guards Colors")]
     public Color guardSelectedColor = Color.black;
@@ -86,14 +91,22 @@ public class MapManager : MonoBehaviour
 
     private void InitColors()
     {
+        crocheteuseSelectableColor.a = selectableAlpha;
         crocheteuseSelectedColor.a = alphaCell;
         crocheteuseActionTargetColor.a = alphaCell;
+
+        hackeurSelectableColor.a = selectableAlpha;
         hackSelectedColor.a = alphaCell;
         hackActionTargetColor.a = alphaCell;
+
+        muscleSelectableColor.a = selectableAlpha;
         muscleSelectedColor.a = alphaCell;
         muscleActionTargetColor.a = alphaCell;
+
+        scoutSelectableColor.a = selectableAlpha;
         scoutSelectedColor.a = alphaCell;
         scoutActionTargetColor.a = alphaCell;
+
         guardSelectedColor.a = alphaCell;
 
         visibleByEnnemiesColor.a = alphaCell;
@@ -169,6 +182,23 @@ public class MapManager : MonoBehaviour
                 return muscleActionTargetColor;
             case CharacterTypes.ECLAIREUR:
                 return scoutActionTargetColor;
+            default:
+                return Color.clear;
+        }
+    }
+
+    public Color GetCharacterSelectableColor(CharacterTypes type)
+    {
+        switch (type)
+        {
+            case CharacterTypes.CROCHETEUSE:
+                return crocheteuseSelectableColor;
+            case CharacterTypes.HACKEURSE:
+                return hackeurSelectableColor;
+            case CharacterTypes.GROSBRAS:
+                return muscleSelectableColor;
+            case CharacterTypes.ECLAIREUR:
+                return scoutSelectableColor;
             default:
                 return Color.clear;
         }
