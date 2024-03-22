@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1522717027653523177}
   - component: {fileID: 1522717027650655945}
   - component: {fileID: 1522717027651752969}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gate Access Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,6 +151,10 @@ PrefabInstance:
     - target: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
       propertyPath: m_Name
       value: Gate Access Machine (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793069743201563450, guid: b9375c7c7cd65df47b4498f795ee68ff, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
