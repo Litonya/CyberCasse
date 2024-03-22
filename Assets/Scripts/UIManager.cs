@@ -338,7 +338,7 @@ public class UIManager : MonoBehaviour
 
     public void InitUICharacterColor()
     {
-        Color _LockpickUIColor = MapManager.instance.chochteuseActionTargetColor;
+        Color _LockpickUIColor = MapManager.instance.crocheteuseActionTargetColor;
         Color _HackerUIColor = MapManager.instance.hackActionTargetColor;
         Color _ScoutUIColor = MapManager.instance.scoutActionTargetColor;
         Color _FlorentUIColor = MapManager.instance.muscleActionTargetColor;
