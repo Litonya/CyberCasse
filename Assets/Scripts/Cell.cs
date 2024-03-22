@@ -190,6 +190,7 @@ public class Cell : MonoBehaviour
 
     private void SetIsVisibleVisual()
     {
+        if (_characterTarget == null) return;
         Color newColor = MapManager.instance.GetCharacterSelectableColor(_characterTarget.characterType);
         if (viewBy.Count > 0) newColor = Color.Lerp(newColor, MapManager.instance.visibleByEnnemiesColor, .5f);
         ChangeFeedbackVisual(newColor);

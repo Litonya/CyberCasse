@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 853770949493788760}
   - component: {fileID: 5084652272064601186}
   - component: {fileID: 67941094258053766}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Int_Door_01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 8051661404073088091}
   - component: {fileID: 37821366415542509}
   - component: {fileID: 1215456685310404646}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Int_Door Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 7059701069114656044}
   - component: {fileID: 1494575730836394393}
   - component: {fileID: 5762849691973309109}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Int_Door Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
