@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
 
     public void SetUIActionPhase()
     {
-        Sprite spriteMenuAction = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Action.png");
+        Sprite spriteMenuAction = Resources.Load<Sprite>("Menu_Action");
         _phaseLabel.text = "ACTION";
         _phaseLabel.color = _actionPhaseColor;
         _imagePhase.sprite = spriteMenuAction;
@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
 
     public void SetUIPlanificationPhase()
     {
-        Sprite spriteMenuPreparation = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Preparations.png");
+        Sprite spriteMenuPreparation = Resources.Load<Sprite>("Menu_Preparations");
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
         _imagePhase.sprite = spriteMenuPreparation;
@@ -97,10 +97,10 @@ public class UIManager : MonoBehaviour
 
     public void SetUIAlertLevel()
     {
-        Sprite alerteLvl0 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level0.png");
-        Sprite alerteLvl1 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level1.png");
-        Sprite alerteLvl2 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level2.png");
-        Sprite alerteLvl3 = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Menu_Alert_Level3.png");
+        Sprite alerteLvl0 = Resources.Load<Sprite>("Menu_Alert_Level0");
+        Sprite alerteLvl1 = Resources.Load<Sprite>("Menu_Alert_Level1");
+        Sprite alerteLvl2 = Resources.Load<Sprite>("Menu_Alert_Level2");
+        Sprite alerteLvl3 = Resources.Load<Sprite>("Menu_Alert_Level3");
         switch (GameManager.instance.GetAlertLevel())
         {
             case 0:

@@ -111,8 +111,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.4
+  m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8406581677778715408
@@ -137,8 +137,8 @@ MonoBehaviour:
   characterType: 0
   _direction: 0
   _guardLevel: 2
-  patrolMovePoints: 4
-  chaseMovePoints: 6
+  patrolMovePoints: 3
+  chaseMovePoints: 3
   _isSentinel: 0
   _sentinelDirection: 
   loopingPatrol: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f220e3967d1c845a530338f018f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 6
+  _range: 5
 --- !u!54 &-4363223237693377744
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -18,10 +18,13 @@ public class SecurityCamera : Character, Enemy
     private int _curentIndex = 0;
     private int _fovSize;
 
+    private SecurityCamVisual _visual;
+
     private void Awake()
     {
         _fov = GetComponent<EnemyFOV>();
         _fovSize = _fov.GetRange();
+        _visual = GetComponentInChildren<SecurityCamVisual>();
     }
 
     private void Start()
@@ -32,6 +35,7 @@ public class SecurityCamera : Character, Enemy
 
     public override void Acte()
     {
+        if (isHack) return;
         _alreadyDectectThisTurn = false;
         _curentIndex++;
         if (_curentIndex>= _directions.Count)
@@ -72,13 +76,17 @@ public class SecurityCamera : Character, Enemy
     public void Hack()
     {
         _fov.SetRange(0);
+        _fov.UpdateSightOfView(_currentDirection, _currentCell);
         isHack = true;
+        _visual.DeactivateLight();
     }
 
     public void UnHack()
     {
         _fov.SetRange(_fovSize);
+        _fov.UpdateSightOfView(_currentDirection, _currentCell);
         isHack = false;
+        _visual.ActivateLight();
     }
 
     public void LaunchGeneralAlert()
