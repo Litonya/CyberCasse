@@ -34,6 +34,8 @@ public class PlayerCharacter : Character
     private Icon _hackingIcon;
     [SerializeField]
     private Icon _breakingIcon;
+    [SerializeField]
+    private Icon _lockpickingIcon;
 
     private int _movePointsBackup;
 
@@ -64,6 +66,8 @@ public class PlayerCharacter : Character
         {
             _hackingIcon.SetActiveIcon(false);
             _breakingIcon.SetActiveIcon(false);
+            if (_lockpickingIcon != null) 
+            _lockpickingIcon.SetActiveIcon(false);
         }
         base.Action();
     }
@@ -74,6 +78,7 @@ public class PlayerCharacter : Character
         {
             if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat, this))
             {
+                _lockpickingIcon.SetActiveIcon(true);
                 SetPreparedAction(_preparedAction, _targetActionCell);
                 
             }else
@@ -98,7 +103,6 @@ public class PlayerCharacter : Character
             }
             else
             {
-                _breakingIcon.SetActiveIcon(true);
                 ClearPreparedAction();
             }
             GetComponentInChildren<SpriteController>().SetAnimationState("Punch");
@@ -143,6 +147,7 @@ public class PlayerCharacter : Character
     {
         _hackingIcon.SetActiveIcon(false);
         _breakingIcon.SetActiveIcon(false);
+        _lockpickingIcon.SetActiveIcon(false);
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
