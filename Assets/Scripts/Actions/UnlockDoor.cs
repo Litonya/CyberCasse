@@ -25,9 +25,8 @@ public class UnlockDoor : CellAction
                 {
                     Unlock(cell);
                 }
-                character.DestroyCarriedItem();
                 return true;
-                
+                character.DestroyCarriedItem();
             }
             Debug.Log("Wrong key color");
         }
