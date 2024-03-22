@@ -173,7 +173,7 @@ public class Character : MonoBehaviour
     {
         // Jouer l'animation de marche
             //Debug.Log(isWalking);
-        if (isMoving)
+        if (isMoving && _currentCell != _target)
         {
             GetComponentInChildren<SpriteController>().SetAnimationState("Walk");
             

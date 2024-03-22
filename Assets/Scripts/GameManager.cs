@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum GameStates { Planification, Action }
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _guardFOVRangeIncrease = 1;
     [SerializeField] private float _timeReducePlanificationTime = 5f;
 
+    private bool isPaused = false;
+
     private struct AvailibleActionsOnAdjacentCells
     {
         public Cell cell;
@@ -104,10 +107,7 @@ public class GameManager : MonoBehaviour
         securityCameraList = GetAllSecurityCameras();
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
-        UIManager.instance.SetMaximumTime(_timePlanification);
-        UIManager.instance.SetUIAlertLevel();
-        GetAllPlayerCharacters();
-        LaunchPlanificationPhase();
+        InitGame();
     }
 
     private void Update()
@@ -151,6 +151,12 @@ public class GameManager : MonoBehaviour
                     AddToPath(characterSelected, cell);
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                // Inverser l'état de pause
+                TogglePause();
+            }
         }
 
         /*-----------------------------------ACTION----------------------------*/
@@ -169,6 +175,14 @@ public class GameManager : MonoBehaviour
                 LaunchPlanificationPhase();
             }
         }
+    }
+
+    private void InitGame()
+    {
+        UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
+        GetAllPlayerCharacters();
+        LaunchPlanificationPhase();
     }
 
     private void GetRightClickObject()
@@ -403,12 +417,13 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         EndActionPhase();
+        _timeRemain = _timePlanification;
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
         _currentSelectionState = SelectionState.SELECT_CHARACTER;
         UIManager.instance.SetUIPlanificationPhase();
-        _timeRemain = _timePlanification;
+        
     }
 
     private void EndPlanificationPhase()
@@ -433,7 +448,7 @@ public class GameManager : MonoBehaviour
         if (cell.currentState != Cell.CellState.isSelectable) return;
         foreach (Cell markCell in character.path)
         {
-            markCell.UnmarkPath();
+            if (markCell != null) markCell.UnmarkPath();
         }
         character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in character.path)
@@ -607,6 +622,7 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
             enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
@@ -644,4 +660,39 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetAlertLevel() { return _alertLevel; }
+
+    public void TogglePause()
+    {
+        // Inverser l'état de pause
+        isPaused = !isPaused;
+
+        // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
+        if (isPaused)
+        {
+            Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
+        }
+        else
+        {
+            Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
+        }
+        UIManager.instance.PauseMenu();
+    }
+
+    public void ResetScene()
+    {
+        if (isPaused) TogglePause();
+        // Récupérer le numéro de la scène actuelle
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Recharger la scène actuelle
+        SceneManager.LoadScene(currentSceneIndex);
+        
+    }
+
+    public void ReturnToTitleScreen()
+    {
+        if(isPaused) TogglePause();
+        // Charger la scène de l'écran titre 
+        SceneManager.LoadScene("TitleScreen"); 
+    }
 }
