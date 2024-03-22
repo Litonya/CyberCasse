@@ -237,7 +237,7 @@ MonoBehaviour:
   _strenght: 1
   _hackingIcon: {fileID: 527871582405785715}
   _breakingIcon: {fileID: 4471039384600347052}
-  _lockpickingIcon: {fileID: 0}
+  _lockpickingIcon: {fileID: 5084474100005986614}
 --- !u!114 &5243274923337355652
 MonoBehaviour:
   m_ObjectHideFlags: 0
