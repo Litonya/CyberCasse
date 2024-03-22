@@ -107,10 +107,7 @@ public class GameManager : MonoBehaviour
         securityCameraList = GetAllSecurityCameras();
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
-        UIManager.instance.SetMaximumTime(_timePlanification);
-        UIManager.instance.SetUIAlertLevel();
-        GetAllPlayerCharacters();
-        LaunchPlanificationPhase();
+        InitGame();
     }
 
     private void Update()
@@ -178,6 +175,14 @@ public class GameManager : MonoBehaviour
                 LaunchPlanificationPhase();
             }
         }
+    }
+
+    private void InitGame()
+    {
+        UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
+        GetAllPlayerCharacters();
+        LaunchPlanificationPhase();
     }
 
     private void GetRightClickObject()
@@ -412,12 +417,13 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         EndActionPhase();
+        _timeRemain = _timePlanification;
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
         currentGameState = GameStates.Planification;
         _currentSelectionState = SelectionState.SELECT_CHARACTER;
         UIManager.instance.SetUIPlanificationPhase();
-        _timeRemain = _timePlanification;
+        
     }
 
     private void EndPlanificationPhase()
@@ -442,7 +448,7 @@ public class GameManager : MonoBehaviour
         if (cell.currentState != Cell.CellState.isSelectable) return;
         foreach (Cell markCell in character.path)
         {
-            markCell.UnmarkPath();
+            if (markCell != null) markCell.UnmarkPath();
         }
         character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in character.path)
