@@ -106,6 +106,7 @@ public class Cell : MonoBehaviour
 
     public void SetOccupant(Character character)
     {
+        if (occupant != null) return;
         occupant = character;
         CheckForPlayer();
         
