@@ -659,12 +659,12 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        _timePlanification -= _timeReducePlanificationTime;
         UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
             enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease, _guardChassingMovePointsIncrease);
             enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease);
-            _timePlanification -= _timeReducePlanificationTime;
         }
         if (_alertLevel == maxAlertLevel)
         {
