@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && /*characterSelected.path[characterSelected.path.Count - 1] == cell &&*/ _currentSelectionState == SelectionState.SELECT_DESTINATION)
+        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
             cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
         characterSelected = null;
         cellSelected = null;
         _actionSelected = Actions.NONE;
-        //_potentialPath.Clear();
+        _currentSelectionState = SelectionState.SELECT_CHARACTER;
         foreach (Cell cell in _potentialPath) if (cell != null) cell.UnmarkPath();
         UIManager.instance.SetUIActionMenuOFF();
         MapManager.instance.ResetSelectableCells();
@@ -422,7 +422,10 @@ public class GameManager : MonoBehaviour
 
     private void EndActionPhase()
     {
-        UIManager.instance.SetUIActionMenuOFF();
+        foreach(Character character in _characterList)
+        {
+            if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
+        }
     }
 
     private void LaunchPlanificationPhase()
@@ -440,6 +443,7 @@ public class GameManager : MonoBehaviour
     private void EndPlanificationPhase()
     {
         MapManager.instance.UnmarkAllCells();
+        UIManager.instance.SetUIActionMenuOFF();
     }
 
     private void AddToPath(Character character, Cell cell)
