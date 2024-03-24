@@ -55,4 +55,4 @@ MonoBehaviour:
   _guardPatrolMovePointsIncrease: 1
   _guardChassingMovePointsIncrease: 2
   _guardFOVRangeIncrease: 1
-  _timeReducePlanificationTime: 5
+  _timeReducePlanificationTime: 20

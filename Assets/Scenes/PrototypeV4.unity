@@ -16758,6 +16758,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
+      propertyPath: patrolMovePoints
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
       propertyPath: _patrolTargets.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -28987,10 +28991,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueKey
       objectReference: {fileID: 0}
-    - target: {fileID: 3479041808924026260, guid: 63607940a5e6a30499e4784eb4f8fa3f, type: 3}
-      propertyPath: keyColor
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4733427647089927520, guid: 63607940a5e6a30499e4784eb4f8fa3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11
@@ -33714,10 +33714,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 741471837}
     m_Modifications:
-    - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
-      propertyPath: _direction
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1802782151939302959, guid: b69c5bbcc643a8f46aec27fc3a930598, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -33768,6 +33764,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3855649309811846092, guid: b69c5bbcc643a8f46aec27fc3a930598, type: 3}
       propertyPath: seeThrough
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406581677778715408, guid: 4470e439b52aa804a80064dbbde183fa, type: 3}
+      propertyPath: _direction
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -53410,6 +53410,7 @@ MonoBehaviour:
   scoutActionTargetColor: {r: 0, g: 0, b: 0, a: 1}
   guardSelectedColor: {r: 0, g: 0, b: 0, a: 1}
   visibleByEnnemiesColor: {r: 1, g: 0.53106755, b: 0, a: 1}
+  alertedVisibleByEnnemisColor: {r: 1, g: 0, b: 0, a: 1}
   idleColor: {r: 0, g: 0, b: 0, a: 0}
   selectableColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!4 &1518833729
