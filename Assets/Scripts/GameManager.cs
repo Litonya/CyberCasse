@@ -428,6 +428,8 @@ public class GameManager : MonoBehaviour
 
     private void EndActionPhase()
     {
+        foreach (EnemyCharacter enemyCharacter in _guardList) enemyCharacter.EndActionPhase();
+
         foreach(PlayerCharacter character in _playerCharacterList)
         {
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);

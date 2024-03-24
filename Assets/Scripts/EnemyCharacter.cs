@@ -118,6 +118,12 @@ public class EnemyCharacter : Character, Enemy
         
     }
 
+    public void EndActionPhase()
+    {
+        if (guardState == GuardState.Chasing) UpdateChase();
+        else if (guardState == GuardState.Looking) UpdateLooking();
+    }
+
     private void SetPath(List<Cell> fullPath)
     {
         foreach (Cell cell in fullPath)
