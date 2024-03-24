@@ -51,6 +51,7 @@ public class SecurityCamera : Character, Enemy
         {
             if (!characters.Contains(character)) _charactersSeen.Remove(character);
         }
+
     }
 
     public void PlayerDetected(PlayerCharacter player)
@@ -92,5 +93,10 @@ public class SecurityCamera : Character, Enemy
     public void LaunchGeneralAlert()
     {
         _fov.SetRange(0);
+    }
+
+    public bool GetIsAlerted()
+    {
+        return _alreadyDectectThisTurn;
     }
 }

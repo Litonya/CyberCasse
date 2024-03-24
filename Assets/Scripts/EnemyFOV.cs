@@ -93,5 +93,10 @@ public class EnemyFOV : MonoBehaviour
     {
         _range += range;
     }
+
+    public bool isAlerted()
+    {
+        return _enemy.GetIsAlerted();
+    }
 }
 

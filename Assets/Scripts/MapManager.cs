@@ -49,6 +49,7 @@ public class MapManager : MonoBehaviour
     [Header("Guards Colors")]
     public Color guardSelectedColor = Color.black;
     public Color visibleByEnnemiesColor = Color.red;
+    public Color alertedVisibleByEnnemisColor = Color.red;
 
     [Header("GeneralStatesColors")]
     public Color idleColor = Color.clear;
@@ -108,8 +109,9 @@ public class MapManager : MonoBehaviour
         scoutActionTargetColor.a = alphaCell;
 
         guardSelectedColor.a = alphaCell;
-
         visibleByEnnemiesColor.a = alphaCell;
+        alertedVisibleByEnnemisColor.a = alphaCell;
+
         selectableColor.a = alphaCell;
     }
 

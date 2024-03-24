@@ -35,7 +35,7 @@ public class EnemyCharacter : Character, Enemy
     
     private Cell cellDirection;
 
-    private GuardState guardState;
+    protected GuardState guardState;
     private bool _goBackOnPath = false;
 
     private bool _generalAlert = false;
@@ -339,5 +339,10 @@ public class EnemyCharacter : Character, Enemy
     {
         _generalAlert = true;
         fieldOfView.SetRange(0);
+    }
+
+    public bool GetIsAlerted()
+    {
+        return guardState == GuardState.Chasing || guardState == GuardState.Looking;
     }
 }
