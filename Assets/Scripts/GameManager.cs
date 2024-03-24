@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public enum GameStates { Planification, Action }
+public enum GameStates { Preparation,Planification, Action }
 public class GameManager : MonoBehaviour
 {
 
@@ -116,6 +116,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (currentGameState == GameStates.Preparation)
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
+            return;
+        }
+
         if (currentGameState == GameStates.Planification)
         {
             /*---------------------------PLANIFICATION---------------------------------*/
@@ -186,7 +192,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetMaximumTime(_timePlanification);
         UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
-        LaunchPlanificationPhase();
+        currentGameState = GameStates.Preparation;
     }
 
     private void GetRightClickObject()
