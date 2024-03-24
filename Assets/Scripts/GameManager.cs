@@ -207,6 +207,11 @@ public class GameManager : MonoBehaviour
                 {
                     Unselect();
                 }
+                else if (_currentSelectionState == SelectionState.SELECT_ACTION)
+                {
+                    UIManager.instance.SetUIActionMenuOFF();
+                    Unselect();
+                }
             }
         }
     }
