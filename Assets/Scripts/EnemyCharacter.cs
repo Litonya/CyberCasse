@@ -15,6 +15,7 @@ public class EnemyCharacter : Character, Enemy
     [SerializeField] private int _guardLevel = 2;
     public int patrolMovePoints = 3;
     public int chaseMovePoints = 6;
+    private Icon _dectectedIcon;
 
     [Header("Patrol settings")]
     //Sentinel
@@ -34,7 +35,7 @@ public class EnemyCharacter : Character, Enemy
     
     private Cell cellDirection;
 
-    private GuardState guardState;
+    protected GuardState guardState;
     private bool _goBackOnPath = false;
 
     private bool _generalAlert = false;
@@ -46,6 +47,7 @@ public class EnemyCharacter : Character, Enemy
         base.Awake();
         fieldOfView = GetComponent<EnemyFOV>();
         movePoints = patrolMovePoints;
+        _dectectedIcon = GetComponentInChildren<Icon>();
     }
 
     private void Start()
@@ -114,6 +116,12 @@ public class EnemyCharacter : Character, Enemy
 
         SetPath(fullPath);
         
+    }
+
+    public void EndActionPhase()
+    {
+        if (guardState == GuardState.Chasing) UpdateChase();
+        else if (guardState == GuardState.Looking) UpdateLooking();
     }
 
     private void SetPath(List<Cell> fullPath)
@@ -242,6 +250,8 @@ public class EnemyCharacter : Character, Enemy
         guardState = GuardState.Chasing;
         movePoints = chaseMovePoints;
         player = newTarget;
+        _dectectedIcon.SetActiveIcon(true);
+        Debug.Log("Les carottes sont cuites");
     }
 
     private bool UpdateChase()
@@ -335,5 +345,10 @@ public class EnemyCharacter : Character, Enemy
     {
         _generalAlert = true;
         fieldOfView.SetRange(0);
+    }
+
+    public bool GetIsAlerted()
+    {
+        return guardState == GuardState.Chasing || guardState == GuardState.Looking;
     }
 }

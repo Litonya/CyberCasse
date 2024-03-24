@@ -30,6 +30,13 @@ public class PlayerCharacter : Character
 
     private Item _carriedItem;
 
+    [SerializeField]
+    private Icon _hackingIcon;
+    [SerializeField]
+    private Icon _breakingIcon;
+    [SerializeField]
+    private Icon _lockpickingIcon;
+
     private int _movePointsBackup;
 
     private bool _isDead = false;
@@ -38,6 +45,7 @@ public class PlayerCharacter : Character
     {
         base.Awake();
         _movePointsBackup = movePoints;
+        //_hackingIcon = GetComponentInChildren<Icon>();
     }
 
     public override void Reset()
@@ -51,7 +59,16 @@ public class PlayerCharacter : Character
     {
         _previousActionCell = _targetActionCell;
         _previousAction = _preparedAction;
-        if (_preparedAction != Actions.NONE) LaunchAction();
+        if (_preparedAction != Actions.NONE)
+        {
+            LaunchAction();
+        } else
+        {
+            _hackingIcon.SetActiveIcon(false);
+            _breakingIcon.SetActiveIcon(false);
+            if (_lockpickingIcon != null) 
+            _lockpickingIcon.SetActiveIcon(false);
+        }
         base.Action();
     }
 
@@ -61,6 +78,7 @@ public class PlayerCharacter : Character
         {
             if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat, this))
             {
+                _lockpickingIcon.SetActiveIcon(true);
                 SetPreparedAction(_preparedAction, _targetActionCell);
                 
             }else
@@ -70,16 +88,17 @@ public class PlayerCharacter : Character
         }
         else if (_preparedAction == Actions.GETITEM)
         {
-            _targetActionCell.Acte(_preparedAction, 0, this);
+            if (_targetActionCell.Acte(_preparedAction, 0, this)) ClearPreparedAction();
         }
         else if (_preparedAction == Actions.UNLOCK)
         {
-            _targetActionCell.Acte(_preparedAction, 0, this);
+            if (_targetActionCell.Acte(_preparedAction, 0, this)) ClearPreparedAction();
         }
         else if(_preparedAction == Actions.BREAKGLASS)
         {
             if (!_targetActionCell.Acte(_preparedAction, _strenght, this))
             {
+                _breakingIcon.SetActiveIcon(true);
                 SetPreparedAction(_preparedAction, _targetActionCell);
             }
             else
@@ -90,6 +109,8 @@ public class PlayerCharacter : Character
         }
         else if(_preparedAction == Actions.HACK)
         {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Hack");
+            _hackingIcon.SetActiveIcon(true);
             _targetActionCell.Acte(_preparedAction, _hacking, this);
             _characterAudio.PlayActionSound(SFX_Name.CAMERA_CONNEXION);
             SetPreparedAction(_preparedAction, _targetActionCell);
@@ -124,9 +145,14 @@ public class PlayerCharacter : Character
 
     public void ClearPreparedAction()
     {
+        _hackingIcon.SetActiveIcon(false);
+        _breakingIcon.SetActiveIcon(false);
+        _lockpickingIcon.SetActiveIcon(false);
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
+        _previousAction = Actions.NONE;
+        if (_previousActionCell != null) _previousActionCell.SetState(Cell.CellState.Idle, null);
     }
 
     public void PickUpWinCondition(WinCondition winCondition)

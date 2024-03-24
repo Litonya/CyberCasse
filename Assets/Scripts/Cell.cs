@@ -51,6 +51,12 @@ public class Cell : MonoBehaviour
 
     private Renderer _renderer;
 
+    [SerializeField]
+    public Icon Lock_Open;
+    [SerializeField]
+    public Icon Lock_Close;
+    [SerializeField]
+    public Icon Icon_Break;
     private GameObject _feedBackObject;
     private Renderer _feedBackRenderer;
 
@@ -69,6 +75,14 @@ public class Cell : MonoBehaviour
         InitializeActions();
         remainDifficulty = _diffuculty;
         _renderer = GetComponent<Renderer>();
+        if (Lock_Close != null)
+        {
+            Lock_Close.SetActiveIcon(true);
+        }
+        if (Icon_Break != null)
+        {
+            Icon_Break.SetActiveIcon(true);
+        }
         _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
         _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
     }
@@ -84,7 +98,7 @@ public class Cell : MonoBehaviour
 
         if (uiManager == null)
         {
-            Debug.LogError("UI Manager non trouvé dans la scène !");
+            Debug.LogError("UI Manager non trouvï¿½ dans la scï¿½ne !");
         }
 
         Vector3 cellPosition = new Vector3(gridCoordX, 0.5f, gridCoordZ);
@@ -92,6 +106,7 @@ public class Cell : MonoBehaviour
 
     public void SetOccupant(Character character)
     {
+        if (occupant != null) return;
         occupant = character;
         CheckForPlayer();
         
@@ -121,7 +136,7 @@ public class Cell : MonoBehaviour
     {
         if (occupant != null)
         {
-            Debug.Log("Joueur trouvé!");
+            Debug.Log("Joueur trouvï¿½!");
             return occupant.GetComponent<PlayerCharacter>();
         }
         return null;
@@ -202,7 +217,15 @@ public class Cell : MonoBehaviour
     }
     private void SetVisibleVisual()
     {
-        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemiesColor);
+        Color color;
+        bool viewerAlerted = false;
+        foreach(EnemyFOV enemy in viewBy)
+        {
+            if (enemy != null && enemy.isAlerted()) viewerAlerted = true;
+        }
+        if (viewerAlerted) color = MapManager.instance.alertedVisibleByEnnemisColor;
+        else color = MapManager.instance.visibleByEnnemiesColor;
+        ChangeFeedbackVisual(color);
     }
 
     private void SetActionTargetVisual()
