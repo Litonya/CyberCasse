@@ -35,7 +35,7 @@ public class EnemyCharacter : Character, Enemy
     
     private Cell cellDirection;
 
-    private GuardState guardState;
+    protected GuardState guardState;
     private bool _goBackOnPath = false;
 
     private bool _generalAlert = false;
@@ -116,6 +116,12 @@ public class EnemyCharacter : Character, Enemy
 
         SetPath(fullPath);
         
+    }
+
+    public void EndActionPhase()
+    {
+        if (guardState == GuardState.Chasing) UpdateChase();
+        else if (guardState == GuardState.Looking) UpdateLooking();
     }
 
     private void SetPath(List<Cell> fullPath)
@@ -339,5 +345,10 @@ public class EnemyCharacter : Character, Enemy
     {
         _generalAlert = true;
         fieldOfView.SetRange(0);
+    }
+
+    public bool GetIsAlerted()
+    {
+        return guardState == GuardState.Chasing || guardState == GuardState.Looking;
     }
 }

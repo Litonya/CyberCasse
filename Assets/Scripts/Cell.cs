@@ -106,6 +106,7 @@ public class Cell : MonoBehaviour
 
     public void SetOccupant(Character character)
     {
+        if (occupant != null) return;
         occupant = character;
         CheckForPlayer();
         
@@ -216,7 +217,15 @@ public class Cell : MonoBehaviour
     }
     private void SetVisibleVisual()
     {
-        ChangeFeedbackVisual(MapManager.instance.visibleByEnnemiesColor);
+        Color color;
+        bool viewerAlerted = false;
+        foreach(EnemyFOV enemy in viewBy)
+        {
+            if (enemy != null && enemy.isAlerted()) viewerAlerted = true;
+        }
+        if (viewerAlerted) color = MapManager.instance.alertedVisibleByEnnemisColor;
+        else color = MapManager.instance.visibleByEnnemiesColor;
+        ChangeFeedbackVisual(color);
     }
 
     private void SetActionTargetVisual()
