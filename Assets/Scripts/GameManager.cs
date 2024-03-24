@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    private List<Cell> _potentialPath;
+
     private struct AvailibleActionsOnAdjacentCells
     {
         public Cell cell;
@@ -97,6 +99,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(_instance);
         }
+
+        _potentialPath = new List<Cell>();
 
         _instance = this;
     }
@@ -148,7 +152,7 @@ public class GameManager : MonoBehaviour
                 Cell cell = GetTargetCell();
                 if (cell != null)
                 {
-                    AddToPath(characterSelected, cell);
+                    ChangePotentialPath(characterSelected, cell);
                 }
             }
 
@@ -193,7 +197,7 @@ public class GameManager : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
+                if (hit.collider.gameObject.GetComponent<PlayerCharacter>() && _currentSelectionState == SelectionState.SELECT_CHARACTER)
                 {
                     PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     characterScript.ClearPreparedAction();
@@ -201,7 +205,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
                 {
-                    Unselect(true);
+                    Unselect();
                 }
             }
         }
@@ -234,9 +238,8 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && characterSelected.path[characterSelected.path.Count - 1] == cell && _currentSelectionState == SelectionState.SELECT_DESTINATION)
+        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable && /*characterSelected.path[characterSelected.path.Count - 1] == cell &&*/ _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
-            //characterSelected.TargetCell(cell);
             cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
             UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
@@ -251,24 +254,26 @@ public class GameManager : MonoBehaviour
         }
         else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
-            TargetActionSelected(cell);
+            Unselect();
         }
     }
 
     private void TargetActionSelected(Cell targetCell)
     {
         characterSelected.TargetCell(cellSelected);
+        characterSelected.path = _potentialPath;
         characterSelected.SetPreparedAction(_actionSelected, targetCell);
-        Unselect(false);
+        Unselect();
     }
 
     public void ActionSelect(Actions action)
     {
         if (action == Actions.MOVE)
         {
+            characterSelected.path = _potentialPath;
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
-            Unselect(false);
+            Unselect();
             return;
         }
 
@@ -296,31 +301,19 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected == character)
         {
-            Unselect(false);
+            Unselect();
             _currentSelectionState = SelectionState.SELECT_CHARACTER;
         }
         else
         {
-            Unselect(true);
+            Unselect();
             Select(character);
             _currentSelectionState = SelectionState.SELECT_DESTINATION;
         }
     }
 
-
-    private void Unselect(bool removePath)
+    private void SimpleUnselect()
     {
-        if (removePath && characterSelected != null)
-        {
-            if (characterSelected.path != null)
-            {
-                foreach (Cell cell in characterSelected.path)
-                {
-                    cell.UnmarkPath();
-                }
-            }
-            characterSelected.path.Clear();
-        }
         characterSelected = null;
         cellSelected = null;
         _actionSelected = Actions.NONE;
@@ -328,9 +321,22 @@ public class GameManager : MonoBehaviour
         MapManager.instance.ResetSelectableCells();
     }
 
+    private void Unselect()
+    {
+        characterSelected = null;
+        cellSelected = null;
+        _actionSelected = Actions.NONE;
+        //_potentialPath.Clear();
+        foreach (Cell cell in _potentialPath) if (cell != null) cell.UnmarkPath();
+        UIManager.instance.SetUIActionMenuOFF();
+        MapManager.instance.ResetSelectableCells();
+    }
+
     private void Select(PlayerCharacter character)
     {
         characterSelected = character;
+
+        _potentialPath.Add(character.GetCurrentCell());
       // Debug.Log(character.name + " is selected");
 
         MapManager.instance.SetCellsSelectable(character.GetCurrentCell(), character.movePoints);
@@ -401,7 +407,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
-        Unselect(true);
+        Unselect();
         foreach (Character character in _characterList) 
         {
             character.Acte();
@@ -456,6 +462,20 @@ public class GameManager : MonoBehaviour
             toMarkCell.MarkPath();
         }
         //}
+    }
+
+    private void ChangePotentialPath(Character character, Cell cell)
+    {
+        if (cell.currentState != Cell.CellState.isSelectable) return;
+        foreach (Cell markCell in _potentialPath)
+        {
+            if (markCell != null) markCell.UnmarkPath();
+        }
+        _potentialPath = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
+        foreach (Cell toMarkCell in _potentialPath)
+        {
+            toMarkCell.MarkPath();
+        }
     }
 
     private Cell GetTargetCell()

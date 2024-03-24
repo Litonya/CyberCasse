@@ -29,7 +29,7 @@ public class SecurityCamera : Character, Enemy
 
     private void Start()
     {
-        _currentCell.RemoveOccupant();
+        if (_currentCell != null) _currentCell.RemoveOccupant();
         ChangeDirection(_currentDirection = _directions[0]);
     }
 
