@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public enum GameStates { Planification, Action }
+public enum GameStates { Planification, Action, Preparation }
 public class GameManager : MonoBehaviour
 {
 
@@ -173,6 +173,10 @@ public class GameManager : MonoBehaviour
                 LaunchPlanificationPhase();
             }
         }
+    }
+    public GameStates GetCurrentPhase()
+    {
+        return currentGameState; 
     }
 
 
@@ -354,7 +358,7 @@ public class GameManager : MonoBehaviour
         return playerCharacters;
     }
 
-    private void LaunchActionPhase()
+    public void LaunchActionPhase()
     {
         EndPlanificationPhase();
        // Debug.Log("Launch Action phase");

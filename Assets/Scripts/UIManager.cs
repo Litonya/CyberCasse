@@ -46,6 +46,8 @@ public class UIManager : MonoBehaviour
     private RawImage _SFScout;
     [SerializeField]
     private RawImage _SFFlorent;
+    [SerializeField]
+    private Button _EndTurnButton;
 
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
@@ -331,6 +333,7 @@ public class UIManager : MonoBehaviour
                 child.gameObject.SetActive(!child.gameObject.activeSelf);
             }
         }
+        _EndTurnButton.gameObject.SetActive(!_EndTurnButton.gameObject.activeSelf);
 
 
 
