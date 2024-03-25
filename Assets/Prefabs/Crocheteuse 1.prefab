@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 8059216246963852664}
   - component: {fileID: 4748455735690988191}
   - component: {fileID: 7457088530100653867}
+  - component: {fileID: 6281096536574647573}
   - component: {fileID: 5243274923337355652}
   - component: {fileID: -8997978944527081140}
   - component: {fileID: -1732731066405190885}
@@ -128,7 +129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4060708751825392218}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4, y: 1.25, z: 12}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
@@ -205,7 +206,7 @@ CapsuleCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4
@@ -238,6 +239,33 @@ MonoBehaviour:
   _hackingIcon: {fileID: 527871582405785715}
   _breakingIcon: {fileID: 4471039384600347052}
   _lockpickingIcon: {fileID: 5084474100005986614}
+--- !u!54 &6281096536574647573
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060708751825392218}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &5243274923337355652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,6 +677,7 @@ GameObject:
   - component: {fileID: 5693386133099334631}
   - component: {fileID: 6992379979136968218}
   - component: {fileID: 8042644637847753416}
+  - component: {fileID: 1976876951834714121}
   m_Layer: 6
   m_Name: Visual
   m_TagString: Player
@@ -735,3 +764,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddda7c5d414894d4d9e0561bd4688540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1976876951834714121
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980348133882845882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 851a1454e515860459f47a85c1ac9651, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

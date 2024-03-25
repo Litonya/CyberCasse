@@ -291,10 +291,6 @@ public class Cell : MonoBehaviour
 
     public void PlaceItem(Item item)
     {
-        if (_placeItem != null)
-        {
-            Debug.LogError("This cell already have an item");
-        }
         _placeItem = item;
         item.gameObject.SetActive(true);
         item.transform.position = transform.position + new Vector3(0, itemOffset, 0);

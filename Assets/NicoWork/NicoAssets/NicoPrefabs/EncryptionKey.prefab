@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7546420884745872233}
   - component: {fileID: 4690675242186881505}
   - component: {fileID: 8460585825667869332}
+  - component: {fileID: 7192682959679706655}
   m_Layer: 0
   m_Name: EncryptionKey
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7192682959679706655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7473947394133779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d4a5cdc5f0ecf4aa10cc84fd6d5d88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movePointsMalus: 0
+  value: 100

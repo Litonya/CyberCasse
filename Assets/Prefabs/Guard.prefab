@@ -107,7 +107,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -135,14 +135,17 @@ MonoBehaviour:
   currentAct: 0
   movePoints: 2
   characterType: 0
-  _direction: 0
+  _direction: 3
   _guardLevel: 2
   patrolMovePoints: 3
   chaseMovePoints: 3
   _isSentinel: 0
   _sentinelDirection: 
   loopingPatrol: 1
-  _patrolTargets: []
+  _patrolTargets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2047914941698884458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +178,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
