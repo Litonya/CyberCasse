@@ -302,9 +302,25 @@ public class EnemyCharacter : Character, Enemy
         LaunchChase(target);
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
+        if (player != null)
+        {
+            player.Caught();
+            player = fieldOfView.GetClosestVisiblePlayer();
+            Debug.Log(player);
+            if (player == null)
+            {
+                guardState = GuardState.Patrol;
+            }
+
+        }
+    }*/
+
+    private void OnCollisionEnter(Collision other)
+    {
+        PlayerCharacter player = other.gameObject.GetComponent<PlayerCharacter>();
         if (player != null)
         {
             player.Caught();
