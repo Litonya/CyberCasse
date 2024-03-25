@@ -732,4 +732,9 @@ public class GameManager : MonoBehaviour
         // Charger la scène de l'écran titre 
         SceneManager.LoadScene("TitleScreen"); 
     }
+
+    public GameStates GetCurrentPhase()
+    {
+        return currentGameState;
+    }
 }
