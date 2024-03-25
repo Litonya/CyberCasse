@@ -60,6 +60,8 @@ public class Cell : MonoBehaviour
     private GameObject _feedBackObject;
     private Renderer _feedBackRenderer;
 
+    [SerializeField] WindowBreakVisual _glass;
+
     public void MarkPath()
     {
         _pathMarker.SetActive(true);
@@ -325,5 +327,10 @@ public class Cell : MonoBehaviour
     public Item GetItem()
     {
         return _placeItem;
+    }
+
+    public void BreakGlass()
+    {
+        if (_glass != null) _glass.BreakGlass();
     }
 }
