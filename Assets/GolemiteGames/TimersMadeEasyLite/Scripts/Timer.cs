@@ -76,27 +76,10 @@ public class Timer : MonoBehaviour
         {
             textMeshProText = GetComponent<TextMeshProUGUI>();
         }
-        if(!standardSlider)
-        if(GetComponent<Slider>())
-        {
-            standardSlider = GetComponent<Slider>();
-        }
         if(!dialSlider)
         if(GetComponent<Image>())
         {
             dialSlider = GetComponent<Image>();
-        }
-        if(standardSlider)
-        {
-            standardSlider.maxValue = ReturnTotalSeconds();
-            if(countMethod == CountMethod.CountDown)
-            {
-                standardSlider.value = standardSlider.maxValue;
-            }
-            else
-            {
-                standardSlider.value = standardSlider.minValue;
-            }
         }
         if(dialSlider)
         {
@@ -149,25 +132,10 @@ public class Timer : MonoBehaviour
             if(countMethod == CountMethod.CountDown)
             {
                 CountDown();
-                if(standardSlider)
-                {
-                    StandardSliderDown();
-                }
+                
                 if(dialSlider)
                 {
                     DialSliderDown();
-                }
-            }
-            else
-            {
-                CountUp();
-                if (standardSlider)
-                {
-                    StandardSliderUp();
-                }
-                if(dialSlider)
-                {
-                    DialSliderUp();
                 }
             }
         }
@@ -209,26 +177,16 @@ public class Timer : MonoBehaviour
             timerRunning = false;
         }
     }
-    private void StandardSliderDown()
-    {
-        if(standardSlider.value > standardSlider.minValue)
-        {
-            standardSlider.value -= Time.deltaTime;
-        }
-    }
-    private void StandardSliderUp()
-    {
-        if (standardSlider.value < standardSlider.maxValue)
-        {
-            standardSlider.value += Time.deltaTime;
-        }
-    }
+
     private void DialSliderDown()
     {
+        // Calcul de la valeur normalisée du temps restant
         float timeRangeClamped = Mathf.InverseLerp(ReturnTotalSeconds(), 0, (float)timeRemaining);
-        //Debug.Log(timeRangeClamped);
-        //Debug.Log(timeRemaining);
-        //Debug.Log(ReturnTotalSeconds());
+
+        // Interpolation pour la couleur du slider (du vert au rouge)
+        dialSlider.color = Color.Lerp(Color.red, Color.green, 1 - timeRangeClamped);
+
+        // Mise à jour de la remplissage du slider
         dialSlider.fillAmount = Mathf.Lerp(1, 0, timeRangeClamped);
     }
     private void DialSliderUp()

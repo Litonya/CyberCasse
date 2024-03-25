@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+
 using Unity.VisualScripting;
 using UnityEditor;
 
@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour
     private RawImage _SFFlorent;
     [SerializeField]
     private Button _EndTurnButton;
+    [SerializeField]
+    private Button _PauseButton;
 
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
@@ -335,7 +337,7 @@ public class UIManager : MonoBehaviour
         }
         _EndTurnButton.gameObject.SetActive(!_EndTurnButton.gameObject.activeSelf);
 
-
+        _PauseButton.gameObject.SetActive(!_PauseButton.gameObject.activeSelf);
 
     }
 
