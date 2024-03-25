@@ -39,5 +39,13 @@ public class UnlockDoor : CellAction
         _cell.SetWalkable();
         _cell.possibleActions.Remove(Actions.UNLOCK);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
+        _cell.Lock_Close.SetActiveIcon(false);
+        _cell.Lock_Open.SetActiveIcon(true);
+        Invoke("RemoveIcon", 3);
+    }
+
+    private void RemoveIcon()
+    {
+        _cell.Lock_Open.SetActiveIcon(false);
     }
 }

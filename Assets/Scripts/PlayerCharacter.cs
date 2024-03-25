@@ -37,6 +37,9 @@ public class PlayerCharacter : Character
     [SerializeField]
     private Icon _lockpickingIcon;
 
+    [SerializeField]
+    private Icon _objectifIcon;
+
     private int _movePointsBackup;
 
     private bool _isDead = false;
@@ -164,6 +167,7 @@ public class PlayerCharacter : Character
         Vector3 offset = new Vector3(0f, _yOffset, 0f);
         winCondition.transform.position = transform.position + offset;
         winCondition.transform.parent = transform; // Attacher la win condition au joueur pour qu'elle suive ses mouvements
+        _objectifIcon.SetActiveIcon(true);
     }
 
     public bool HasWinConditionAttached()
