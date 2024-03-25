@@ -127,6 +127,7 @@ public class Timer : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.instance.GetCurrentPhase() == GameStates.Preparation) return;
         if(timerRunning)
         {
             if(countMethod == CountMethod.CountDown)
