@@ -14,6 +14,7 @@ public class Hack : CellAction
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CAMERA_CONNEXION);
             HackAllCams();
 
             return true;
@@ -26,7 +27,6 @@ public class Hack : CellAction
         
         foreach(SecurityCamera cameras in GameManager.instance.securityCameraList)
         {
-            if (!cameras.isHack) EventsManager.instance.RaiseSFXEvent(SFX_Name.CAMERA_OFF);
             cameras.Hack();
         }
     }

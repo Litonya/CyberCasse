@@ -25,7 +25,28 @@ public enum SFX_Name
     TIMER2,
     ACTION,
     PLAYER_DEAD,
-    SELECTION
+    SELECTION,
+    CANCEL_ACTION,
+    SELECTION_ACTION,
+    KEY_COLLECTED,
+    PAUSE,
+    AMBIENCE,
+    ALERT0,
+    ALERT1,
+    ALERT2,
+    ALERT3,
+    VICOTORY,
+    DEFEAT,
+    STEP_PLAYER2,
+    STEP_PLAYER3,
+    STEP_PLAYER4,
+    STEP_PLAYER5,
+    STEP_PLAYER6,
+    STEP_GUARD2,
+    STEP_GUARD3,
+    STEP_GUARD4,
+    STEP_GUARD5,
+    STEP_GUARD6
 }
 
 [Serializable]
@@ -86,6 +107,8 @@ public class AudioSystem : MonoBehaviour
         return null;
 
     }
+
+
 
     void OnDestroy()
     {
