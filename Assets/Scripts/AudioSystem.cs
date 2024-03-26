@@ -46,7 +46,9 @@ public enum SFX_Name
     STEP_GUARD3,
     STEP_GUARD4,
     STEP_GUARD5,
-    STEP_GUARD6
+    STEP_GUARD6,
+    ACTIONPHASE,
+    PLANEPHASE,
 }
 
 [Serializable]
@@ -88,10 +90,23 @@ public class AudioSystem : MonoBehaviour
 
     void OnPlaySFX(SFX_Name pSFXname)
     {
+        if (pSFXname == SFX_Name.ACTIONPHASE)
+        {
+            _music.Pause();
+            return;
+        }
+
+        if (pSFXname == SFX_Name.PLANEPHASE)
+        {
+            _music.Play();
+            return;
+        }
+
         if (pSFXname == SFX_Name.ALERT0 || pSFXname == SFX_Name.ALERT1 || pSFXname == SFX_Name.ALERT2 || pSFXname == SFX_Name.ALERT3)
         {
             _music.clip = GetSFX(pSFXname);
             _music.Play();
+            return;
         }
 
         if(pSFXname == SFX_Name.AMBIENCE)
@@ -139,7 +154,41 @@ public class AudioSystem : MonoBehaviour
 
     }
 
+    public AudioClip GetRandomFootStep(bool isPlayerCharacter)
+    {
+        if (isPlayerCharacter) return GetPlayerRandomFootsetp();
+        return GetGuardRandomFootstep();
+    }
 
+    public AudioClip GetPlayerRandomFootsetp()
+    {
+        int randomValue = UnityEngine.Random.Range(1, 7);
+        switch(randomValue)
+        {
+            case 1: return GetSFX(SFX_Name.STEP_PLAYER);
+            case 2: return GetSFX(SFX_Name.STEP_PLAYER2);
+            case 3: return GetSFX(SFX_Name.STEP_PLAYER3);
+            case 4: return GetSFX(SFX_Name.STEP_PLAYER4);
+            case 5: return GetSFX(SFX_Name.STEP_PLAYER5);
+            case 6: return GetSFX(SFX_Name.STEP_PLAYER6);
+        }
+        return null;
+    }
+
+    public AudioClip GetGuardRandomFootstep()
+    {
+        int randomValue = UnityEngine.Random.Range(1, 7);
+        switch (randomValue)
+        {
+            case 1: return GetSFX(SFX_Name.STEP_GUARD);
+            case 2: return GetSFX(SFX_Name.STEP_GUARD2);
+            case 3: return GetSFX(SFX_Name.STEP_GUARD3);
+            case 4: return GetSFX(SFX_Name.STEP_GUARD4);
+            case 5: return GetSFX(SFX_Name.STEP_GUARD5);
+            case 6: return GetSFX(SFX_Name.STEP_GUARD6);
+        }
+        return null;
+    }
 
     void OnDestroy()
     {

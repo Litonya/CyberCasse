@@ -11,6 +11,8 @@ public enum GameStates { Preparation,Planification, Action }
 public class GameManager : MonoBehaviour
 {
 
+    private bool firstPhase = true;
+
     private PlayerCharacter characterSelected;
 
     private List<AvailibleActionsOnAdjacentCells> availibleActions;
@@ -436,7 +438,8 @@ public class GameManager : MonoBehaviour
     {
         EndPlanificationPhase();
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
-       // Debug.Log("Launch Action phase");
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTIONPHASE);
+        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
         foreach (Character character in _characterList) 
@@ -459,6 +462,8 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         EndActionPhase();
+        if (firstPhase) firstPhase = false;
+        else EventsManager.instance.RaiseSFXEvent(SFX_Name.PLANEPHASE);
         _timeRemain = _timePlanification;
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
