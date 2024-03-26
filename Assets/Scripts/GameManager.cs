@@ -282,6 +282,7 @@ public class GameManager : MonoBehaviour
 
     public void ActionSelect(Actions action)
     {
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION_ACTION);
         if (action == Actions.MOVE)
         {
             characterSelected.path = _potentialPath;
@@ -709,6 +710,7 @@ public class GameManager : MonoBehaviour
         // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
         if (isPaused)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.PAUSE);
             Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
         }
         else
