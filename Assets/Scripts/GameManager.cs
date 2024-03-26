@@ -205,16 +205,19 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>() && _currentSelectionState == SelectionState.SELECT_CHARACTER)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     characterScript.ClearPreparedAction();
                     characterScript.Reset();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     Unselect();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_ACTION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     UIManager.instance.SetUIActionMenuOFF();
                     Unselect();
                 }
