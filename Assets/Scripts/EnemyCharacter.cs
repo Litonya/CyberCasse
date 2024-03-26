@@ -320,7 +320,6 @@ public class EnemyCharacter : Character, Enemy
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("JE TAI EU");
         PlayerCharacter player = other.gameObject.GetComponent<PlayerCharacter>();
         if (player != null)
         {

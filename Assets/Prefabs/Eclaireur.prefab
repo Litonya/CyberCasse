@@ -304,8 +304,6 @@ GameObject:
   - component: {fileID: 8059216246963852664}
   - component: {fileID: 4748455735690988191}
   - component: {fileID: 7457088530100653867}
-  - component: {fileID: -6348147231645523532}
-  - component: {fileID: -5219048624330343736}
   - component: {fileID: 1751165743275159554}
   - component: {fileID: 987665618193272457}
   m_Layer: 6
@@ -424,6 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _yOffset: 1.25
   _currentCell: {fileID: 0}
+  _soundTime: 0.5
   _moveSpeed: 2
   path: []
   isMoving: 0
@@ -569,10 +568,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 5.940594
+  MaxDistance: 7
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

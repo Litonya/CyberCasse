@@ -11,9 +11,13 @@ public enum GameStates { Preparation,Planification, Action }
 public class GameManager : MonoBehaviour
 {
 
+    private bool firstPhase = true;
+
     private PlayerCharacter characterSelected;
 
     private List<AvailibleActionsOnAdjacentCells> availibleActions;
+
+    private float cityAmbianceTime = 120f;
 
     private Cell cellSelected;
     private Actions _actionSelected;
@@ -116,6 +120,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        CityAmbianceHandler();
+
         if (currentGameState == GameStates.Preparation)
         {
             if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
@@ -187,6 +193,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    private void CityAmbianceHandler()
+    {
+        cityAmbianceTime -= Time.deltaTime;
+        if (cityAmbianceTime <= 0 ) 
+        {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CITY_AMBIENCE);
+            cityAmbianceTime = UnityEngine.Random.Range(180, 360);
+        }
+    }
+
     private void InitGame()
     {
 
@@ -206,16 +223,19 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>() && _currentSelectionState == SelectionState.SELECT_CHARACTER)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     characterScript.ClearPreparedAction();
                     characterScript.Reset();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     Unselect();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_ACTION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     UIManager.instance.SetUIActionMenuOFF();
                     Unselect();
                 }
@@ -235,12 +255,10 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
                 {
                     //Debug.Log("A PlayerCharacter is clicked");
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
                 } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
                 }
@@ -252,6 +270,7 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
             UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
@@ -266,6 +285,7 @@ public class GameManager : MonoBehaviour
         }
         else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
             Unselect();
         }
     }
@@ -280,6 +300,7 @@ public class GameManager : MonoBehaviour
 
     public void ActionSelect(Actions action)
     {
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION_ACTION);
         if (action == Actions.MOVE)
         {
             characterSelected.path = _potentialPath;
@@ -311,6 +332,7 @@ public class GameManager : MonoBehaviour
 
     private void UnitSelect(PlayerCharacter character)
     {
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         if (characterSelected == character)
         {
             Unselect();
@@ -417,7 +439,8 @@ public class GameManager : MonoBehaviour
     {
         EndPlanificationPhase();
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
-       // Debug.Log("Launch Action phase");
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTIONPHASE);
+        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
         foreach (Character character in _characterList) 
@@ -440,6 +463,8 @@ public class GameManager : MonoBehaviour
     private void LaunchPlanificationPhase()
     {
         EndActionPhase();
+        if (firstPhase) firstPhase = false;
+        else EventsManager.instance.RaiseSFXEvent(SFX_Name.PLANEPHASE);
         _timeRemain = _timePlanification;
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
@@ -637,6 +662,7 @@ public class GameManager : MonoBehaviour
         UpdateMoneyScore(_moneyMalus);
         if (_playerCharacterList.Count == 0) 
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
             if(isPaused) { TogglePause(); }
             UIManager.instance.ShowLoose();
             Time.timeScale = 0;
@@ -665,6 +691,20 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        switch(_alertLevel)
+        {
+            case 1: 
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT1);
+                break;
+            case 2:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT2);
+                break;
+            case 3:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT3);
+                break;
+            default: break;
+
+        }
         _timePlanification -= _timeReducePlanificationTime;
         UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
@@ -712,10 +752,12 @@ public class GameManager : MonoBehaviour
         // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
         if (isPaused)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.PAUSE);
             Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
         }
         else
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.AMBIENCE);
             Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
         }
         UIManager.instance.PauseMenu();

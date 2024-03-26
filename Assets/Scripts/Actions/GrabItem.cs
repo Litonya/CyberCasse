@@ -12,6 +12,10 @@ public class GrabItem : CellAction
 
     public override bool Acte(int charcterStat, PlayerCharacter character)
     {
+        if (_cell.GetItem().GetComponent<Key>()) EventsManager.instance.RaiseSFXEvent(SFX_Name.KEY_COLLECTED);
+        else if (_cell.GetItem().GetComponent<Money>()) EventsManager.instance.RaiseSFXEvent(SFX_Name.MONEY_COLLECTED);
+        else if (_cell.GetItem().GetComponent<Objective>()) EventsManager.instance.RaiseSFXEvent(SFX_Name.MONEY_COLLECTED);
+
         if (character.GetCarriedItem() == null)
         {
             character.SetCarriedItem(_cell.GetItem());

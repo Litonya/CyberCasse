@@ -20,6 +20,12 @@ public class Character : MonoBehaviour
     protected Cell _currentCell;
 
     [SerializeField]
+    private float _soundTime = 0.5f;
+    private float _currentSoundTime;
+
+    private AudioSource _audioSource;
+
+    [SerializeField]
     protected float _moveSpeed = 2f;
 
     public List<Cell> path = new List<Cell>();
@@ -37,11 +43,10 @@ public class Character : MonoBehaviour
 
     public CharacterTypes characterType;
 
-    protected CharacterAudioHandler _characterAudio;
-
     protected virtual void Awake()
     {
-        _characterAudio = GetComponent<CharacterAudioHandler>();
+        _audioSource = GetComponent<AudioSource>();
+        _currentSoundTime = _soundTime;
     }
 
     void Start()
@@ -57,6 +62,7 @@ public class Character : MonoBehaviour
             if (isMoving)
             {
                 PlayAnim();
+                PlayWalkSound();
                 MoveToNextCell();
             }
             else if (currentAct)
@@ -68,6 +74,18 @@ public class Character : MonoBehaviour
     }
 
 
+    private void PlayWalkSound()
+    {
+        _currentSoundTime -= Time.deltaTime;
+        if (_currentSoundTime <= 0)
+        {
+            _currentSoundTime = _soundTime;
+            AudioClip footstep = AudioSystem.instance.GetRandomFootStep(GetComponent<PlayerCharacter>());
+            _audioSource.clip = footstep;
+            _audioSource.Play();
+        }
+    }
+
     public Cell GetTargetCell() { return _target; }
     public virtual void Reset()
     {
@@ -75,6 +93,7 @@ public class Character : MonoBehaviour
         _target = null;
         path.Clear();
         path.Add(_currentCell);
+        _currentSoundTime = _soundTime;
     }
 
     public virtual void Acte()
@@ -118,7 +137,6 @@ public class Character : MonoBehaviour
         else if(_nextCell == _target)
         {
             isMoving = false;
-            _characterAudio.StopWalkSound();
             SetCurrentCell(_nextCell);
             _nextCell.UnmarkPath();
             PlayAnim();
@@ -136,7 +154,6 @@ public class Character : MonoBehaviour
     public void Move()
     {
          isMoving = true;
-        _characterAudio.PlayWalkSound();
         _nextCell = path[0];
     }
 
@@ -181,7 +198,6 @@ public class Character : MonoBehaviour
         else
         {
             GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
-            _characterAudio.StopWalkSound();
         }
     }
 
