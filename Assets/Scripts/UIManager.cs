@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     private Slider _timerProgressBar;
     public Timer _dialSlider;
 
+    [Header("Infos personnage")]
     [SerializeField]
     private Image _panelLockpick;
     [SerializeField]
@@ -37,7 +38,6 @@ public class UIManager : MonoBehaviour
     private Image _panelScout;
     [SerializeField]
     private Image _panelFlorent;
-
     [SerializeField]
     private RawImage _SFLockpick;
     [SerializeField]
@@ -46,10 +46,16 @@ public class UIManager : MonoBehaviour
     private RawImage _SFScout;
     [SerializeField]
     private RawImage _SFFlorent;
+
+    [Header("Boutons UI")]
     [SerializeField]
-    private Button _EndTurnButton;
+    private Toggle _EndTurnButton;
     [SerializeField]
     private Button _PauseButton;
+    [SerializeField]
+    private GameObject _VictoryScreen;
+    [SerializeField]
+    private GameObject _LoosingScreen;
 
 
     [SerializeField] private TextMeshProUGUI _victoryLabel;
@@ -142,7 +148,12 @@ public class UIManager : MonoBehaviour
 
     public void ShowVictory()
     {
-        _victoryLabel.gameObject.SetActive(true);
+        _VictoryScreen.gameObject.SetActive(true);
+    }
+
+    public void ShowLoose()
+    {
+        _LoosingScreen.gameObject.SetActive(true);
     }
 
     public void SetSelectedCell(Cell cell, List<Actions> actions)

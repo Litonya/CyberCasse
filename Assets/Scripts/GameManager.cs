@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
 
     private void InitGame()
     {
+
         UIManager.instance.SetMaximumTime(_timePlanification);
         UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
@@ -535,6 +536,8 @@ public class GameManager : MonoBehaviour
         {
             // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
             Debug.Log("Victory!");
+            if(isPaused) { TogglePause(); }
+            Time.timeScale = 0f;
 
             UIManager.instance.ShowVictory();
 
@@ -634,6 +637,9 @@ public class GameManager : MonoBehaviour
         UpdateMoneyScore(_moneyMalus);
         if (_playerCharacterList.Count == 0) 
         {
+            if(isPaused) { TogglePause(); }
+            UIManager.instance.ShowLoose();
+            Time.timeScale = 0;
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
     }
@@ -723,7 +729,6 @@ public class GameManager : MonoBehaviour
 
         // Recharger la scène actuelle
         SceneManager.LoadScene(currentSceneIndex);
-        
     }
 
     public void ReturnToTitleScreen()
