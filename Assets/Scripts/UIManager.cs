@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private RawImage _SFFlorent;
     [SerializeField]
-    private Button _EndTurnButton;
+    private Toggle _EndTurnButton;
     [SerializeField]
     private Button _PauseButton;
 

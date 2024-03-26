@@ -731,6 +731,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.AMBIENCE);
             Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
         }
         UIManager.instance.PauseMenu();

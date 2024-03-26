@@ -63,6 +63,8 @@ public class AudioSystem : MonoBehaviour
 {
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioSource _cityAmbiance;
+    [SerializeField] AudioSource _ambience;
+    [SerializeField] List<AudioSource> _serverRoomsAmbience;
     EventsManager _eventsManager;
 
     public static AudioSystem instance { get { return _instance; } }
@@ -85,10 +87,26 @@ public class AudioSystem : MonoBehaviour
 
     void OnPlaySFX(SFX_Name pSFXname)
     {
+        
+
+        if(pSFXname == SFX_Name.AMBIENCE)
+        {
+            _ambience.Play();
+            foreach (AudioSource source in _serverRoomsAmbience) source.Play();
+            return;
+        }
+
         if (pSFXname == SFX_Name.CITY_AMBIENCE)
         {
             _cityAmbiance.Play();
             return;
+        }
+
+        if (pSFXname == SFX_Name.PAUSE)
+        {
+            _cityAmbiance.Pause();
+            _ambience.Pause();
+            foreach (AudioSource source in _serverRoomsAmbience) source.Pause();
         }
 
         _audioSource.clip = GetSFX(pSFXname);
