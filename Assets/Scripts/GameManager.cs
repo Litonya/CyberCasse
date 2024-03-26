@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     private List<AvailibleActionsOnAdjacentCells> availibleActions;
 
+    private float cityAmbianceTime = 120f;
+
     private Cell cellSelected;
     private Actions _actionSelected;
 
@@ -116,6 +118,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        CityAmbianceHandler();
+
         if (currentGameState == GameStates.Preparation)
         {
             if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
@@ -187,6 +191,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    private void CityAmbianceHandler()
+    {
+        cityAmbianceTime -= Time.deltaTime;
+        if (cityAmbianceTime <= 0 ) 
+        {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CITY_AMBIENCE);
+            cityAmbianceTime = UnityEngine.Random.Range(180, 360);
+        }
+    }
+
     private void InitGame()
     {
         UIManager.instance.SetMaximumTime(_timePlanification);
@@ -237,12 +252,10 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
                 {
                     //Debug.Log("A PlayerCharacter is clicked");
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
                 } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
                 }
@@ -254,6 +267,7 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
             UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
@@ -268,6 +282,7 @@ public class GameManager : MonoBehaviour
         }
         else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
             Unselect();
         }
     }
@@ -314,6 +329,7 @@ public class GameManager : MonoBehaviour
 
     private void UnitSelect(PlayerCharacter character)
     {
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         if (characterSelected == character)
         {
             Unselect();

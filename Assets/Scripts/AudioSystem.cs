@@ -61,7 +61,8 @@ public struct SFX
 
 public class AudioSystem : MonoBehaviour
 {
-    AudioSource _audioSource;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioSource _cityAmbiance;
     EventsManager _eventsManager;
 
     public static AudioSystem instance { get { return _instance; } }
@@ -74,7 +75,6 @@ public class AudioSystem : MonoBehaviour
         if (_instance != null) Destroy(_instance);
         _instance = this;
 
-        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -85,6 +85,12 @@ public class AudioSystem : MonoBehaviour
 
     void OnPlaySFX(SFX_Name pSFXname)
     {
+        if (pSFXname == SFX_Name.CITY_AMBIENCE)
+        {
+            _cityAmbiance.Play();
+            return;
+        }
+
         _audioSource.clip = GetSFX(pSFXname);
         _audioSource.Play();
     }
@@ -113,5 +119,10 @@ public class AudioSystem : MonoBehaviour
     void OnDestroy()
     {
         _eventsManager.OnPlaySFX -= OnPlaySFX;
+    }
+
+    public void PlayCityAmbience()
+    {
+        _cityAmbiance.Play();
     }
 }
