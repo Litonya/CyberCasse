@@ -436,7 +436,9 @@ MonoBehaviour:
   _hackingIcon: {fileID: 527871582405785715}
   _breakingIcon: {fileID: 4471039384600347052}
   _lockpickingIcon: {fileID: 5084474100005986614}
-  _objectifIcon: {fileID: 0}
+  _objectifIcon: {fileID: 8157000330117178788}
+  _bluekeyIcon: {fileID: 4765240012452424240}
+  _greenkeyIcon: {fileID: 900691730283078528}
 --- !u!54 &6281096536574647573
 Rigidbody:
   m_ObjectHideFlags: 0

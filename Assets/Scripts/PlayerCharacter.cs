@@ -39,6 +39,10 @@ public class PlayerCharacter : Character
 
     [SerializeField]
     private Icon _objectifIcon;
+    [SerializeField]
+    private Icon _bluekeyIcon;
+    [SerializeField]
+    private Icon _greenkeyIcon;
 
     private int _movePointsBackup;
 
@@ -218,7 +222,16 @@ public class PlayerCharacter : Character
         }
         if (item.GetComponent<Objective>())
         {
+            _objectifIcon.SetActiveIcon(true);
             GameManager.instance.LaunchPartTwo();
+        }
+         else if (item.GetComponent<Key>().keyColor == KeyColor.BLUE)
+        {
+            _bluekeyIcon.SetActiveIcon(true);
+        }
+        else if (item.GetComponent<Key>().keyColor == KeyColor.GREEN)
+        {
+            _greenkeyIcon.SetActiveIcon(true);
         }
     }
 
@@ -232,6 +245,10 @@ public class PlayerCharacter : Character
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
         movePoints = _movePointsBackup;
+
+        _bluekeyIcon.SetActiveIcon(false);
+        _greenkeyIcon.SetActiveIcon(false);
+        _objectifIcon.SetActiveIcon(false);
     }
 
     public void PlaceCarriedItem()

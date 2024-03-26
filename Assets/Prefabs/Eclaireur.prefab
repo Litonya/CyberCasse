@@ -437,6 +437,8 @@ MonoBehaviour:
   _breakingIcon: {fileID: 3958369221218257629}
   _lockpickingIcon: {fileID: 1198010919737093923}
   _objectifIcon: {fileID: 3806694370713383289}
+  _bluekeyIcon: {fileID: 4306691920063362078}
+  _greenkeyIcon: {fileID: 6290716533360149267}
 --- !u!114 &-6348147231645523532
 MonoBehaviour:
   m_ObjectHideFlags: 0
