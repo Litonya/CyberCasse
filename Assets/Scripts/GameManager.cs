@@ -654,7 +654,7 @@ public class GameManager : MonoBehaviour
         UpdateMoneyScore(_moneyMalus);
         if (_playerCharacterList.Count == 0) 
         {
-            Debug.Log("TAPERDULOLOLOLOLOLOLOL");
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
         }
     }
 
@@ -679,6 +679,20 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        switch(_alertLevel)
+        {
+            case 1: 
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT1);
+                break;
+            case 2:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT2);
+                break;
+            case 3:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT3);
+                break;
+            default: break;
+
+        }
         _timePlanification -= _timeReducePlanificationTime;
         UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)

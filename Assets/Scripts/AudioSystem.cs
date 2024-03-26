@@ -64,6 +64,7 @@ public class AudioSystem : MonoBehaviour
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioSource _cityAmbiance;
     [SerializeField] AudioSource _ambience;
+    [SerializeField] AudioSource _music;
     [SerializeField] List<AudioSource> _serverRoomsAmbience;
     EventsManager _eventsManager;
 
@@ -87,11 +88,16 @@ public class AudioSystem : MonoBehaviour
 
     void OnPlaySFX(SFX_Name pSFXname)
     {
-        
+        if (pSFXname == SFX_Name.ALERT0 || pSFXname == SFX_Name.ALERT1 || pSFXname == SFX_Name.ALERT2 || pSFXname == SFX_Name.ALERT3)
+        {
+            _music.clip = GetSFX(pSFXname);
+            _music.Play();
+        }
 
         if(pSFXname == SFX_Name.AMBIENCE)
         {
             _ambience.Play();
+            _music.Play();
             foreach (AudioSource source in _serverRoomsAmbience) source.Play();
             return;
         }
@@ -102,10 +108,11 @@ public class AudioSystem : MonoBehaviour
             return;
         }
 
-        if (pSFXname == SFX_Name.PAUSE)
+        if (pSFXname == SFX_Name.PAUSE || pSFXname == SFX_Name.VICOTORY || pSFXname == SFX_Name.DEFEAT)
         {
             _cityAmbiance.Pause();
             _ambience.Pause();
+            _music.Pause();
             foreach (AudioSource source in _serverRoomsAmbience) source.Pause();
         }
 
