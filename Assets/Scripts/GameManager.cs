@@ -149,6 +149,10 @@ public class GameManager : MonoBehaviour
             }
 
             //V�rifie les Inputs
+            //Raccourcies claviers
+            if (Input.GetKeyDown (KeyCode.Alpha1)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.CROCHETEUSE));
+
+
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
@@ -173,9 +177,9 @@ public class GameManager : MonoBehaviour
                     ChangePotentialPath(characterSelected, cell);
                 }
             }
-
-            
         }
+
+
 
         /*-----------------------------------ACTION----------------------------*/
         else if (currentGameState == GameStates.Action)
@@ -193,6 +197,12 @@ public class GameManager : MonoBehaviour
                 LaunchPlanificationPhase();
             }
         }
+    }
+
+    public PlayerCharacter GetPlayerCharacter(CharacterTypes type)
+    {
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList) if (playerCharacter.characterType == type) return playerCharacter;
+        return null;
     }
 
 
