@@ -736,7 +736,9 @@ public class GameManager : MonoBehaviour
             default: break;
 
         }
+
         _timePlanification -= _timeReducePlanificationTime;
+        UIManager.instance.SetMaximumTime(_timePlanification);
         UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
