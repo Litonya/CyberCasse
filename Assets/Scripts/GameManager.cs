@@ -156,7 +156,6 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown (KeyCode.Alpha3)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.HACKEURSE));
             if (Input.GetKeyDown (KeyCode.Alpha4)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.GROSBRAS));
 
-
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
