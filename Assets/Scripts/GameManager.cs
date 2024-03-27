@@ -180,6 +180,18 @@ public class GameManager : MonoBehaviour
                     ChangePotentialPath(characterSelected, cell);
                 }
             }
+
+            //Input débug
+            //Toogle le stun du hacker
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                PlayerCharacter hacker = GetPlayerCharacter(CharacterTypes.HACKEURSE);
+                if (hacker != null)
+                {
+                    if (hacker.hackStunChance > 0) hacker.hackStunChance = 0;
+                    else hacker.hackStunChance = 1;
+                }
+            }
         }
 
 

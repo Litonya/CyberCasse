@@ -126,6 +126,7 @@ public class FreeLookCameraController : MonoBehaviour
 
     public void ButtonClicked(PlayerCharacter player)
     {
+        if (player == null) return;
         SetTarget(player.transform);
         isMovingTowardsTarget = true;
     }
