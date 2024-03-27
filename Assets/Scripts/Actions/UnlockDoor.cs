@@ -5,6 +5,7 @@ using UnityEngine.TextCore.Text;
 
 public class UnlockDoor : CellAction
 {
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,8 +26,9 @@ public class UnlockDoor : CellAction
                 {
                     Unlock(cell);
                 }
-                return true;
                 character.DestroyCarriedItem();
+                return true;
+                
             }
             Debug.Log("Wrong key color");
         }
