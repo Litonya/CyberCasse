@@ -223,6 +223,7 @@ public class EnemyCharacter : Character, Enemy
 
     public void LaunchPatrol()
     {
+        _dectectedIcon.SetActiveIcon(false);
         guardState = GuardState.Patrol;
         movePoints = patrolMovePoints;
     }
@@ -235,6 +236,7 @@ public class EnemyCharacter : Character, Enemy
 
     private void UpdateLooking()
     {
+        _dectectedIcon.SetActiveIcon(false);
         if (_currentCell == _target) EndLooking();
     }
 
