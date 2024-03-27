@@ -704,6 +704,7 @@ public class GameManager : MonoBehaviour
     public void UpdateMoneyScore(int moneyGain)
     {
         moneyScore += moneyGain;
+        UIManager.instance.UpdateScoreText(moneyScore);
         //Add update UI score
     }
 
