@@ -72,6 +72,7 @@ public class PlayerCharacter : Character
     {
         isStun = true;
         turnStunRemaining = 1;
+        GetComponentInChildren<SpriteController>().SetAnimationState("Stun");
         ClearPreparedAction();
     }
 
