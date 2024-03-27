@@ -185,7 +185,7 @@ public class PlayerCharacter : Character
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
-        _previousAction = Actions.NONE;
+        //_previousAction = Actions.NONE;
         if (_previousActionCell != null) _previousActionCell.SetState(Cell.CellState.Idle, null);
     }
 
