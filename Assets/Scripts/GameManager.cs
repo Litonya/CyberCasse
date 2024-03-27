@@ -357,7 +357,7 @@ public class GameManager : MonoBehaviour
         _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
 
-    private void UnitSelect(PlayerCharacter character)
+    public void UnitSelect(PlayerCharacter character)
     {
         if (character.isStun) return;
         EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);

@@ -128,6 +128,7 @@ public class FreeLookCameraController : MonoBehaviour
     {
         if (player == null) return;
         SetTarget(player.transform);
+        GameManager.instance.UnitSelect(player);
         isMovingTowardsTarget = true;
     }
 }
