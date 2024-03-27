@@ -57,6 +57,8 @@ public class Cell : MonoBehaviour
     public Icon Lock_Close;
     [SerializeField]
     public Icon Icon_Break;
+    [SerializeField]
+    public Icon Icon_Hack;
     private GameObject _feedBackObject;
     private Renderer _feedBackRenderer;
 
@@ -84,6 +86,10 @@ public class Cell : MonoBehaviour
         if (Icon_Break != null)
         {
             Icon_Break.SetActiveIcon(true);
+        }
+        if (Icon_Hack != null)
+        {
+            Icon_Hack.SetActiveIcon(true);
         }
         _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
         _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
