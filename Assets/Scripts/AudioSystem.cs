@@ -92,13 +92,13 @@ public class AudioSystem : MonoBehaviour
     {
         if (pSFXname == SFX_Name.ACTIONPHASE)
         {
-            _music.Pause();
+            _music.volume = 0.25f;
             return;
         }
 
         if (pSFXname == SFX_Name.PLANEPHASE)
         {
-            _music.Play();
+            _music.volume = 1f;
             return;
         }
 
