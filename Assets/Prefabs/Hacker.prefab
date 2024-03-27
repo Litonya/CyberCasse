@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 7457088530100653867}
   - component: {fileID: -5859118881592416322}
   - component: {fileID: 2943393121998071920}
+  - component: {fileID: 817288405030592060}
   m_Layer: 6
   m_Name: Hacker
   m_TagString: NPC
@@ -335,26 +336,14 @@ MonoBehaviour:
   _lockPinckingStat: 1
   _hacking: 2
   _strenght: 1
+  hackStunChance: 0
+  isStun: 0
   _hackingIcon: {fileID: 6377033287144680110}
   _breakingIcon: {fileID: 1750890408566963708}
   _lockpickingIcon: {fileID: 9210272881087417249}
   _objectifIcon: {fileID: 1853333971759855603}
   _bluekeyIcon: {fileID: 2970068107941371440}
   _greenkeyIcon: {fileID: 887403477575833607}
---- !u!114 &817288405030592060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060708751825392218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e680e105b27534d8c9943533b4a026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WalkAudioSource: {fileID: -5859118881592416322}
-  m_ActionAudioSource: {fileID: 5727305355632954982}
 --- !u!82 &-5859118881592416322
 AudioSource:
   m_ObjectHideFlags: 0
@@ -478,6 +467,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &817288405030592060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060708751825392218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e680e105b27534d8c9943533b4a026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WalkAudioSource: {fileID: -5859118881592416322}
+  m_ActionAudioSource: {fileID: 0}
 --- !u!1 &4294533081589733409
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +965,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7112c90d946c9374ab780b59568ddfa2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b42657805d33df840895a47ae5dbd208, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
