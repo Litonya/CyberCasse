@@ -156,7 +156,6 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown (KeyCode.Alpha3)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.HACKEURSE));
             if (Input.GetKeyDown (KeyCode.Alpha4)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.GROSBRAS));
 
-
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
@@ -179,6 +178,18 @@ public class GameManager : MonoBehaviour
                 if (cell != null)
                 {
                     ChangePotentialPath(characterSelected, cell);
+                }
+            }
+
+            //Input débug
+            //Toogle le stun du hacker
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                PlayerCharacter hacker = GetPlayerCharacter(CharacterTypes.HACKEURSE);
+                if (hacker != null)
+                {
+                    if (hacker.hackStunChance > 0) hacker.hackStunChance = 0;
+                    else hacker.hackStunChance = 1;
                 }
             }
         }
@@ -348,6 +359,7 @@ public class GameManager : MonoBehaviour
 
     private void UnitSelect(PlayerCharacter character)
     {
+        if (character.isStun) return;
         EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         if (characterSelected == character)
         {

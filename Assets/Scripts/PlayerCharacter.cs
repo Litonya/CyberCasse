@@ -23,12 +23,17 @@ public class PlayerCharacter : Character
     [SerializeField] private int _hacking = 1;
     [SerializeField] private int _strenght = 1;
 
+    public float hackStunChance = 0f;
+
     private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
     private Actions _previousAction = Actions.NONE;
     private Cell _previousActionCell;
 
     private Item _carriedItem;
+
+    public bool isStun = false;
+    private int turnStunRemaining;
 
     [SerializeField]
     private Icon _hackingIcon;
@@ -60,6 +65,20 @@ public class PlayerCharacter : Character
         base.Reset();
         if (_targetActionCell == null) return;
         _targetActionCell.SetState(Cell.CellState.actionTarget, this);
+        
+    }
+
+    public void Stun()
+    {
+        isStun = true;
+        turnStunRemaining = 1;
+        ClearPreparedAction();
+    }
+
+    public void Unstun()
+    {
+        isStun = false;
+        GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
     }
 
     protected override void Action()
@@ -125,6 +144,15 @@ public class PlayerCharacter : Character
 
     public override void Acte()
     {
+        if (turnStunRemaining > 0)
+        {
+            turnStunRemaining--;
+            if (turnStunRemaining <= 0)
+            {
+                Unstun();
+            }
+        }
+
         if (_previousActionCell != null && _previousActionCell != _targetActionCell)
         {
             _previousActionCell.ResetDifficulty();

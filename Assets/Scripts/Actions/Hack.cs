@@ -11,6 +11,11 @@ public class Hack : CellAction
     }
     public override bool Acte(int characterStat, PlayerCharacter character)
     {
+        if (Random.Range(0f,1f) < character.hackStunChance)
+        {
+            character.Stun();
+            return true;
+        }
         _cell.remainDifficulty -= characterStat;
         if (_cell.remainDifficulty <= 0)
         {
