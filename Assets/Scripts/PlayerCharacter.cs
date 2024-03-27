@@ -224,11 +224,11 @@ public class PlayerCharacter : Character
             _objectifIcon.SetActiveIcon(true);
             GameManager.instance.LaunchPartTwo();
         }
-         else if (item.GetComponent<Key>().keyColor == KeyColor.BLUE)
+         else if (item.GetComponent<Key>() != null && item.GetComponent<Key>().keyColor == KeyColor.BLUE)
         {
             _bluekeyIcon.SetActiveIcon(true);
         }
-        else if (item.GetComponent<Key>().keyColor == KeyColor.GREEN)
+        else if (item.GetComponent<Key>() != null && item.GetComponent<Key>().keyColor == KeyColor.GREEN)
         {
             _greenkeyIcon.SetActiveIcon(true);
         }

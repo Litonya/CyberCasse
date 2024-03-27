@@ -122,6 +122,12 @@ public class GameManager : MonoBehaviour
     {
         CityAmbianceHandler();
 
+        if (Input.GetKeyDown(KeyCode.C) && currentGameState != GameStates.Action)
+        {
+            // Inverser l'état de pause
+            TogglePause();
+        }
+
         if (currentGameState == GameStates.Preparation)
         {
             UIManager.instance.SetUIPreparationPhase();
@@ -144,6 +150,13 @@ public class GameManager : MonoBehaviour
             }
 
             //V�rifie les Inputs
+            //Raccourcies claviers
+            if (Input.GetKeyDown (KeyCode.Alpha1)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.CROCHETEUSE));
+            if (Input.GetKeyDown (KeyCode.Alpha2)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.ECLAIREUR));
+            if (Input.GetKeyDown (KeyCode.Alpha3)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.HACKEURSE));
+            if (Input.GetKeyDown (KeyCode.Alpha4)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.GROSBRAS));
+
+
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
@@ -168,13 +181,9 @@ public class GameManager : MonoBehaviour
                     ChangePotentialPath(characterSelected, cell);
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                // Inverser l'état de pause
-                TogglePause();
-            }
         }
+
+
 
         /*-----------------------------------ACTION----------------------------*/
         else if (currentGameState == GameStates.Action)
@@ -192,6 +201,12 @@ public class GameManager : MonoBehaviour
                 LaunchPlanificationPhase();
             }
         }
+    }
+
+    public PlayerCharacter GetPlayerCharacter(CharacterTypes type)
+    {
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList) if (playerCharacter.characterType == type) return playerCharacter;
+        return null;
     }
 
 
