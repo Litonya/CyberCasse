@@ -122,6 +122,12 @@ public class GameManager : MonoBehaviour
     {
         CityAmbianceHandler();
 
+        if (Input.GetKeyDown(KeyCode.C) && currentGameState != GameStates.Action)
+        {
+            // Inverser l'état de pause
+            TogglePause();
+        }
+
         if (currentGameState == GameStates.Preparation)
         {
             if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
@@ -168,11 +174,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                // Inverser l'état de pause
-                TogglePause();
-            }
+            
         }
 
         /*-----------------------------------ACTION----------------------------*/
