@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     private Color _planificationPhaseColor = Color.blue;
     [SerializeField]
     private TextMeshProUGUI _scoreText;
+    [SerializeField] TextMeshProUGUI _turnText;
 
     [SerializeField]
     private Slider _timerProgressBar;
@@ -122,6 +123,12 @@ public class UIManager : MonoBehaviour
     public void UpdateScoreText(int score)
     {
         _scoreText.text = score.ToString() + " €";
+    }
+
+    public void UpdateTurnText(int turn, int maxTurn)
+    {
+        _turnText.text = turn.ToString() + " / "+ maxTurn.ToString();
+        if (turn > maxTurn) _turnText.color = Color.red;
     }
     public void SetUIPreparationPhase()
     {
@@ -374,12 +381,12 @@ public class UIManager : MonoBehaviour
 
     public void ActionUIFeedback(PlayerCharacter player, Actions action)
     {
-        GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterActionColor(player.characterType);
+        GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterSelectedColor(player.characterType);
         if (action != Actions.NONE)
         {
             GetCharacterImage(player.characterType).sprite = GetActionSprite(action);
             GetCharacterImage(player.characterType).enabled = true;
-            GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterSelectedColor(player.characterType);
+            GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterActionColor(player.characterType);
             return;
         }
 

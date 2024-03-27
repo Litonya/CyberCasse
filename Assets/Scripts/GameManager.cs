@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 public enum GameStates { Preparation,Planification, Action }
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] int _maxTurn = 30;
+
+    private int _numberTurn;
 
     private bool firstPhase = true;
 
@@ -115,6 +118,7 @@ public class GameManager : MonoBehaviour
         securityCameraList = GetAllSecurityCameras();
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
+        UIManager.instance.UpdateTurnText(_numberTurn, _maxTurn);
         InitGame();
     }
 
@@ -463,11 +467,17 @@ public class GameManager : MonoBehaviour
         return playerCharacters;
     }
 
-    private void LaunchActionPhase()
+    public void LaunchActionPhase()
     {
+        if (currentGameState == GameStates.Preparation || currentGameState == GameStates.Action || isPaused) return;
         EndPlanificationPhase();
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTIONPHASE);
+
+        _numberTurn++;
+        UIManager.instance.UpdateTurnText(_numberTurn, _maxTurn);
+        if (_numberTurn >= _maxTurn && _alertLevel < maxAlertLevel) SetMaxAlertLevel();
+
         // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
@@ -759,6 +769,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetMaxAlertLevel()
+    {
+        int diffenceToMaxAlertLvl = maxAlertLevel - _alertLevel;
+        _alertLevel = maxAlertLevel;
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT3);
+        _timePlanification -= _timeReducePlanificationTime * diffenceToMaxAlertLvl;
+        UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
+        foreach (EnemyCharacter enemyCharacter in _guardList)
+        {
+            enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease * diffenceToMaxAlertLvl, _guardChassingMovePointsIncrease * diffenceToMaxAlertLvl);
+            enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease * diffenceToMaxAlertLvl);
+        }
+
+        foreach (EnemyCharacter enemyCharacter2 in _guardList)
+        {
+            enemyCharacter2.LaunchGeneralAlert();
+        }
+        foreach (SecurityCamera camera in securityCameraList)
+        {
+            camera.LaunchGeneralAlert();
+        }
+
+    }
+
     public PlayerCharacter GetClosestPlayer(Character character)
     {
         int minDistance = int.MaxValue;
@@ -791,6 +826,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             EventsManager.instance.RaiseSFXEvent(SFX_Name.AMBIENCE);
             Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
         }
@@ -800,6 +836,7 @@ public class GameManager : MonoBehaviour
     public void ResetScene()
     {
         if (isPaused) TogglePause();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         // Récupérer le numéro de la scène actuelle
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -810,6 +847,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToTitleScreen()
     {
         if(isPaused) TogglePause();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         // Charger la scène de l'écran titre 
         SceneManager.LoadScene("TitleScreen"); 
     }

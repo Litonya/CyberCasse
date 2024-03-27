@@ -53,15 +53,19 @@ public class LockPick : CellAction
 
     private void Unlock(Cell cell)
     {
-        _cell.SetWalkable();
-        _cell.possibleActions.Remove(Actions.LOCKPICK);
-        _cell.Lock_Close.SetActiveIcon(false);
-        _cell.Lock_Open.SetActiveIcon(true);
+        cell.SetWalkable();
+        cell.possibleActions.Remove(Actions.LOCKPICK);
+        cell.Lock_Close.SetActiveIcon(false);
+        cell.Lock_Open.SetActiveIcon(true);
         Invoke("RemoveIcon", 3);
     }
 
     private void RemoveIcon()
     {
         _cell.Lock_Open.SetActiveIcon(false);
+        foreach (Cell cell in _cell.linkCell)
+        {
+            cell.Lock_Open.SetActiveIcon(false);
+        }
     }
 }

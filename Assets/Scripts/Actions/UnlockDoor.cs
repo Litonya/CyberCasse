@@ -65,16 +65,16 @@ public class UnlockDoor : CellAction
 
     private void Unlock(Cell cell)
     {
-        _cell.SetWalkable();
-        _cell.possibleActions.Remove(Actions.UNLOCK);
+        cell.SetWalkable();
+        cell.possibleActions.Remove(Actions.UNLOCK);
         
-        _cell.Lock_Close.SetActiveIcon(false);
-        _cell.Lock_Open.SetActiveIcon(true);
-        Invoke("RemoveIcon", 3);
+        cell.Lock_Close.SetActiveIcon(false);
+        cell.Lock_Open.SetActiveIcon(true);
     }
 
     private void RemoveIcon()
     {
         _cell.Lock_Open.SetActiveIcon(false);
+        foreach (Cell cell in _cell.linkCell) cell.Lock_Open.SetActiveIcon(false);
     }
 }
