@@ -432,6 +432,8 @@ MonoBehaviour:
   _lockPinckingStat: 1
   _hacking: 1
   _strenght: 2
+  hackStunChance: 0
+  isStun: 0
   _hackingIcon: {fileID: 3665620810294704932}
   _breakingIcon: {fileID: 8542975631301989612}
   _lockpickingIcon: {fileID: 1097508977864222199}
@@ -732,7 +734,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7112c90d946c9374ab780b59568ddfa2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b42657805d33df840895a47ae5dbd208, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
