@@ -207,7 +207,6 @@ public class GameManager : MonoBehaviour
 
     private void InitGame()
     {
-
         UIManager.instance.SetMaximumTime(_timePlanification);
         UIManager.instance.SetUIAlertLevel();
         GetAllPlayerCharacters();
@@ -307,6 +306,7 @@ public class GameManager : MonoBehaviour
             characterSelected.path = _potentialPath;
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
+            characterSelected.SetActionIcon(Actions.MOVE);
             Unselect();
             return;
         }
@@ -458,6 +458,7 @@ public class GameManager : MonoBehaviour
         foreach(PlayerCharacter character in _playerCharacterList)
         {
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
+            character.SetActionIcon();
         }
     }
 

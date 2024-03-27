@@ -4,16 +4,16 @@ using UnityEngine;
 
 public enum Actions
 {
-    NONE,
+    NONE, //
     MOVE, //Ne pas mettre move sur un tuile
-    LOCKPICK,
-    HACK,
+    LOCKPICK,//
+    HACK,//
     GETITEM, //Ne pas mettre directement GetItem sur une tuile
     PLACEITEM,
     KNOCKOUT,
     LOOK,
-    UNLOCK,
-    BREAKGLASS,
+    UNLOCK,//
+    BREAKGLASS,//
 }
 
 public class PlayerCharacter : Character
@@ -145,6 +145,7 @@ public class PlayerCharacter : Character
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = action;
         _targetActionCell = target;
+        SetActionIcon();
         target.SetState(Cell.CellState.actionTarget, this);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
@@ -159,6 +160,7 @@ public class PlayerCharacter : Character
         _targetActionCell = null;
         _previousAction = Actions.NONE;
         if (_previousActionCell != null) _previousActionCell.SetState(Cell.CellState.Idle, null);
+        SetActionIcon() ;
     }
 
     public void PickUpWinCondition(WinCondition winCondition)
@@ -262,6 +264,16 @@ public class PlayerCharacter : Character
     public bool IsCaught()
     {
         return _isDead;
+    }
+
+    public void SetActionIcon()
+    {
+        UIManager.instance.ActionUIFeedback(this, _preparedAction);
+    }
+
+    public void SetActionIcon(Actions action)
+    {
+        UIManager.instance.ActionUIFeedback(this, action);
     }
 }
 
