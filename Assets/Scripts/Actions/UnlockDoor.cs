@@ -6,11 +6,28 @@ using UnityEngine.TextCore.Text;
 public class UnlockDoor : CellAction
 {
 
+    float _actionDelay = 0.5f;
+    float _remainDelay;
+
+    bool _isActing = false;
+
     protected override void Awake()
     {
         base.Awake();
         action = Actions.UNLOCK;
+
+        _remainDelay = _actionDelay;
     }
+
+    private void Update()
+    {
+        if (_isActing)
+        {
+            _remainDelay -= Time.deltaTime;
+            if (_remainDelay <= 0) ContinueActe();
+        }
+    }
+
 
     public override bool Acte(int charcterStat, PlayerCharacter character)
     {
@@ -20,13 +37,9 @@ public class UnlockDoor : CellAction
         {
             if (keyItem.keyColor == _cell.neededKey)
             {
-                Unlock(_cell);
-
-                foreach(Cell cell in _cell.linkCell)
-                {
-                    Unlock(cell);
-                }
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
                 character.DestroyCarriedItem();
+                _isActing = true;
                 return true;
                 
             }
@@ -36,11 +49,25 @@ public class UnlockDoor : CellAction
         return false;
     }
 
+    private void ContinueActe()
+    {
+        _isActing = false;
+
+        Unlock(_cell);
+
+        foreach (Cell cell in _cell.linkCell)
+        {
+            Unlock(cell);
+        }
+        
+    }
+
+
     private void Unlock(Cell cell)
     {
         _cell.SetWalkable();
         _cell.possibleActions.Remove(Actions.UNLOCK);
-        EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
+        
         _cell.Lock_Close.SetActiveIcon(false);
         _cell.Lock_Open.SetActiveIcon(true);
         Invoke("RemoveIcon", 3);
