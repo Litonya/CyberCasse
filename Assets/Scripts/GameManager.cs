@@ -347,6 +347,7 @@ public class GameManager : MonoBehaviour
 
     private void UnitSelect(PlayerCharacter character)
     {
+        if (character.isStun) return;
         EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         if (characterSelected == character)
         {
