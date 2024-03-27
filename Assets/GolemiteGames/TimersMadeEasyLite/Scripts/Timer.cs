@@ -162,23 +162,6 @@ public class Timer : MonoBehaviour
         }
     }
 
-    private void CountUp()
-    {
-        if (timeRemaining < ReturnTotalSeconds())
-        {
-            timeRemaining += Time.deltaTime;
-            DisplayInTextObject();
-        }
-        else
-        {
-            //Timer has ended from counting upwards
-            onTimerEnd.Invoke();
-            timeRemaining = ReturnTotalSeconds();
-            DisplayInTextObject();
-            timerRunning = false;
-        }
-    }
-
     private void DialSliderDown()
     {
         // Calcul de la valeur normalisée du temps restant
@@ -190,11 +173,7 @@ public class Timer : MonoBehaviour
         // Mise à jour de la remplissage du slider
         dialSlider.fillAmount = Mathf.Lerp(1, 0, timeRangeClamped);
     }
-    private void DialSliderUp()
-    {
-        float timeRangeClamped = Mathf.InverseLerp(0, ReturnTotalSeconds(), (float)timeRemaining);
-        dialSlider.fillAmount = Mathf.Lerp(0, 1, timeRangeClamped);
-    }
+
     private void DisplayInTextObject()
     {
         if (standardText)
