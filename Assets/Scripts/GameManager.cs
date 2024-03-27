@@ -151,6 +151,9 @@ public class GameManager : MonoBehaviour
             //V�rifie les Inputs
             //Raccourcies claviers
             if (Input.GetKeyDown (KeyCode.Alpha1)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.CROCHETEUSE));
+            if (Input.GetKeyDown (KeyCode.Alpha2)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.ECLAIREUR));
+            if (Input.GetKeyDown (KeyCode.Alpha3)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.HACKEURSE));
+            if (Input.GetKeyDown (KeyCode.Alpha4)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.GROSBRAS));
 
 
             //Input clic gauche -> Selection d'objet
