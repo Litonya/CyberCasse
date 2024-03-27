@@ -199,6 +199,8 @@ public class PlayerCharacter : Character
     public void Caught()
     {
         PlaceCarriedItem();
+        _isDead = true;
+        UIManager.instance.ActionUIFeedback(this, Actions.NONE);
         GameManager.instance.PlayerCaught(this);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.PLAYER_DEAD);
         Desactivate();
@@ -207,7 +209,6 @@ public class PlayerCharacter : Character
 
     public void Desactivate()
     {
-        _isDead = true;
         _currentCell.occupant = null;
         gameObject.SetActive(false);
     }
@@ -263,6 +264,7 @@ public class PlayerCharacter : Character
 
     public bool IsCaught()
     {
+        
         return _isDead;
     }
 

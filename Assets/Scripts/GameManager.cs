@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private List<EnemyCharacter> _guardList;
 
-    private List<PlayerCharacter> _playerCharacterList;
+    public List<PlayerCharacter> _playerCharacterList;
 
     public int moneyScore = 0;
 
@@ -458,7 +458,7 @@ public class GameManager : MonoBehaviour
         foreach(PlayerCharacter character in _playerCharacterList)
         {
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
-            character.SetActionIcon();
+            character.SetActionIcon();  
         }
     }
 

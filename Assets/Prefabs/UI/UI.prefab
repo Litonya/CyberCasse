@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 8280852446468265599}
   - component: {fileID: 5921940923131759950}
   m_Layer: 5
-  m_Name: background
+  m_Name: Action Crocheteuse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565883999104820124}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 7590158403607836080}
   - component: {fileID: 4676659006627516426}
   m_Layer: 5
-  m_Name: background (1)
+  m_Name: Action Eclaireur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3073,7 +3073,7 @@ GameObject:
   - component: {fileID: 1031146681558673771}
   - component: {fileID: 5241964382752654513}
   m_Layer: 5
-  m_Name: background (2)
+  m_Name: Action Hacker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5038,7 +5038,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5472060403558103573}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5877,7 +5877,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &6564870638124092860
 GameObject:
@@ -6647,6 +6659,10 @@ MonoBehaviour:
   _SFHacker: {fileID: 2191217881272091370}
   _SFScout: {fileID: 3159206386734509441}
   _SFFlorent: {fileID: 2250516263913665930}
+  _ActionLockpick: {fileID: 8454091235217388080}
+  _ActionHacker: {fileID: 3290955965257559884}
+  _ActionFlorent: {fileID: 5762911232862534153}
+  _ActionScout: {fileID: 6159981212926519980}
   _EndTurnButton: {fileID: 148779130456912817}
   _PauseButton: {fileID: 6752870796438440060}
   _VictoryScreen: {fileID: 564764319314738591}
@@ -6875,7 +6891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7889583743001364151}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7046,7 +7062,7 @@ GameObject:
   - component: {fileID: 1494984250644870348}
   - component: {fileID: 6964029025409406039}
   m_Layer: 5
-  m_Name: background (3)
+  m_Name: Action Florent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7752,7 +7768,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8765993029022591186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.TextCore.Text;
 
 public class UIManager : MonoBehaviour
 {
@@ -338,6 +339,19 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
+    public Image GetCharacterPanel(CharacterTypes characterType)
+    {
+        switch (characterType)
+        {
+            case CharacterTypes.CROCHETEUSE: return _panelLockpick;
+            case CharacterTypes.HACKEURSE: return _panelHacker;
+            case CharacterTypes.GROSBRAS: return _panelFlorent;
+            case CharacterTypes.ECLAIREUR: return _panelScout;
+        }
+
+        return null;
+    }
+
     public Sprite GetActionSprite(Actions action)
     {
         switch(action)
@@ -354,13 +368,20 @@ public class UIManager : MonoBehaviour
 
     public void ActionUIFeedback(PlayerCharacter player, Actions action)
     {
-
+        GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterActionColor(player.characterType);
         if (action != Actions.NONE)
         {
             GetCharacterImage(player.characterType).sprite = GetActionSprite(action);
             GetCharacterImage(player.characterType).enabled = true;
+            GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterSelectedColor(player.characterType);
             return;
         }
+
+        if (player.IsCaught())
+        {
+            GetCharacterPanel(player.characterType).color = Color.black;
+        }
+
         GetCharacterImage(player.characterType).enabled = false;
 
 
