@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -293,7 +294,7 @@ public class Cell : MonoBehaviour
         return true;
     }
 
-    public void PlaceItem(Item item)
+    /*public void PlaceItem(Item item)
     {
         _placeItem = item;
         item.gameObject.SetActive(true);
@@ -303,6 +304,17 @@ public class Cell : MonoBehaviour
             GrabItemActionInit();
         }
 
+    }*/
+
+    public void PlaceItem(Item item, bool setPos = true)
+    {
+        _placeItem = item;
+        item.gameObject.SetActive(true);
+        if (setPos)item.transform.position = transform.position + new Vector3(0, itemOffset, 0);
+        if (_grabItemAction == null)
+        {
+            GrabItemActionInit();
+        }
     }
 
     private void GrabItemActionInit()

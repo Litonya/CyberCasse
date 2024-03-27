@@ -136,8 +136,8 @@ MonoBehaviour:
   characterType: 0
   _direction: 3
   _guardLevel: 2
-  patrolMovePoints: 3
-  chaseMovePoints: 3
+  patrolMovePoints: 4
+  chaseMovePoints: 4
   _isSentinel: 0
   _sentinelDirection: 
   loopingPatrol: 1

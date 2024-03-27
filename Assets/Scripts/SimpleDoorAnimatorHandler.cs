@@ -16,7 +16,7 @@ public class SimpleDoorAnimatorHandler : MonoBehaviour, DoorAnimatorHandler
     
     public void Open()
     {
-        _animator.SetBool("isOpen", true);
+        _animator.SetTrigger("Open");
     }
 
     public void Close()
@@ -29,9 +29,9 @@ public class SimpleDoorAnimatorHandler : MonoBehaviour, DoorAnimatorHandler
         if (other.GetComponent<Character>()) Open();
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<Character>()) Close();
-    }
+    }*/
 
 }

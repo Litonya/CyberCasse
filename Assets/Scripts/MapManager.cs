@@ -236,7 +236,7 @@ public class MapManager : MonoBehaviour
             if (item != null)
             {
                 Cell cell = GetCell((int)item.transform.position.x, (int)item.transform.position.z);
-                cell.PlaceItem(itemScript);
+                cell.PlaceItem(itemScript, false);
             }
         }
     }
