@@ -680,6 +680,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (actions.Contains(Actions.UNLOCK) && characterSelected != null && (characterSelected.GetCarriedItem() == null || !characterSelected.GetCarriedItem().GetComponent<Key>())) actions.Remove(Actions.UNLOCK);
+
         return actions;
     }
 
