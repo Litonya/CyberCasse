@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     private Color _actionPhaseColor = Color.red;
     [SerializeField]
     private Color _planificationPhaseColor = Color.blue;
+    [SerializeField]
+    private TextMeshProUGUI _scoreText;
 
     [SerializeField]
     private Slider _timerProgressBar;
@@ -117,6 +119,10 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void UpdateScoreText(int score)
+    {
+        _scoreText.text = score.ToString() + " €";
+    }
     public void SetUIPreparationPhase()
     {
         Sprite spriteMenuPreparation = Resources.Load<Sprite>("Menu_Preparations");
