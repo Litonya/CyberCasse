@@ -123,7 +123,15 @@ public class AudioSystem : MonoBehaviour
             return;
         }
 
-        if (pSFXname == SFX_Name.PAUSE || pSFXname == SFX_Name.VICOTORY || pSFXname == SFX_Name.DEFEAT)
+        if (pSFXname == SFX_Name.VICOTORY || pSFXname == SFX_Name.DEFEAT)
+        {
+            _music.Stop();
+            _music.clip = GetSFX(pSFXname);
+            _music.loop = false;
+            _music.Play();
+        }
+
+        if (pSFXname == SFX_Name.PAUSE)
         {
             _cityAmbiance.Pause();
             _ambience.Pause();
