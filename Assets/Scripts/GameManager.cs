@@ -588,6 +588,7 @@ public class GameManager : MonoBehaviour
         if (VictoryConditionsMet())
         {
             // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.VICOTORY);
             Debug.Log("Victory!");
             if(isPaused) { TogglePause(); }
             Time.timeScale = 0f;
@@ -690,8 +691,9 @@ public class GameManager : MonoBehaviour
         UpdateMoneyScore(_moneyMalus);
         if (_playerCharacterList.Count == 0) 
         {
-            EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
+            
             if(isPaused) { TogglePause(); }
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
             UIManager.instance.ShowLoose();
             Time.timeScale = 0;
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
