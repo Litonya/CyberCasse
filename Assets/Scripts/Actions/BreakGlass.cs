@@ -32,7 +32,7 @@ public class BreakGlass : CellAction
     {
         _cell.SetWalkable();
         _cell.BreakGlass();
-        _cell.possibleActions.Remove(Actions.LOCKPICK);
+        _cell.possibleActions.Remove(Actions.BREAKGLASS);
         _cell.Icon_Break.SetActiveIcon(false);
     }
 }
