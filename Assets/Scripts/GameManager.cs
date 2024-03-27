@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
 
         if (currentGameState == GameStates.Preparation)
         {
+            UIManager.instance.SetUIPreparationPhase();
             if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
             return;
         }

@@ -97,12 +97,18 @@ public class UIManager : MonoBehaviour
 
     public void SetUIPlanificationPhase()
     {
-        Sprite spriteMenuPreparation = Resources.Load<Sprite>("Menu_Preparations");
+        Sprite spriteMenuPlanification = Resources.Load<Sprite>("Menu_Planification");
         _phaseLabel.text = "PLANIFICATION";
         _phaseLabel.color = _planificationPhaseColor;
-        _imagePhase.sprite = spriteMenuPreparation;
+        _imagePhase.sprite = spriteMenuPlanification;
         _dialSlider.StartTimer();
 
+    }
+
+    public void SetUIPreparationPhase()
+    {
+        Sprite spriteMenuPreparation = Resources.Load<Sprite>("Menu_Preparations");
+        _imagePhase.sprite = spriteMenuPreparation;
     }
 
     public void SetUIAlertLevel()
