@@ -87,10 +87,6 @@ public class Cell : MonoBehaviour
         {
             Icon_Break.SetActiveIcon(true);
         }
-        if (Icon_Hack != null)
-        {
-            Icon_Hack.SetActiveIcon(true);
-        }
         _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
         _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
     }
