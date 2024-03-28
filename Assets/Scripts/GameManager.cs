@@ -606,6 +606,7 @@ public class GameManager : MonoBehaviour
         {
             // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
             Debug.Log("Victory!");
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.VICOTORY);
             if(isPaused) { TogglePause(); }
             Time.timeScale = 0f;
 
