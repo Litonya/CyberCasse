@@ -245,6 +245,7 @@ public class EnemyCharacter : Character, Enemy
 
     public void EndLooking()
     {
+        _dectectedIcon.SetActiveIcon(false);
         _lastPlayerViewCell = null;
         LaunchPatrol();
     }
@@ -275,6 +276,7 @@ public class EnemyCharacter : Character, Enemy
     public void EndChase()
     {
         _lastPlayerViewCell = player.GetCurrentCell();
+        
         player = null;
         LaunchLooking();
     }

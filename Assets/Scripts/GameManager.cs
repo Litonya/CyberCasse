@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
+        if (characterSelected != null && (cell.occupant == null || cell.occupant == characterSelected) && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
             EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             cellSelected = cell;
@@ -543,7 +543,7 @@ public class GameManager : MonoBehaviour
         character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in character.path)
         {
-            toMarkCell.MarkPath();
+            toMarkCell.MarkPath(MapManager.instance.GetCharacterSelectedColor(character.characterType));
         }
         //}
     }
@@ -558,7 +558,7 @@ public class GameManager : MonoBehaviour
         _potentialPath = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in _potentialPath)
         {
-            toMarkCell.MarkPath();
+            toMarkCell.MarkPath(MapManager.instance.GetCharacterSelectedColor(character.characterType));
         }
     }
 

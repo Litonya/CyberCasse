@@ -126,7 +126,7 @@ public class FreeLookCameraController : MonoBehaviour
 
     public void ButtonClicked(PlayerCharacter player)
     {
-        if (player == null) return;
+        if (player == null || GameManager.instance.GetGameState() != GameStates.Planification) return;
         EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         SetTarget(player.transform);
         GameManager.instance.UnitSelect(player);

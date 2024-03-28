@@ -312,7 +312,7 @@ public class MapManager : MonoBehaviour
         {
             if (cell != null )
             {
-                cell.UnmarkPath();
+                cell.UnmarkPath(true);
             }
         }
     }
@@ -320,6 +320,7 @@ public class MapManager : MonoBehaviour
     public void SetCellsSelectable(Cell origin, int distance)
     {
         selectableCells = GetCellsReacheable(origin, distance);
+        //selectableCells.Add(origin);
 
         foreach(Cell cell in selectableCells)
         {

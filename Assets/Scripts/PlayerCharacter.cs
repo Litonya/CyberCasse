@@ -232,7 +232,7 @@ public class PlayerCharacter : Character
     {
         PlaceCarriedItem();
         _isDead = true;
-        UIManager.instance.ActionUIFeedback(this, Actions.NONE);
+        UIManager.instance.ActionUIFeedback(this, Actions.NONE, null);
         GameManager.instance.PlayerCaught(this);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.PLAYER_DEAD);
         Desactivate();
@@ -276,6 +276,8 @@ public class PlayerCharacter : Character
             _greenkeyIcon.SetActiveIcon(true);
         }
         else if (item.GetComponent<Money>()) _chipIcon.SetActiveIcon(true);
+
+        UIManager.instance.ActionUIFeedback(this, _preparedAction, _carriedItem);
     }
 
     public Item GetCarriedItem()
@@ -294,6 +296,7 @@ public class PlayerCharacter : Character
         _greenkeyIcon.SetActiveIcon(false);
         _objectifIcon.SetActiveIcon(false);
         _chipIcon.SetActiveIcon(false);
+        UIManager.instance.ActionUIFeedback(this, _preparedAction, _carriedItem);
     }
 
     public void PlaceCarriedItem()
@@ -303,6 +306,7 @@ public class PlayerCharacter : Character
         GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
         _carriedItem = null;
         movePoints = _movePointsBackup;
+        UIManager.instance.ActionUIFeedback(this, _preparedAction, _carriedItem);
     }
 
     public bool IsCaught()
@@ -313,12 +317,12 @@ public class PlayerCharacter : Character
 
     public void SetActionIcon()
     {
-        UIManager.instance.ActionUIFeedback(this, _preparedAction);
+        UIManager.instance.ActionUIFeedback(this, _preparedAction, _carriedItem);
     }
 
     public void SetActionIcon(Actions action)
     {
-        UIManager.instance.ActionUIFeedback(this, action);
+        UIManager.instance.ActionUIFeedback(this, action, _carriedItem);
     }
 }
 

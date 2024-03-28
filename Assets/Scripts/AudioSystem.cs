@@ -70,6 +70,8 @@ public class AudioSystem : MonoBehaviour
     [SerializeField] List<AudioSource> _serverRoomsAmbience;
     EventsManager _eventsManager;
 
+    private float _musicVolume = .6f;
+
     public static AudioSystem instance { get { return _instance; } }
     static AudioSystem _instance;
 
@@ -98,7 +100,7 @@ public class AudioSystem : MonoBehaviour
 
         if (pSFXname == SFX_Name.PLANEPHASE)
         {
-            _music.volume = 1f;
+            _music.volume = _musicVolume;
             return;
         }
 

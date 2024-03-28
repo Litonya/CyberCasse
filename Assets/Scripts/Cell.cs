@@ -10,6 +10,9 @@ public class Cell : MonoBehaviour
     [SerializeField]
     protected GameObject _pathMarker;
 
+    [SerializeField]
+    protected GameObject _enemyPathMarker;
+
     public int gridCoordX;
     public int gridCoordZ;
 
@@ -65,14 +68,30 @@ public class Cell : MonoBehaviour
 
     [SerializeField] WindowBreakVisual _glass;
 
-    public void MarkPath()
+    [SerializeField] Color _defaultPathColor = Color.yellow;
+
+    [SerializeField] Color _guardPathColor = Color.red;
+
+    public void MarkPath(bool enemy = false)
     {
+        if (enemy)
+        {
+            _enemyPathMarker.SetActive(true);
+            return;
+        }
         _pathMarker.SetActive(true);
     }
 
-    public void UnmarkPath()
+    public void MarkPath(Color pathColor)
+    {
+        _pathMarker.GetComponent<Renderer>().material.color = pathColor;
+        _pathMarker.SetActive(true);
+    }
+
+    public void UnmarkPath(bool enemyToo = false)
     {
         _pathMarker.SetActive(false);
+        if (enemyToo && _enemyPathMarker != null) _enemyPathMarker.SetActive(false);
     }
 
     private void Awake()
@@ -90,6 +109,8 @@ public class Cell : MonoBehaviour
         }
         _feedBackObject = GetComponentInChildren<CellFeedback>().gameObject;
         _feedBackRenderer = _feedBackObject.GetComponent<Renderer>();
+        _pathMarker.GetComponent<Renderer>().material.color = _defaultPathColor;
+        _enemyPathMarker.GetComponent<Renderer>().material.color = _guardPathColor;
     }
 
     private void Start()
