@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -138,12 +139,12 @@ public class Character : MonoBehaviour
         {
             isMoving = false;
             SetCurrentCell(_nextCell);
-            _nextCell.UnmarkPath();
+            _nextCell.UnmarkPath(characterType == CharacterTypes.GUARD);
             PlayAnim();
         }
         else
         {
-            _nextCell.UnmarkPath();
+            _nextCell.UnmarkPath(characterType == CharacterTypes.GUARD);
             path.Remove(_nextCell);
             SetCurrentCell(_nextCell);
             _nextCell = path[0];
@@ -181,7 +182,7 @@ public class Character : MonoBehaviour
     {
         foreach (Cell cell in path)
         {
-            cell.MarkPath();
+            cell.MarkPath(characterType == CharacterTypes.GUARD);
         }
 
     }

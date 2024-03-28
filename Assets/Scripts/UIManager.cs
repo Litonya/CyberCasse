@@ -62,6 +62,16 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _ActionScout;
 
+    [Header("Objets personnages")]
+    [SerializeField]
+    private Image _ObjectLockpick;
+    [SerializeField]
+    private Image _ObjectHacker;
+    [SerializeField]
+    private Image _ObjectFlorent;
+    [SerializeField]
+    private Image _ObjectScout;
+
     [Header("Boutons UI")]
     [SerializeField]
     private Toggle _EndTurnButton;
@@ -352,6 +362,19 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
+    public Image GetCharacterObjectImage(CharacterTypes characterType)
+    {
+        switch (characterType)
+        {
+            case CharacterTypes.CROCHETEUSE: return _ObjectLockpick;
+            case CharacterTypes.HACKEURSE: return _ObjectHacker;
+            case CharacterTypes.GROSBRAS: return _ObjectFlorent;
+            case CharacterTypes.ECLAIREUR: return _ObjectScout;
+        }
+
+        return null;
+    }
+
     public Image GetCharacterPanel(CharacterTypes characterType)
     {
         switch (characterType)
@@ -379,6 +402,18 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
+    public Sprite GetObjectSprite(Item item)
+    {
+        if (item.GetComponent<Money>()) return Resources.Load<Sprite>("icon_thune");
+        if (item.GetComponent<Objective>()) return Resources.Load<Sprite>("icon_malette");
+        if (item.GetComponent<Key>())
+        {
+            if (item.GetComponent<Key>().keyColor == KeyColor.BLUE) return Resources.Load<Sprite>("icon_clef_bleu");
+            if (item.GetComponent<Key>().keyColor == KeyColor.GREEN) return Resources.Load<Sprite>("icon_clef_vert");
+        }
+        return null;
+    }
+
     public void ActionUIFeedback(PlayerCharacter player, Actions action)
     {
         GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterSelectedColor(player.characterType);
@@ -396,144 +431,18 @@ public class UIManager : MonoBehaviour
         }
 
         GetCharacterImage(player.characterType).enabled = false;
+    }
 
-
-
-        /*switch (action)
+    public void SetObjectUI(PlayerCharacter player, Item item)
+    {
+        if (item != null)
         {
-            case Actions.MOVE:
-                Sprite moveSprite = Resources.Load<Sprite>("Move");
+            GetCharacterObjectImage(player.characterType).sprite = GetObjectSprite(item);
+            GetCharacterObjectImage(player.characterType).enabled = true;
+            return;
+        }
 
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = moveSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = moveSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = moveSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = moveSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case Actions.HACK:
-                Sprite hackSprite = Resources.Load<Sprite>("Hacking");
-
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = hackSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = hackSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = hackSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = hackSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-
-            case Actions.LOCKPICK:
-                Sprite lockpickSprite = Resources.Load<Sprite>("Lock_Unlock");
-
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = lockpickSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = lockpickSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = lockpickSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = lockpickSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-
-            case Actions.BREAKGLASS:
-                Sprite breakGlassSprite = Resources.Load<Sprite>("Beak_Window");
-
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = breakGlassSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = breakGlassSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = breakGlassSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = breakGlassSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-
-            case Actions.UNLOCK:
-                Sprite unlockSprite = Resources.Load<Sprite>("Lock_Unlock");
-
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = unlockSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = unlockSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = unlockSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = unlockSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-
-            case Actions.GETITEM:
-                Sprite getItemSprite = Resources.Load<Sprite>("MOVE");
-
-                switch (player.characterType)
-                {
-                    case CharacterTypes.CROCHETEUSE:
-                        _ActionLockpick.sprite = getItemSprite;
-                        break;
-                    case CharacterTypes.HACKEURSE:
-                        _ActionHacker.sprite = getItemSprite;
-                        break;
-                    case CharacterTypes.GROSBRAS:
-                        _ActionFlorent.sprite = getItemSprite;
-                        break;
-                    case CharacterTypes.ECLAIREUR:
-                        _ActionScout.sprite = getItemSprite;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }*/
+        GetCharacterObjectImage(player.characterType).enabled = false;
     }
 
     public void PauseMenu()
