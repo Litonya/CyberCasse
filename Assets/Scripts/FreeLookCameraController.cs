@@ -16,7 +16,18 @@ public class FreeLookCameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero; // Vélocité pour le lissage du mouvement de la caméra
     private Transform target; // Cible de la caméra
 
+    public static FreeLookCameraController instance;
+
     private bool isMovingTowardsTarget = false;
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(_instance);
+        }
+        instance = this;
+    }
 
     private void Update()
     {
@@ -115,7 +126,10 @@ public class FreeLookCameraController : MonoBehaviour
 
     public void ButtonClicked(PlayerCharacter player)
     {
+        if (player == null) return;
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         SetTarget(player.transform);
+        GameManager.instance.UnitSelect(player);
         isMovingTowardsTarget = true;
     }
 }

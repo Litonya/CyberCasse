@@ -5,11 +5,29 @@ using UnityEngine.TextCore.Text;
 
 public class UnlockDoor : CellAction
 {
+
+    float _actionDelay = 0.5f;
+    float _remainDelay;
+
+    bool _isActing = false;
+
     protected override void Awake()
     {
         base.Awake();
         action = Actions.UNLOCK;
+
+        _remainDelay = _actionDelay;
     }
+
+    private void Update()
+    {
+        if (_isActing)
+        {
+            _remainDelay -= Time.deltaTime;
+            if (_remainDelay <= 0) ContinueActe();
+        }
+    }
+
 
     public override bool Acte(int charcterStat, PlayerCharacter character)
     {
@@ -19,14 +37,11 @@ public class UnlockDoor : CellAction
         {
             if (keyItem.keyColor == _cell.neededKey)
             {
-                Unlock(_cell);
-
-                foreach(Cell cell in _cell.linkCell)
-                {
-                    Unlock(cell);
-                }
-                return true;
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
                 character.DestroyCarriedItem();
+                _isActing = true;
+                return true;
+                
             }
             Debug.Log("Wrong key color");
         }
@@ -34,10 +49,32 @@ public class UnlockDoor : CellAction
         return false;
     }
 
+    private void ContinueActe()
+    {
+        _isActing = false;
+
+        Unlock(_cell);
+
+        foreach (Cell cell in _cell.linkCell)
+        {
+            Unlock(cell);
+        }
+        
+    }
+
+
     private void Unlock(Cell cell)
     {
-        _cell.SetWalkable();
-        _cell.possibleActions.Remove(Actions.UNLOCK);
-        EventsManager.instance.RaiseSFXEvent(SFX_Name.METALIC_DOOR_UNLOCKED);
+        cell.SetWalkable();
+        cell.possibleActions.Remove(Actions.UNLOCK);
+        
+        cell.Lock_Close.SetActiveIcon(false);
+        cell.Lock_Open.SetActiveIcon(true);
+    }
+
+    private void RemoveIcon()
+    {
+        _cell.Lock_Open.SetActiveIcon(false);
+        foreach (Cell cell in _cell.linkCell) cell.Lock_Open.SetActiveIcon(false);
     }
 }

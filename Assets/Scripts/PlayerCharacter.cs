@@ -4,16 +4,16 @@ using UnityEngine;
 
 public enum Actions
 {
-    NONE,
+    NONE, //
     MOVE, //Ne pas mettre move sur un tuile
-    LOCKPICK,
-    HACK,
+    LOCKPICK,//
+    HACK,//
     GETITEM, //Ne pas mettre directement GetItem sur une tuile
     PLACEITEM,
     KNOCKOUT,
     LOOK,
-    UNLOCK,
-    BREAKGLASS,
+    UNLOCK,//
+    BREAKGLASS,//
 }
 
 public class PlayerCharacter : Character
@@ -23,6 +23,8 @@ public class PlayerCharacter : Character
     [SerializeField] private int _hacking = 1;
     [SerializeField] private int _strenght = 1;
 
+    public float hackStunChance = 0f;
+
     private Actions _preparedAction = Actions.NONE;
     private Cell _targetActionCell;
     private Actions _previousAction = Actions.NONE;
@@ -30,12 +32,22 @@ public class PlayerCharacter : Character
 
     private Item _carriedItem;
 
+    public bool isStun = false;
+    private int turnStunRemaining;
+
     [SerializeField]
     private Icon _hackingIcon;
     [SerializeField]
     private Icon _breakingIcon;
     [SerializeField]
     private Icon _lockpickingIcon;
+
+    [SerializeField]
+    private Icon _objectifIcon;
+    [SerializeField]
+    private Icon _bluekeyIcon;
+    [SerializeField]
+    private Icon _greenkeyIcon;
 
     private int _movePointsBackup;
 
@@ -53,6 +65,21 @@ public class PlayerCharacter : Character
         base.Reset();
         if (_targetActionCell == null) return;
         _targetActionCell.SetState(Cell.CellState.actionTarget, this);
+        
+    }
+
+    public void Stun()
+    {
+        isStun = true;
+        turnStunRemaining = 1;
+        GetComponentInChildren<SpriteController>().SetAnimationState("Stun");
+        ClearPreparedAction();
+    }
+
+    public void Unstun()
+    {
+        isStun = false;
+        GetComponentInChildren<SpriteController>().SetAnimationState("Idle");
     }
 
     protected override void Action()
@@ -112,13 +139,21 @@ public class PlayerCharacter : Character
             GetComponentInChildren<SpriteController>().SetAnimationState("Hack");
             _hackingIcon.SetActiveIcon(true);
             _targetActionCell.Acte(_preparedAction, _hacking, this);
-            _characterAudio.PlayActionSound(SFX_Name.CAMERA_CONNEXION);
             SetPreparedAction(_preparedAction, _targetActionCell);
         }
     }
 
     public override void Acte()
     {
+        if (turnStunRemaining > 0)
+        {
+            turnStunRemaining--;
+            if (turnStunRemaining <= 0)
+            {
+                Unstun();
+            }
+        }
+
         if (_previousActionCell != null && _previousActionCell != _targetActionCell)
         {
             _previousActionCell.ResetDifficulty();
@@ -139,6 +174,7 @@ public class PlayerCharacter : Character
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = action;
         _targetActionCell = target;
+        SetActionIcon();
         target.SetState(Cell.CellState.actionTarget, this);
         //Ajouter ligne qui fait lien vers la cellule pour afficher un logo
     }
@@ -151,8 +187,9 @@ public class PlayerCharacter : Character
         if (_targetActionCell != null) _targetActionCell.SetState(Cell.CellState.Idle, null);
         _preparedAction = Actions.NONE;
         _targetActionCell = null;
-        _previousAction = Actions.NONE;
+        //_previousAction = Actions.NONE;
         if (_previousActionCell != null) _previousActionCell.SetState(Cell.CellState.Idle, null);
+        SetActionIcon() ;
     }
 
     public void PickUpWinCondition(WinCondition winCondition)
@@ -191,6 +228,8 @@ public class PlayerCharacter : Character
     public void Caught()
     {
         PlaceCarriedItem();
+        _isDead = true;
+        UIManager.instance.ActionUIFeedback(this, Actions.NONE);
         GameManager.instance.PlayerCaught(this);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.PLAYER_DEAD);
         Desactivate();
@@ -199,7 +238,6 @@ public class PlayerCharacter : Character
 
     public void Desactivate()
     {
-        _isDead = true;
         _currentCell.occupant = null;
         gameObject.SetActive(false);
     }
@@ -215,7 +253,16 @@ public class PlayerCharacter : Character
         }
         if (item.GetComponent<Objective>())
         {
+            _objectifIcon.SetActiveIcon(true);
             GameManager.instance.LaunchPartTwo();
+        }
+         else if (item.GetComponent<Key>() != null && item.GetComponent<Key>().keyColor == KeyColor.BLUE)
+        {
+            _bluekeyIcon.SetActiveIcon(true);
+        }
+        else if (item.GetComponent<Key>() != null && item.GetComponent<Key>().keyColor == KeyColor.GREEN)
+        {
+            _greenkeyIcon.SetActiveIcon(true);
         }
     }
 
@@ -229,6 +276,10 @@ public class PlayerCharacter : Character
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
         movePoints = _movePointsBackup;
+
+        _bluekeyIcon.SetActiveIcon(false);
+        _greenkeyIcon.SetActiveIcon(false);
+        _objectifIcon.SetActiveIcon(false);
     }
 
     public void PlaceCarriedItem()
@@ -242,7 +293,18 @@ public class PlayerCharacter : Character
 
     public bool IsCaught()
     {
+        
         return _isDead;
+    }
+
+    public void SetActionIcon()
+    {
+        UIManager.instance.ActionUIFeedback(this, _preparedAction);
+    }
+
+    public void SetActionIcon(Actions action)
+    {
+        UIManager.instance.ActionUIFeedback(this, action);
     }
 }
 

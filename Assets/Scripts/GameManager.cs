@@ -10,10 +10,17 @@ using UnityEngine.SceneManagement;
 public enum GameStates { Preparation,Planification, Action }
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] int _maxTurn = 30;
+
+    private int _numberTurn;
+
+    private bool firstPhase = true;
 
     private PlayerCharacter characterSelected;
 
     private List<AvailibleActionsOnAdjacentCells> availibleActions;
+
+    private float cityAmbianceTime = 120f;
 
     private Cell cellSelected;
     private Actions _actionSelected;
@@ -24,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private List<EnemyCharacter> _guardList;
 
-    private List<PlayerCharacter> _playerCharacterList;
+    public List<PlayerCharacter> _playerCharacterList;
 
     public int moneyScore = 0;
 
@@ -111,13 +118,23 @@ public class GameManager : MonoBehaviour
         securityCameraList = GetAllSecurityCameras();
         _guardList = GetAllEnemyCharacter();
         _playerCharacterList = GetAllPlayerCharacter();
+        UIManager.instance.UpdateTurnText(_numberTurn, _maxTurn);
         InitGame();
     }
 
     private void Update()
     {
+        CityAmbianceHandler();
+
+        if (Input.GetKeyDown(KeyCode.C) && currentGameState != GameStates.Action)
+        {
+            // Inverser l'état de pause
+            TogglePause();
+        }
+
         if (currentGameState == GameStates.Preparation)
         {
+            UIManager.instance.SetUIPreparationPhase();
             if (Input.GetKeyDown(KeyCode.Space)) LaunchPlanificationPhase();
             return;
         }
@@ -137,6 +154,12 @@ public class GameManager : MonoBehaviour
             }
 
             //V�rifie les Inputs
+            //Raccourcies claviers
+            if (Input.GetKeyDown (KeyCode.Alpha1)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.CROCHETEUSE));
+            if (Input.GetKeyDown (KeyCode.Alpha2)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.ECLAIREUR));
+            if (Input.GetKeyDown (KeyCode.Alpha3)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.HACKEURSE));
+            if (Input.GetKeyDown (KeyCode.Alpha4)) FreeLookCameraController.instance.ButtonClicked(GetPlayerCharacter(CharacterTypes.GROSBRAS));
+
             //Input clic gauche -> Selection d'objet
             if (Input.GetMouseButtonDown(0))
             {
@@ -162,12 +185,20 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+            //Input débug
+            //Toogle le stun du hacker
+            if (Input.GetKeyDown(KeyCode.Alpha0))
             {
-                // Inverser l'état de pause
-                TogglePause();
+                PlayerCharacter hacker = GetPlayerCharacter(CharacterTypes.HACKEURSE);
+                if (hacker != null)
+                {
+                    if (hacker.hackStunChance > 0) hacker.hackStunChance = 0;
+                    else hacker.hackStunChance = 1;
+                }
             }
         }
+
+
 
         /*-----------------------------------ACTION----------------------------*/
         else if (currentGameState == GameStates.Action)
@@ -184,6 +215,23 @@ public class GameManager : MonoBehaviour
             {
                 LaunchPlanificationPhase();
             }
+        }
+    }
+
+    public PlayerCharacter GetPlayerCharacter(CharacterTypes type)
+    {
+        foreach (PlayerCharacter playerCharacter in _playerCharacterList) if (playerCharacter.characterType == type) return playerCharacter;
+        return null;
+    }
+
+
+    private void CityAmbianceHandler()
+    {
+        cityAmbianceTime -= Time.deltaTime;
+        if (cityAmbianceTime <= 0 ) 
+        {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CITY_AMBIENCE);
+            cityAmbianceTime = UnityEngine.Random.Range(180, 360);
         }
     }
 
@@ -205,16 +253,19 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>() && _currentSelectionState == SelectionState.SELECT_CHARACTER)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     PlayerCharacter characterScript = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     characterScript.ClearPreparedAction();
                     characterScript.Reset();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_DESTINATION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     Unselect();
                 }
                 else if (_currentSelectionState == SelectionState.SELECT_ACTION)
                 {
+                    EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
                     UIManager.instance.SetUIActionMenuOFF();
                     Unselect();
                 }
@@ -234,12 +285,10 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<PlayerCharacter>())
                 {
                     //Debug.Log("A PlayerCharacter is clicked");
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     PlayerCharacter playerCharacter = hit.collider.gameObject.GetComponent<PlayerCharacter>();
                     UnitSelect(playerCharacter);
                 } else if (hit.collider.gameObject.GetComponent<Cell>())
                 {
-                    EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
                     Cell cell = hit.collider.gameObject.GetComponent<Cell>();
                     CellSelect(cell);
                 }
@@ -251,6 +300,7 @@ public class GameManager : MonoBehaviour
     {
         if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             cellSelected = cell;
             availibleActions = GetAvailibleActions(cell);
             UIManager.instance.SetSelectedCell(cell, GetAllAvailibleActions(availibleActions));
@@ -265,6 +315,7 @@ public class GameManager : MonoBehaviour
         }
         else if (_currentSelectionState == SelectionState.SELECT_ACTION_TARGET && cell.currentState == Cell.CellState.isSelectable)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.CANCEL_ACTION);
             Unselect();
         }
     }
@@ -279,11 +330,13 @@ public class GameManager : MonoBehaviour
 
     public void ActionSelect(Actions action)
     {
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION_ACTION);
         if (action == Actions.MOVE)
         {
             characterSelected.path = _potentialPath;
             characterSelected.TargetCell(cellSelected);
             characterSelected.ClearPreparedAction();
+            characterSelected.SetActionIcon(Actions.MOVE);
             Unselect();
             return;
         }
@@ -308,8 +361,10 @@ public class GameManager : MonoBehaviour
         _currentSelectionState = SelectionState.SELECT_ACTION_TARGET;
     }
 
-    private void UnitSelect(PlayerCharacter character)
+    public void UnitSelect(PlayerCharacter character)
     {
+        if (character.isStun) return;
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         if (characterSelected == character)
         {
             Unselect();
@@ -412,11 +467,18 @@ public class GameManager : MonoBehaviour
         return playerCharacters;
     }
 
-    private void LaunchActionPhase()
+    public void LaunchActionPhase()
     {
+        if (currentGameState == GameStates.Preparation || currentGameState == GameStates.Action || isPaused) return;
         EndPlanificationPhase();
         EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTION);
-       // Debug.Log("Launch Action phase");
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ACTIONPHASE);
+
+        _numberTurn++;
+        UIManager.instance.UpdateTurnText(_numberTurn, _maxTurn);
+        if (_numberTurn >= _maxTurn && _alertLevel < maxAlertLevel) SetMaxAlertLevel();
+
+        // Debug.Log("Launch Action phase");
         currentGameState = GameStates.Action;
         Unselect();
         foreach (Character character in _characterList) 
@@ -433,12 +495,15 @@ public class GameManager : MonoBehaviour
         foreach(PlayerCharacter character in _playerCharacterList)
         {
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
+            character.SetActionIcon();  
         }
     }
 
     private void LaunchPlanificationPhase()
     {
         EndActionPhase();
+        if (firstPhase) firstPhase = false;
+        else EventsManager.instance.RaiseSFXEvent(SFX_Name.PLANEPHASE);
         _timeRemain = _timePlanification;
         MapManager.instance.ResetAllCells();
         ResetAllCharacter();
@@ -535,6 +600,8 @@ public class GameManager : MonoBehaviour
         {
             // Afficher l'écran de victoire ou effectuer d'autres actions de victoire
             Debug.Log("Victory!");
+            if(isPaused) { TogglePause(); }
+            Time.timeScale = 0f;
 
             UIManager.instance.ShowVictory();
 
@@ -624,6 +691,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (actions.Contains(Actions.UNLOCK) && characterSelected != null && (characterSelected.GetCarriedItem() == null || !characterSelected.GetCarriedItem().GetComponent<Key>())) actions.Remove(Actions.UNLOCK);
+
         return actions;
     }
 
@@ -634,6 +703,10 @@ public class GameManager : MonoBehaviour
         UpdateMoneyScore(_moneyMalus);
         if (_playerCharacterList.Count == 0) 
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
+            if(isPaused) { TogglePause(); }
+            UIManager.instance.ShowLoose();
+            Time.timeScale = 0;
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
         }
     }
@@ -641,6 +714,7 @@ public class GameManager : MonoBehaviour
     public void UpdateMoneyScore(int moneyGain)
     {
         moneyScore += moneyGain;
+        UIManager.instance.UpdateScoreText(moneyScore);
         //Add update UI score
     }
 
@@ -659,7 +733,23 @@ public class GameManager : MonoBehaviour
     {
         if (_alertLevel == maxAlertLevel) return;
         _alertLevel++;
+        switch(_alertLevel)
+        {
+            case 1: 
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT1);
+                break;
+            case 2:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT2);
+                break;
+            case 3:
+                EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT3);
+                break;
+            default: break;
+
+        }
+
         _timePlanification -= _timeReducePlanificationTime;
+        UIManager.instance.SetMaximumTime(_timePlanification);
         UIManager.instance.SetUIAlertLevel();
         foreach (EnemyCharacter enemyCharacter in _guardList)
         {
@@ -677,6 +767,31 @@ public class GameManager : MonoBehaviour
                 camera.LaunchGeneralAlert();
             }
         }
+    }
+
+    public void SetMaxAlertLevel()
+    {
+        int diffenceToMaxAlertLvl = maxAlertLevel - _alertLevel;
+        _alertLevel = maxAlertLevel;
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.ALERT3);
+        _timePlanification -= _timeReducePlanificationTime * diffenceToMaxAlertLvl;
+        UIManager.instance.SetMaximumTime(_timePlanification);
+        UIManager.instance.SetUIAlertLevel();
+        foreach (EnemyCharacter enemyCharacter in _guardList)
+        {
+            enemyCharacter.IncreaseMovePatrolAndChase(_guardPatrolMovePointsIncrease * diffenceToMaxAlertLvl, _guardChassingMovePointsIncrease * diffenceToMaxAlertLvl);
+            enemyCharacter.IncreaseVisionRange(_guardFOVRangeIncrease * diffenceToMaxAlertLvl);
+        }
+
+        foreach (EnemyCharacter enemyCharacter2 in _guardList)
+        {
+            enemyCharacter2.LaunchGeneralAlert();
+        }
+        foreach (SecurityCamera camera in securityCameraList)
+        {
+            camera.LaunchGeneralAlert();
+        }
+
     }
 
     public PlayerCharacter GetClosestPlayer(Character character)
@@ -706,10 +821,13 @@ public class GameManager : MonoBehaviour
         // Mettre en pause ou reprendre le jeu en fonction de l'état de pause
         if (isPaused)
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.PAUSE);
             Time.timeScale = 0f; // Mettre le temps à zéro pour mettre en pause le jeu
         }
         else
         {
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
+            EventsManager.instance.RaiseSFXEvent(SFX_Name.AMBIENCE);
             Time.timeScale = 1f; // Remettre le temps à sa valeur normale pour reprendre le jeu
         }
         UIManager.instance.PauseMenu();
@@ -718,18 +836,24 @@ public class GameManager : MonoBehaviour
     public void ResetScene()
     {
         if (isPaused) TogglePause();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         // Récupérer le numéro de la scène actuelle
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Recharger la scène actuelle
         SceneManager.LoadScene(currentSceneIndex);
-        
     }
 
     public void ReturnToTitleScreen()
     {
         if(isPaused) TogglePause();
+        EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
         // Charger la scène de l'écran titre 
         SceneManager.LoadScene("TitleScreen"); 
+    }
+
+    public GameStates GetCurrentPhase()
+    {
+        return currentGameState;
     }
 }
