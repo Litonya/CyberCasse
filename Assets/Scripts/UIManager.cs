@@ -406,7 +406,7 @@ public class UIManager : MonoBehaviour
     {
         if (item.GetComponent<Money>()) return Resources.Load<Sprite>("icon_thune");
         if (item.GetComponent<Objective>()) return Resources.Load<Sprite>("icon_malette");
-        if (item.GetComponent<Key>()) return Resources.Load<Sprite>("icon_clef_bleu");
+        if (item.GetComponent<Key>())
         {
             if (item.GetComponent<Key>().keyColor == KeyColor.BLUE) return Resources.Load<Sprite>("icon_clef_bleu");
             if (item.GetComponent<Key>().keyColor == KeyColor.GREEN) return Resources.Load<Sprite>("icon_clef_vert");
@@ -414,7 +414,7 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
-    public void ActionUIFeedback(PlayerCharacter player, Actions action, Item item)
+    public void ActionUIFeedback(PlayerCharacter player, Actions action)
     {
         GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterSelectedColor(player.characterType);
         if (action != Actions.NONE)
@@ -422,23 +422,27 @@ public class UIManager : MonoBehaviour
             GetCharacterImage(player.characterType).sprite = GetActionSprite(action);
             GetCharacterImage(player.characterType).enabled = true;
             GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterActionColor(player.characterType);
+            return;
         }
-
-        if (item != null)
-        {
-            GetCharacterObjectImage(player.characterType).sprite = GetObjectSprite(item);
-            GetCharacterObjectImage(player.characterType).enabled= true;
-        }
-
-        GetCharacterPanel(player.characterType).color = MapManager.instance.GetCharacterActionColor(player.characterType);
 
         if (player.IsCaught())
         {
             GetCharacterPanel(player.characterType).color = Color.black;
         }
-        else return;
 
         GetCharacterImage(player.characterType).enabled = false;
+    }
+
+    public void SetObjectUI(PlayerCharacter player, Item item)
+    {
+        if (item != null)
+        {
+            GetCharacterObjectImage(player.characterType).sprite = GetObjectSprite(item);
+            GetCharacterObjectImage(player.characterType).enabled = true;
+            return;
+        }
+
+        GetCharacterObjectImage(player.characterType).enabled = false;
     }
 
     public void PauseMenu()

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] int _maxTurn = 30;
 
+    [SerializeField] VictoryArea _vectoryArea;
+
     private int _numberTurn;
 
     private bool firstPhase = true;
@@ -455,7 +457,7 @@ public class GameManager : MonoBehaviour
         return enemyCharacters;
     }
 
-    private List<PlayerCharacter> GetAllPlayerCharacter()
+    public List<PlayerCharacter> GetAllPlayerCharacter()
     {
         List<PlayerCharacter> playerCharacters = new List<PlayerCharacter>();
         foreach (Character character in _characterList)
@@ -499,6 +501,8 @@ public class GameManager : MonoBehaviour
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
             character.SetActionIcon();  
         }
+
+        _vectoryArea.CheckVictory();
     }
 
     private void LaunchPlanificationPhase()
@@ -703,6 +707,7 @@ public class GameManager : MonoBehaviour
         _characterList.Remove(character);
         _playerCharacterList.Remove(character);
         UpdateMoneyScore(_moneyMalus);
+        _vectoryArea.totalPlayer--;
         if (_playerCharacterList.Count == 0) 
         {
             EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
