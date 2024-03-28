@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public enum Actions
 {
@@ -48,6 +49,8 @@ public class PlayerCharacter : Character
     private Icon _bluekeyIcon;
     [SerializeField]
     private Icon _greenkeyIcon;
+    [SerializeField]
+    private Icon _chipIcon;
 
     private int _movePointsBackup;
 
@@ -244,6 +247,14 @@ public class PlayerCharacter : Character
 
     public void SetCarriedItem(Item item)
     {
+        if (item != null)
+        {
+            _bluekeyIcon.SetActiveIcon(false);
+            _greenkeyIcon.SetActiveIcon(false);
+            _objectifIcon.SetActiveIcon(false);
+            _chipIcon.SetActiveIcon(false);
+        }
+
         _carriedItem = item;
         _carriedItem.gameObject.SetActive(false);
         int moveMalus = -item.movePointsMalus + _strenght;
@@ -264,6 +275,7 @@ public class PlayerCharacter : Character
         {
             _greenkeyIcon.SetActiveIcon(true);
         }
+        else if (item.GetComponent<Money>()) _chipIcon.SetActiveIcon(true);
     }
 
     public Item GetCarriedItem()
@@ -273,6 +285,7 @@ public class PlayerCharacter : Character
 
     public void DestroyCarriedItem()
     {
+        GameManager.instance.UpdateMoneyScore(_carriedItem.value);
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
         movePoints = _movePointsBackup;
@@ -280,6 +293,7 @@ public class PlayerCharacter : Character
         _bluekeyIcon.SetActiveIcon(false);
         _greenkeyIcon.SetActiveIcon(false);
         _objectifIcon.SetActiveIcon(false);
+        _chipIcon.SetActiveIcon(false);
     }
 
     public void PlaceCarriedItem()

@@ -132,6 +132,8 @@ public class GameManager : MonoBehaviour
             TogglePause();
         }
 
+        if (isPaused) return;
+
         if (currentGameState == GameStates.Preparation)
         {
             UIManager.instance.SetUIPreparationPhase();
@@ -704,7 +706,7 @@ public class GameManager : MonoBehaviour
         if (_playerCharacterList.Count == 0) 
         {
             EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
-            if(isPaused) { TogglePause(); }
+            //if(isPaused) { TogglePause(); }
             UIManager.instance.ShowLoose();
             Time.timeScale = 0;
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
@@ -840,6 +842,8 @@ public class GameManager : MonoBehaviour
         // Récupérer le numéro de la scène actuelle
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        Time.timeScale = 1f;
+
         // Recharger la scène actuelle
         SceneManager.LoadScene(currentSceneIndex);
     }
@@ -856,4 +860,5 @@ public class GameManager : MonoBehaviour
     {
         return currentGameState;
     }
+
 }

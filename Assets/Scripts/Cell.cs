@@ -347,4 +347,14 @@ public class Cell : MonoBehaviour
     {
         if (_glass != null) _glass.BreakGlass();
     }
+
+    public void UnlockIcon()
+    {
+        Invoke("RemoveIcon", 3);
+    }
+
+    public void RemoveIcon()
+    {
+        Lock_Open.SetActiveIcon(false);
+    }
 }

@@ -40,6 +40,8 @@ public class EnemyCharacter : Character, Enemy
 
     private bool _generalAlert = false;
 
+    private bool _alreadyAlerted = false;
+
     private Cell _lastPlayerViewCell = null;
 
     protected override void Awake()
@@ -115,7 +117,8 @@ public class EnemyCharacter : Character, Enemy
         }
 
         SetPath(fullPath);
-        
+
+        _alreadyAlerted = false;
     }
 
     public void EndActionPhase()
@@ -325,9 +328,11 @@ public class EnemyCharacter : Character, Enemy
         PlayerCharacter player = other.gameObject.GetComponent<PlayerCharacter>();
         if (player != null)
         {
+            if (!_alreadyAlerted && guardState == GuardState.Patrol) GameManager.instance.IncreaseAlertLevel();
             player.Caught();
             player = fieldOfView.GetClosestVisiblePlayer();
             Debug.Log(player);
+            _alreadyAlerted = true;
             if (player == null)
             {
                 guardState = GuardState.Patrol;
@@ -362,6 +367,7 @@ public class EnemyCharacter : Character, Enemy
     public void LaunchGeneralAlert()
     {
         _generalAlert = true;
+        _dectectedIcon.SetActiveIcon(true);
         fieldOfView.SetRange(0);
     }
 
