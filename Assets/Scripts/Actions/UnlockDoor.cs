@@ -70,11 +70,6 @@ public class UnlockDoor : CellAction
         
         cell.Lock_Close.SetActiveIcon(false);
         cell.Lock_Open.SetActiveIcon(true);
-    }
-
-    private void RemoveIcon()
-    {
-        _cell.Lock_Open.SetActiveIcon(false);
-        foreach (Cell cell in _cell.linkCell) cell.Lock_Open.SetActiveIcon(false);
+        cell.UnlockIcon();
     }
 }

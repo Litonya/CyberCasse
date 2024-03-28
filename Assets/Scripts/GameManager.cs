@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] int _maxTurn = 30;
 
+    [SerializeField] VictoryArea _vectoryArea;
+
     private int _numberTurn;
 
     private bool firstPhase = true;
@@ -131,6 +133,8 @@ public class GameManager : MonoBehaviour
             // Inverser l'état de pause
             TogglePause();
         }
+
+        if (isPaused) return;
 
         if (currentGameState == GameStates.Preparation)
         {
@@ -298,7 +302,7 @@ public class GameManager : MonoBehaviour
 
     private void CellSelect(Cell cell)
     {
-        if (characterSelected != null && cell.occupant == null && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
+        if (characterSelected != null && (cell.occupant == null || cell.occupant == characterSelected) && cell.currentState == Cell.CellState.isSelectable &&  _currentSelectionState == SelectionState.SELECT_DESTINATION)
         {
             EventsManager.instance.RaiseSFXEvent(SFX_Name.SELECTION);
             cellSelected = cell;
@@ -453,7 +457,7 @@ public class GameManager : MonoBehaviour
         return enemyCharacters;
     }
 
-    private List<PlayerCharacter> GetAllPlayerCharacter()
+    public List<PlayerCharacter> GetAllPlayerCharacter()
     {
         List<PlayerCharacter> playerCharacters = new List<PlayerCharacter>();
         foreach (Character character in _characterList)
@@ -497,6 +501,8 @@ public class GameManager : MonoBehaviour
             if (character.GetCurrentCell().occupant == null) character.GetCurrentCell().SetOccupant(character);
             character.SetActionIcon();  
         }
+
+        _vectoryArea.CheckVictory();
     }
 
     private void LaunchPlanificationPhase()
@@ -541,7 +547,7 @@ public class GameManager : MonoBehaviour
         character.path = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in character.path)
         {
-            toMarkCell.MarkPath();
+            toMarkCell.MarkPath(MapManager.instance.GetCharacterSelectedColor(character.characterType));
         }
         //}
     }
@@ -556,7 +562,7 @@ public class GameManager : MonoBehaviour
         _potentialPath = MapManager.instance.FindPath(character.GetCurrentCell(), cell, false);
         foreach (Cell toMarkCell in _potentialPath)
         {
-            toMarkCell.MarkPath();
+            toMarkCell.MarkPath(MapManager.instance.GetCharacterSelectedColor(character.characterType));
         }
     }
 
@@ -701,10 +707,11 @@ public class GameManager : MonoBehaviour
         _characterList.Remove(character);
         _playerCharacterList.Remove(character);
         UpdateMoneyScore(_moneyMalus);
+        _vectoryArea.totalPlayer--;
         if (_playerCharacterList.Count == 0) 
         {
             EventsManager.instance.RaiseSFXEvent(SFX_Name.DEFEAT);
-            if(isPaused) { TogglePause(); }
+            //if(isPaused) { TogglePause(); }
             UIManager.instance.ShowLoose();
             Time.timeScale = 0;
             Debug.Log("TAPERDULOLOLOLOLOLOLOL");
@@ -840,6 +847,8 @@ public class GameManager : MonoBehaviour
         // Récupérer le numéro de la scène actuelle
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        Time.timeScale = 1f;
+
         // Recharger la scène actuelle
         SceneManager.LoadScene(currentSceneIndex);
     }
@@ -856,4 +865,5 @@ public class GameManager : MonoBehaviour
     {
         return currentGameState;
     }
+
 }

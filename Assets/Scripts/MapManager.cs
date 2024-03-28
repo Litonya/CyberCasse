@@ -266,9 +266,9 @@ public class MapManager : MonoBehaviour
             foreach (Cell cell in origin.adjencyList)
             {
                 // Debug.Log(cell);
-                if (cell != null && cell.walkable && cell.currentState == Cell.CellState.Idle)
+                if (cell != null && cell.walkable && (cell.currentState == Cell.CellState.Idle || cell.currentState == Cell.CellState.isSelected))
                 {
-                    cells.Add(cell);
+                    if (cell.currentState == Cell.CellState.Idle) cells.Add(cell);
                     List<Cell> cellList = GetCellsReacheable(cell, distance - 1);
                     cells.AddRange(cellList);
                 }
@@ -312,7 +312,7 @@ public class MapManager : MonoBehaviour
         {
             if (cell != null )
             {
-                cell.UnmarkPath();
+                cell.UnmarkPath(true);
             }
         }
     }
@@ -320,6 +320,7 @@ public class MapManager : MonoBehaviour
     public void SetCellsSelectable(Cell origin, int distance)
     {
         selectableCells = GetCellsReacheable(origin, distance);
+        //selectableCells.Add(origin);
 
         foreach(Cell cell in selectableCells)
         {

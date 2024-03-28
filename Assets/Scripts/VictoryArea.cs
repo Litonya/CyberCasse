@@ -14,7 +14,6 @@ public class VictoryArea : MonoBehaviour
         if (player != null)
         {
             playersInVictoryZone.Add(player);
-            CheckVictory();
         }
     }
 
@@ -27,7 +26,7 @@ public class VictoryArea : MonoBehaviour
         }
     }
 
-    void CheckVictory()
+    public void CheckVictory()
     {
         if (playersInVictoryZone.Count == totalPlayer)
         {

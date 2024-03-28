@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public enum Actions
 {
@@ -48,6 +49,8 @@ public class PlayerCharacter : Character
     private Icon _bluekeyIcon;
     [SerializeField]
     private Icon _greenkeyIcon;
+    [SerializeField]
+    private Icon _chipIcon;
 
     private int _movePointsBackup;
 
@@ -65,7 +68,7 @@ public class PlayerCharacter : Character
         base.Reset();
         if (_targetActionCell == null) return;
         _targetActionCell.SetState(Cell.CellState.actionTarget, this);
-        
+
     }
 
     public void Stun()
@@ -103,7 +106,8 @@ public class PlayerCharacter : Character
     {
         if (_preparedAction == Actions.LOCKPICK)
         {
-            if(!_targetActionCell.Acte(_preparedAction, _lockPinckingStat, this))
+            GetComponentInChildren<SpriteController>().SetAnimationState("Action");
+            if (!_targetActionCell.Acte(_preparedAction, _lockPinckingStat, this))
             {
                 _lockpickingIcon.SetActiveIcon(true);
                 SetPreparedAction(_preparedAction, _targetActionCell);
@@ -115,11 +119,14 @@ public class PlayerCharacter : Character
         }
         else if (_preparedAction == Actions.GETITEM)
         {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Action");
             if (_targetActionCell.Acte(_preparedAction, 0, this)) ClearPreparedAction();
         }
         else if (_preparedAction == Actions.UNLOCK)
         {
+            GetComponentInChildren<SpriteController>().SetAnimationState("Action");
             if (_targetActionCell.Acte(_preparedAction, 0, this)) ClearPreparedAction();
+            
         }
         else if(_preparedAction == Actions.BREAKGLASS)
         {
@@ -189,7 +196,7 @@ public class PlayerCharacter : Character
         _targetActionCell = null;
         //_previousAction = Actions.NONE;
         if (_previousActionCell != null) _previousActionCell.SetState(Cell.CellState.Idle, null);
-        SetActionIcon() ;
+        SetActionIcon();
     }
 
     public void PickUpWinCondition(WinCondition winCondition)
@@ -229,7 +236,6 @@ public class PlayerCharacter : Character
     {
         PlaceCarriedItem();
         _isDead = true;
-        UIManager.instance.ActionUIFeedback(this, Actions.NONE);
         GameManager.instance.PlayerCaught(this);
         EventsManager.instance.RaiseSFXEvent(SFX_Name.PLAYER_DEAD);
         Desactivate();
@@ -239,11 +245,22 @@ public class PlayerCharacter : Character
     public void Desactivate()
     {
         _currentCell.occupant = null;
+        SetActionIcon();
+        SetObjectIcon();
         gameObject.SetActive(false);
+        
     }
 
     public void SetCarriedItem(Item item)
     {
+        if (item != null)
+        {
+            _bluekeyIcon.SetActiveIcon(false);
+            _greenkeyIcon.SetActiveIcon(false);
+            _objectifIcon.SetActiveIcon(false);
+            _chipIcon.SetActiveIcon(false);
+        }
+
         _carriedItem = item;
         _carriedItem.gameObject.SetActive(false);
         int moveMalus = -item.movePointsMalus + _strenght;
@@ -264,6 +281,10 @@ public class PlayerCharacter : Character
         {
             _greenkeyIcon.SetActiveIcon(true);
         }
+        else if (item.GetComponent<Money>()) _chipIcon.SetActiveIcon(true);
+
+        SetObjectIcon();
+
     }
 
     public Item GetCarriedItem()
@@ -273,6 +294,7 @@ public class PlayerCharacter : Character
 
     public void DestroyCarriedItem()
     {
+        GameManager.instance.UpdateMoneyScore(_carriedItem.value);
         Destroy(_carriedItem.gameObject);
         _carriedItem=null;
         movePoints = _movePointsBackup;
@@ -280,6 +302,8 @@ public class PlayerCharacter : Character
         _bluekeyIcon.SetActiveIcon(false);
         _greenkeyIcon.SetActiveIcon(false);
         _objectifIcon.SetActiveIcon(false);
+        _chipIcon.SetActiveIcon(false);
+        SetObjectIcon();
     }
 
     public void PlaceCarriedItem()
@@ -289,6 +313,7 @@ public class PlayerCharacter : Character
         GameManager.instance.UpdateMoneyScore(-_carriedItem.value);
         _carriedItem = null;
         movePoints = _movePointsBackup;
+        SetObjectIcon();
     }
 
     public bool IsCaught()
@@ -305,6 +330,16 @@ public class PlayerCharacter : Character
     public void SetActionIcon(Actions action)
     {
         UIManager.instance.ActionUIFeedback(this, action);
+    }
+
+    public void SetObjectIcon()
+    {
+        UIManager.instance.SetObjectUI(this, _carriedItem);
+    }
+
+    public void SetObjectIcon(Item item)
+    {
+        UIManager.instance.SetObjectUI(this, item);
     }
 }
 
